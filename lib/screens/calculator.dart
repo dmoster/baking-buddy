@@ -182,7 +182,7 @@ class _CalculatorState extends State<Calculator> {
                                   style: TextStyle(
                                       fontSize: 35, color: Colors.black),
                                 ),
-                                color: Colors.grey,
+                                color: Colors.white,
                               ),
                               calcButton('tsp', Color(0xff0F4FA8), Colors.white,
                                   'teaspoons'),

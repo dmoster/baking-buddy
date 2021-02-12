@@ -23,16 +23,34 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: LitAuth.custom(
-      onAuthSuccess: () {
-        Navigator.of(context).pushReplacement(Home.route);
-      },
-      child: Stack(
-        children: [
-          Center(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: 800),
-              child: ValueListenableBuilder<bool>(
+      body: LitAuth.custom(
+        onAuthSuccess: () {
+          Navigator.of(context).pushReplacement(Home.route);
+        },
+        child: Stack(
+          children: [
+            SizedBox.expand(
+              child: Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(
+                        'assets/images/chocolate_bundt_cake-top_alt.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox.expand(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.black38,
+                ),
+              ),
+            ),
+            Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: 800),
+                child: ValueListenableBuilder<bool>(
                   valueListenable: showSignInPage,
                   builder: (context, value, child) {
                     return PageTransitionSwitcher(
@@ -64,11 +82,13 @@ class _AuthScreenState extends State<AuthScreen> {
                               },
                             ),
                     );
-                  }),
+                  },
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
 }

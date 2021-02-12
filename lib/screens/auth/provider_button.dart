@@ -25,7 +25,7 @@ class _ProviderButtonState extends State<ProviderButton> {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
-                color: Colors.black26,
+                color: Colors.white38,
               ),
             ),
             child: LitAuthIcon.google(
@@ -43,7 +43,7 @@ class _ProviderButtonState extends State<ProviderButton> {
       //       decoration: BoxDecoration(
       //         shape: BoxShape.circle,
       //         border: Border.all(
-      //           color: Colors.black26,
+      //           color: Colors.white26,
       //         ),
       //       ),
       //       child: Transform.scale(

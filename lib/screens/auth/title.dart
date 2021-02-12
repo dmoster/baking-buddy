@@ -10,7 +10,7 @@ class LoginTitle extends StatelessWidget {
     return Text(
       title,
       style: const TextStyle(
-        color: Colors.grey,
+        color: Colors.white,
         fontWeight: FontWeight.w600,
         fontSize: 35,
       ),

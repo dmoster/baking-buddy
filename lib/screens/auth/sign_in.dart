@@ -60,7 +60,7 @@ class SignIn extends StatelessWidget {
                   children: [
                     const Text(
                       'or sign in with',
-                      style: TextStyle(color: Colors.black54),
+                      style: TextStyle(color: Colors.white),
                     ),
                     const SizedBox(
                       height: 24.0,
@@ -89,7 +89,7 @@ class SignIn extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 16,
                           decoration: TextDecoration.underline,
-                          color: Colors.grey,
+                          color: Colors.white,
                         ),
                       ),
                     ),
