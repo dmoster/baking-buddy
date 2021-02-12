@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "515595026703",
+    "project_id": "pan-pal",
+    "storage_bucket": "pan-pal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:515595026703:android:fbd30e12bb028784a57e7a",
+        "android_client_info": {
+          "package_name": "com.mostermind.pan_pal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "515595026703-ed7bpo4okfn408vhodaddojv3oltscsk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mostermind.pan_pal",
+            "certificate_hash": "16b162117aad5b678d87f093f005cc386746406d"
+          }
+        },
+        {
+          "client_id": "515595026703-0dn0c8kuj0n2uldl5gsfgq35mbkankno.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVEtD_rjBPUf09001jbHYILUlVi-qXpmo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "515595026703-0dn0c8kuj0n2uldl5gsfgq35mbkankno.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
