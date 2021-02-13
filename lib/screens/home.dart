@@ -12,18 +12,47 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Pan Pal'),
-      ),
-      body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            context.signOut();
-            Navigator.of(context).push(AuthScreen.route);
-          },
-          child: const Text('Sign Out'),
-        ),
+    return Container(
+      child: Scaffold(
+        // appBar: AppBar(
+        //   backgroundColor: Colors.transparent,
+        //   title: const Text(
+        //     'My Pan Pal',
+        //     style: TextStyle(
+        //       fontSize: 16,
+        //       color: Colors.white,
+        //     ),
+        //   ),
+        //   foregroundColor: Colors.white,
+        // ),
+        body: Stack(children: [
+          SizedBox.expand(
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/glazed_donuts-top.jpg'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+          SizedBox.expand(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.black38,
+              ),
+            ),
+          ),
+          Center(
+            child: RaisedButton(
+              onPressed: () {
+                context.signOut();
+                Navigator.of(context).push(AuthScreen.route);
+              },
+              child: const Text('Sign Out'),
+            ),
+          ),
+        ]),
       ),
     );
   }

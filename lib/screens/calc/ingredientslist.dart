@@ -1,5 +1,6 @@
 import 'dart:convert';
-import 'ingredient.dart';
+import 'package:pan_pal/screens/calc/ingredient.dart';
+
 import 'package:flutter/material.dart';
 
 /// Decode

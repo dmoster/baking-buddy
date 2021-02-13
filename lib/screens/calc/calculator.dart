@@ -1,11 +1,12 @@
 import 'dart:convert';
 
-import 'package:pan_pal/screens/calc/widgets/converter.dart';
+import 'package:pan_pal/screens/calc/converter.dart';
 import 'package:flutter/material.dart';
+import 'package:pan_pal/screens/splash.dart';
 
-import 'calc/widgets/formatNumbers.dart';
-import 'calc/widgets/ingredient.dart';
-import 'calc/widgets/ingredientsList.dart';
+import 'formatNumbers.dart';
+import 'ingredient.dart';
+import 'ingredientslist.dart';
 
 class Calculator extends StatefulWidget {
   @override
@@ -47,6 +48,43 @@ class _CalculatorState extends State<Calculator> {
   Widget build(BuildContext context) {
     // Calculator
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        toolbarHeight: 32,
+        title: Text(
+          'Measurement Converter',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+          ),
+        ),
+        actions: [
+          TextButton(
+            child: Row(
+              children: [
+                Text(
+                  'My Pan Pal',
+                  style: TextStyle(
+                    fontSize: 14,
+                  ),
+                ),
+                // Transform.scale(
+                //   scale: 0.8,
+                //   child: Icon(Icons.login),
+                // ),
+              ],
+            ),
+            onPressed: () {
+              Navigator.of(context).push(SplashScreen.route);
+            },
+            style: ButtonStyle(
+              backgroundColor:
+                  MaterialStateProperty.all<Color>(Color(0xff0F4FA8)),
+              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+            ),
+          ),
+        ],
+      ),
       backgroundColor: Colors.black,
       body: FutureBuilder(
         future: DefaultAssetBundle.of(context)
@@ -57,7 +95,8 @@ class _CalculatorState extends State<Calculator> {
           } else if (snapshot.data.isEmpty) {
             // Cry because your app is super broken
             return Center(
-                child: Text('Something went wrong! Please try again later.'));
+              child: Text('Something went wrong! Please try again later.'),
+            );
           } else {
             var ingredientsList = jsonDecode(snapshot.data.toString());
             ingredients = IngredientsList.fromList(ingredientsList);
@@ -68,7 +107,7 @@ class _CalculatorState extends State<Calculator> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 64, 16, 16),
+                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
                     child: Container(
                       padding: EdgeInsets.only(left: 16, right: 16),
                       decoration: BoxDecoration(
@@ -112,7 +151,7 @@ class _CalculatorState extends State<Calculator> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Padding(
-                                  padding: const EdgeInsets.all(10.0),
+                                  padding: const EdgeInsets.all(8.0),
                                   child: Text(
                                     ouncesText,
                                     textAlign: TextAlign.left,
@@ -131,7 +170,7 @@ class _CalculatorState extends State<Calculator> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   Padding(
-                                    padding: const EdgeInsets.all(10.0),
+                                    padding: const EdgeInsets.all(8.0),
                                     child: Text(
                                       gramsText,
                                       textAlign: TextAlign.left,
@@ -147,7 +186,7 @@ class _CalculatorState extends State<Calculator> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Padding(
-                                padding: const EdgeInsets.all(10.0),
+                                padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   calcText,
                                   textAlign: TextAlign.left,
@@ -165,7 +204,7 @@ class _CalculatorState extends State<Calculator> {
                   ),
                   Container(
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 8.0),
                       child: Column(
                         children: <Widget>[
                           Row(
@@ -182,7 +221,7 @@ class _CalculatorState extends State<Calculator> {
                                   style: TextStyle(
                                       fontSize: 35, color: Colors.black),
                                 ),
-                                color: Colors.white,
+                                color: Colors.grey,
                               ),
                               calcButton('tsp', Color(0xff0F4FA8), Colors.white,
                                   'teaspoons'),

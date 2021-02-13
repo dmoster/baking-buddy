@@ -1,4 +1,4 @@
-import 'package:pan_pal/screens/splash.dart';
+import 'package:pan_pal/screens/calc/calculator.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -45,7 +45,7 @@ class PanPal extends StatelessWidget {
                       brightness: Brightness.dark,
                       color: Colors.white,
                     )),
-                home: SplashScreen(),
+                home: Calculator(),
               ),
             );
           }
