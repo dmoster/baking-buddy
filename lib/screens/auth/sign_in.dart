@@ -62,13 +62,12 @@ class SignIn extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 child: Column(
                   children: [
+                    const Spacer(),
                     const Text(
                       'or sign in with',
                       style: TextStyle(color: Colors.white),
                     ),
-                    const SizedBox(
-                      height: 24.0,
-                    ),
+                    const Spacer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -82,7 +81,9 @@ class SignIn extends StatelessWidget {
                         // ),
                       ],
                     ),
-                    const Spacer(),
+                    const Spacer(
+                      flex: 2,
+                    ),
                     InkWell(
                       splashColor: Colors.white,
                       onTap: () {
@@ -97,6 +98,7 @@ class SignIn extends StatelessWidget {
                         ),
                       ),
                     ),
+                    const Spacer(),
                   ],
                 ),
               ),

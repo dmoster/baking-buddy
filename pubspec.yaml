@@ -30,6 +30,7 @@ dependencies:
   google_fonts: ^1.1.2
   animations: ^1.1.2
   google_sign_in: ^4.5.9
+  cloud_firestore: ^0.14.4
 
 
   # The following adds the Cupertino Icons font to your application.

@@ -62,13 +62,12 @@ class Register extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 child: Column(
                   children: [
+                    const Spacer(),
                     const Text(
-                      'or register with',
+                      'or sign up with',
                       style: TextStyle(color: Colors.white),
                     ),
-                    const SizedBox(
-                      height: 24.0,
-                    ),
+                    const Spacer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -82,7 +81,9 @@ class Register extends StatelessWidget {
                         // ),
                       ],
                     ),
-                    const Spacer(),
+                    const Spacer(
+                      flex: 2,
+                    ),
                     InkWell(
                       splashColor: Colors.white,
                       onTap: () {
@@ -97,6 +98,7 @@ class Register extends StatelessWidget {
                         ),
                       ),
                     ),
+                    const Spacer(),
                   ],
                 ),
               ),
