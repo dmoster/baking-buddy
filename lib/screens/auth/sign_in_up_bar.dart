@@ -23,7 +23,7 @@ class SignUpBar extends StatelessWidget {
             label,
             style: const TextStyle(
               fontWeight: FontWeight.w800,
-              color: Colors.blue,
+              color: Color(0xffFFA000),
               fontSize: 24,
             ),
           ),
@@ -64,7 +64,7 @@ class SignInBar extends StatelessWidget {
             label,
             style: const TextStyle(
               fontWeight: FontWeight.w800,
-              color: Colors.blue,
+              color: Color(0xffFFA000),
               fontSize: 24,
             ),
           ),
@@ -117,9 +117,9 @@ class _RoundContinueButton extends StatelessWidget {
     return RawMaterialButton(
         onPressed: onPressed,
         elevation: 0.0,
-        fillColor: Colors.blue,
+        fillColor: Color(0xff0F4FA8),
         splashColor: Colors.orange,
-        padding: const EdgeInsets.all(22.0),
+        padding: const EdgeInsets.all(16.0),
         shape: const CircleBorder(),
         child: const Icon(
           Icons.arrow_right_alt,

@@ -83,12 +83,15 @@ class _CalculatorState extends State<Calculator> {
               foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
             ),
           ),
+          Padding(
+            padding: EdgeInsets.only(right: 16.0),
+          )
         ],
       ),
       backgroundColor: Colors.black,
       body: FutureBuilder(
         future: DefaultAssetBundle.of(context)
-            .loadString('data/ingredientsList.json'),
+            .loadString('assets/data/ingredientsList.json'),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Center(child: CircularProgressIndicator());

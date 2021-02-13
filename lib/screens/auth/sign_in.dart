@@ -31,16 +31,20 @@ class SignIn extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: 5,
+              flex: 4,
               child: ListView(
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 16),
-                    child: EmailTextFormField(),
+                    child: EmailTextFormField(
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 16),
-                    child: PasswordTextFormField(),
+                    child: PasswordTextFormField(
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                   SignInBar(
                     isLoading: isSubmitting,
