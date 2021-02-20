@@ -12,7 +12,7 @@ class LoginTitle extends StatelessWidget {
       style: const TextStyle(
         color: Colors.white,
         fontWeight: FontWeight.w600,
-        fontSize: 35,
+        fontSize: 36,
       ),
     );
   }

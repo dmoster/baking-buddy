@@ -14,7 +14,7 @@ class Calculator extends StatefulWidget {
 
 class _CalculatorState extends State<Calculator> {
   double displayTextSize = 100;
-  double resultTextSize = 30;
+  double resultTextSize = 36;
   bool isVisible = false;
 
   IngredientsList ingredients;
@@ -32,7 +32,7 @@ class _CalculatorState extends State<Calculator> {
         child: Text(
           btnText,
           style: TextStyle(
-            fontSize: 35,
+            fontSize: 36,
             color: textColor,
           ),
         ),
@@ -173,7 +173,7 @@ class _CalculatorState extends State<Calculator> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             RaisedButton(
-                              padding: EdgeInsets.fromLTRB(34, 20, 73, 20),
+                              padding: EdgeInsets.fromLTRB(34, 20, 70, 20),
                               onPressed: () {
                                 calculate('AC', 'AC');
                               },
@@ -183,7 +183,7 @@ class _CalculatorState extends State<Calculator> {
                               child: Text(
                                 'Clear',
                                 style: TextStyle(
-                                    fontSize: 35, color: Colors.black),
+                                    fontSize: 36, color: Colors.black),
                               ),
                               color: Colors.grey,
                             ),
@@ -220,8 +220,8 @@ class _CalculatorState extends State<Calculator> {
                             calcButton('1', Colors.grey[850], Colors.white, 1),
                             calcButton('2', Colors.grey[850], Colors.white, 2),
                             calcButton('3', Colors.grey[850], Colors.white, 3),
-                            calcButton('oz', Color(0xFFFFCA00), Colors.white,
-                                'ounces'),
+                            calcButton('oz', Color(0xFFFFCA00),
+                                Colors.grey[850], 'ounces'),
                           ],
                         ),
                         SizedBox(height: 10),
@@ -229,7 +229,7 @@ class _CalculatorState extends State<Calculator> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             RaisedButton(
-                              padding: EdgeInsets.fromLTRB(34, 20, 134, 20),
+                              padding: EdgeInsets.fromLTRB(34, 20, 132, 20),
                               onPressed: () {
                                 calculate('0', 0);
                               },
@@ -239,14 +239,14 @@ class _CalculatorState extends State<Calculator> {
                               child: Text(
                                 '0',
                                 style: TextStyle(
-                                    fontSize: 35, color: Colors.white),
+                                    fontSize: 36, color: Colors.white),
                               ),
                               color: Colors.grey[850],
                             ),
                             calcButton(
                                 '.', Colors.grey[850], Colors.white, '.'),
-                            calcButton(
-                                'g', Color(0xFFFF9F00), Colors.white, 'grams'),
+                            calcButton('g', Color(0xFFFF9F00), Colors.grey[850],
+                                'grams'),
                           ],
                         ),
                         SizedBox(height: 10),
