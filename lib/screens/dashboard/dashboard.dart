@@ -3,6 +3,7 @@ import 'package:lit_firebase_auth/lit_firebase_auth.dart';
 import 'package:pan_pal/screens/auth/auth.dart';
 import 'package:pan_pal/screens/dashboard/alphabet_search_button.dart';
 import 'package:pan_pal/screens/dashboard/recent_item_button.dart';
+import 'package:pan_pal/screens/home_unauthenticated.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key key, this.context}) : super(key: key);
@@ -20,20 +21,7 @@ class _DashboardState extends State<Dashboard> {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
-          Expanded(
-            flex: 1,
-            child: Row(
-              children: [
-                RaisedButton(
-                  onPressed: () {
-                    context.signOut();
-                    Navigator.of(context).pushReplacement(AuthScreen.route);
-                  },
-                  child: const Text('Sign Out'),
-                ),
-              ],
-            ),
-          ),
+          Spacer(),
           Expanded(
             flex: 4,
             child: Column(
@@ -122,10 +110,15 @@ class _DashboardState extends State<Dashboard> {
           Expanded(
             flex: 1,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(),
-                Container(),
+                RaisedButton(
+                  onPressed: () {
+                    context.signOut();
+                    Navigator.of(context)
+                        .pushReplacement(HomeUnauthenticated.route);
+                  },
+                  child: const Text('Sign Out'),
+                ),
               ],
             ),
           ),

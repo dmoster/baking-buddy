@@ -5,22 +5,22 @@ import 'package:pan_pal/screens/dashboard/dashboard.dart';
 
 import 'auth/auth.dart';
 
-class Home extends StatelessWidget {
-  const Home({Key key}) : super(key: key);
+class HomeAuthenticated extends StatelessWidget {
+  const HomeAuthenticated({Key key}) : super(key: key);
 
   static MaterialPageRoute get route => MaterialPageRoute(
-        builder: (context) => const Home(),
+        builder: (context) => const HomeAuthenticated(),
       );
 
   @override
   Widget build(BuildContext context) {
     final PageController pageController = PageController(
-      initialPage: 0,
+      initialPage: 1,
       keepPage: true,
     );
     int pageChanged = 0;
 
-    String pageName = 'Baking Buddie';
+    String pageName = 'Baking Buddy';
 
     return Container(
       child: Stack(

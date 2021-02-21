@@ -1,7 +1,7 @@
-import 'package:pan_pal/screens/auth/auth.dart';
-import 'package:pan_pal/screens/home.dart';
+import 'package:pan_pal/screens/home_authenticated.dart';
 import 'package:flutter/material.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
+import 'package:pan_pal/screens/home_unauthenticated.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key key}) : super(key: key);
@@ -32,13 +32,13 @@ class SplashScreen extends StatelessWidget {
 
   void _navigateToAuthScreen(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) => Navigator.of(context).pushReplacement(AuthScreen.route),
+      (_) => Navigator.of(context).pushReplacement(HomeUnauthenticated.route),
     );
   }
 
   void _navigateToHome(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) => Navigator.of(context).pushReplacement(Home.route),
+      (_) => Navigator.of(context).pushReplacement(HomeAuthenticated.route),
     );
   }
 }
