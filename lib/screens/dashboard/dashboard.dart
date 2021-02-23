@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
 import 'package:pan_pal/screens/auth/auth.dart';
-import 'package:pan_pal/screens/dashboard/alphabet_search_button.dart';
-import 'package:pan_pal/screens/dashboard/recent_item_button.dart';
+import 'package:pan_pal/screens/dashboard/alphabet_search.dart';
+import 'package:pan_pal/screens/dashboard/recently_viewed.dart';
 import 'package:pan_pal/screens/home_unauthenticated.dart';
 
 class Dashboard extends StatefulWidget {
@@ -15,6 +15,8 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  List<bool> _selections = [false, true];
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -24,85 +26,53 @@ class _DashboardState extends State<Dashboard> {
           Spacer(),
           Expanded(
             flex: 4,
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Recently Viewed',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                RecentItemButton(label: 'Chocolate Chip Cookies'),
-                RecentItemButton(label: 'Hard Caramel'),
-                RecentItemButton(label: 'Allweek Bread'),
-                RecentItemButton(label: 'New York Cheesecake'),
-                RecentItemButton(label: 'White Chocolate Crème Brûlée'),
-              ],
-            ),
+            child: RecentlyViewed(context: context),
           ),
           Expanded(
             flex: 4,
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Alphabet Search',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
+                AlphabetSearch(context: context),
+                ToggleButtons(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Ingredients',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    AlphabetSearchButton(context: context, btnText: 'A'),
-                    AlphabetSearchButton(context: context, btnText: 'B'),
-                    AlphabetSearchButton(context: context, btnText: 'C'),
-                    AlphabetSearchButton(context: context, btnText: 'D'),
-                    AlphabetSearchButton(context: context, btnText: 'E'),
-                    AlphabetSearchButton(context: context, btnText: 'F'),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Recipes',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                        ),
+                      ),
+                    ),
                   ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    AlphabetSearchButton(context: context, btnText: 'G'),
-                    AlphabetSearchButton(context: context, btnText: 'H'),
-                    AlphabetSearchButton(context: context, btnText: 'I'),
-                    AlphabetSearchButton(context: context, btnText: 'J'),
-                    AlphabetSearchButton(context: context, btnText: 'K'),
-                    AlphabetSearchButton(context: context, btnText: 'L'),
-                    AlphabetSearchButton(context: context, btnText: 'M'),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    AlphabetSearchButton(context: context, btnText: 'N'),
-                    AlphabetSearchButton(context: context, btnText: 'O'),
-                    AlphabetSearchButton(context: context, btnText: 'P'),
-                    AlphabetSearchButton(context: context, btnText: 'Q'),
-                    AlphabetSearchButton(context: context, btnText: 'R'),
-                    AlphabetSearchButton(context: context, btnText: 'S'),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    AlphabetSearchButton(context: context, btnText: 'T'),
-                    AlphabetSearchButton(context: context, btnText: 'U'),
-                    AlphabetSearchButton(context: context, btnText: 'V'),
-                    AlphabetSearchButton(context: context, btnText: 'W'),
-                    AlphabetSearchButton(context: context, btnText: 'X'),
-                    AlphabetSearchButton(context: context, btnText: 'Y'),
-                    AlphabetSearchButton(context: context, btnText: 'Z'),
-                  ],
+                  isSelected: _selections,
+                  onPressed: (int index) {
+                    setState(() {
+                      for (int i = 0; i < _selections.length; i++) {
+                        if (i == index) {
+                          _selections[i] = true;
+                        } else {
+                          _selections[i] = false;
+                        }
+                      }
+                    });
+                  },
+                  borderRadius: BorderRadius.circular(5),
+                  borderWidth: 2,
+                  borderColor: Color(0xFFFFCA00),
+                  color: Color(0xFFFFCA00),
+                  fillColor: Color(0xFFFFCA00),
+                  selectedColor: Colors.grey[850],
+                  selectedBorderColor: Color(0xFFFFCA00),
                 ),
               ],
             ),
@@ -117,6 +87,10 @@ class _DashboardState extends State<Dashboard> {
                     Navigator.of(context)
                         .pushReplacement(HomeUnauthenticated.route);
                   },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  color: Color(0xff0F4FA8),
                   child: const Text('Sign Out'),
                 ),
               ],

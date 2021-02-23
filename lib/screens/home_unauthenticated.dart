@@ -14,7 +14,7 @@ class HomeUnauthenticated extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PageController pageController = PageController(
-      initialPage: 1,
+      initialPage: 0,
       keepPage: true,
     );
     int pageChanged = 0;
