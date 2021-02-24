@@ -4,6 +4,7 @@ import 'package:pan_pal/screens/auth/auth.dart';
 import 'package:pan_pal/screens/dashboard/alphabet_search.dart';
 import 'package:pan_pal/screens/dashboard/recently_viewed.dart';
 import 'package:pan_pal/screens/home_unauthenticated.dart';
+import 'package:pan_pal/screens/recipes/recipe_composer.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key key, this.context}) : super(key: key);
@@ -29,10 +30,11 @@ class _DashboardState extends State<Dashboard> {
             child: RecentlyViewed(context: context),
           ),
           Expanded(
-            flex: 4,
+            flex: 5,
             child: Column(
               children: [
                 AlphabetSearch(context: context),
+                Spacer(),
                 ToggleButtons(
                   children: [
                     Padding(
@@ -68,18 +70,20 @@ class _DashboardState extends State<Dashboard> {
                   },
                   borderRadius: BorderRadius.circular(5),
                   borderWidth: 2,
-                  borderColor: Color(0xFFFFCA00),
-                  color: Color(0xFFFFCA00),
-                  fillColor: Color(0xFFFFCA00),
-                  selectedColor: Colors.grey[850],
-                  selectedBorderColor: Color(0xFFFFCA00),
+                  borderColor: Color(0xFFFF9F00),
+                  color: Color(0xFFFF9F00),
+                  fillColor: Color(0xFFFF9F00),
+                  selectedColor: Color(0xff323232),
+                  selectedBorderColor: Color(0xFFFF9F00),
                 ),
+                Spacer(),
               ],
             ),
           ),
           Expanded(
             flex: 1,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 RaisedButton(
                   onPressed: () {
@@ -92,6 +96,21 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   color: Color(0xff0F4FA8),
                   child: const Text('Sign Out'),
+                ),
+                RaisedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(RecipeComposer.route);
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  color: Color(0xFFFFCA00),
+                  child: const Text(
+                    'Add Recipe',
+                    style: TextStyle(
+                      color: Color(0xff323232),
+                    ),
+                  ),
                 ),
               ],
             ),

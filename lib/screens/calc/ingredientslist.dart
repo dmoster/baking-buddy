@@ -3,16 +3,6 @@ import 'package:pan_pal/screens/calc/ingredient.dart';
 
 import 'package:flutter/material.dart';
 
-/// Decode
-// Map ingredientsList = jsonDecode(jsonString);
-// var ingredient = Ingredient.fromJson(ingredientsList);
-
-/// Encode
-// String json = jsonEncoude(ingredient);
-
-// import { ingredientsList } from '../data/ingredientsList.js';
-// import { loadCalculator } from './view.js';
-
 class IngredientsList {
   List<dynamic> list;
 
@@ -42,23 +32,3 @@ class IngredientsList {
     return list.firstWhere((item) => item.name == ingredientName);
   }
 }
-
-// dynamic getIngredients(firstLetter) {
-//   String jsonData =
-//       rootBundle.loadString('data/ingredientsList.json') as String;
-//   Map ingredientsList = jsonDecode(jsonData);
-
-//   print(jsonData);
-
-//   return ingredientsList;
-// }
-
-// export function getIngredientInfo(ingredientName) {
-//   let ingredientVolume, ingredientOunces, ingredientGrams;
-
-//   const ingredient = ingredientsList.filter(ingredient => {
-//     return ingredient.name === ingredientName;
-//   });
-
-//   return ingredient[0];
-// }

@@ -38,7 +38,7 @@ class HomeUnauthenticated extends StatelessWidget {
           SizedBox.expand(
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.black38,
+                color: Colors.black45,
               ),
             ),
           ),

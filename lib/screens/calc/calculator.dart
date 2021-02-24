@@ -81,7 +81,7 @@ class _CalculatorState extends State<Calculator> {
                         'Choose an ingredient',
                         style: TextStyle(color: Colors.white),
                       ),
-                      dropdownColor: Colors.grey[850],
+                      dropdownColor: Color(0xff323232),
                       icon: Icon(Icons.arrow_drop_down),
                       iconSize: 36,
                       isExpanded: true,
@@ -195,9 +195,9 @@ class _CalculatorState extends State<Calculator> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            calcButton('7', Colors.grey[850], Colors.white, 7),
-                            calcButton('8', Colors.grey[850], Colors.white, 8),
-                            calcButton('9', Colors.grey[850], Colors.white, 9),
+                            calcButton('7', Color(0xff323232), Colors.white, 7),
+                            calcButton('8', Color(0xff323232), Colors.white, 8),
+                            calcButton('9', Color(0xff323232), Colors.white, 9),
                             calcButton('T', Color(0xff0F4FA8), Colors.white,
                                 'tablespoons'),
                           ],
@@ -206,9 +206,9 @@ class _CalculatorState extends State<Calculator> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            calcButton('4', Colors.grey[850], Colors.white, 4),
-                            calcButton('5', Colors.grey[850], Colors.white, 5),
-                            calcButton('6', Colors.grey[850], Colors.white, 6),
+                            calcButton('4', Color(0xff323232), Colors.white, 4),
+                            calcButton('5', Color(0xff323232), Colors.white, 5),
+                            calcButton('6', Color(0xff323232), Colors.white, 6),
                             calcButton(
                                 'c', Color(0xff0F4FA8), Colors.white, 'cups'),
                           ],
@@ -217,11 +217,11 @@ class _CalculatorState extends State<Calculator> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            calcButton('1', Colors.grey[850], Colors.white, 1),
-                            calcButton('2', Colors.grey[850], Colors.white, 2),
-                            calcButton('3', Colors.grey[850], Colors.white, 3),
+                            calcButton('1', Color(0xff323232), Colors.white, 1),
+                            calcButton('2', Color(0xff323232), Colors.white, 2),
+                            calcButton('3', Color(0xff323232), Colors.white, 3),
                             calcButton('oz', Color(0xFFFFCA00),
-                                Colors.grey[850], 'ounces'),
+                                Color(0xff323232), 'ounces'),
                           ],
                         ),
                         SizedBox(height: 10),
@@ -241,12 +241,12 @@ class _CalculatorState extends State<Calculator> {
                                 style: TextStyle(
                                     fontSize: 36, color: Colors.white),
                               ),
-                              color: Colors.grey[850],
+                              color: Color(0xff323232),
                             ),
                             calcButton(
-                                '.', Colors.grey[850], Colors.white, '.'),
-                            calcButton('g', Color(0xFFFF9F00), Colors.grey[850],
-                                'grams'),
+                                '.', Color(0xff323232), Colors.white, '.'),
+                            calcButton('g', Color(0xFFFF9F00),
+                                Color(0xff323232), 'grams'),
                           ],
                         ),
                         SizedBox(height: 10),
