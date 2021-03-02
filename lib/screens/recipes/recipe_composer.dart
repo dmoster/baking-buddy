@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pan_pal/screens/ingredients/ingredient_row_display.dart';
+import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
 
 class RecipeComposer extends StatefulWidget {
-  static MaterialPageRoute get route => MaterialPageRoute(
-        builder: (context) => const RecipeComposer(),
-      );
+  const RecipeComposer({Key key, @required this.ingredients}) : super(key: key);
 
-  const RecipeComposer({Key key}) : super(key: key);
+  final IngredientsList ingredients;
 
   @override
   _RecipeComposerState createState() => _RecipeComposerState();
@@ -79,6 +79,12 @@ class _RecipeComposerState extends State<RecipeComposer> {
                     ),
                   ],
                 ),
+              ),
+              IngredientRowDisplay(
+                amount: 240,
+                measurementType: 'grams',
+                refIngredient:
+                    widget.ingredients.getIngredient('All-Purpose Flour'),
               ),
               ..._getIngredients(),
               // Row(

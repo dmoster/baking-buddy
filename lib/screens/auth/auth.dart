@@ -2,16 +2,14 @@ import 'package:animations/animations.dart';
 import 'package:pan_pal/screens/auth/register.dart';
 import 'package:flutter/material.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
-import 'package:pan_pal/screens/home_authenticated.dart';
+import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
 
 import 'sign_in.dart';
 
 class AuthScreen extends StatefulWidget {
-  static MaterialPageRoute get route => MaterialPageRoute(
-        builder: (context) => const AuthScreen(),
-      );
+  const AuthScreen({Key key, @required this.ingredients}) : super(key: key);
 
-  const AuthScreen({Key key}) : super(key: key);
+  final IngredientsList ingredients;
 
   @override
   _AuthScreenState createState() => _AuthScreenState();
@@ -26,7 +24,8 @@ class _AuthScreenState extends State<AuthScreen> {
       backgroundColor: Colors.transparent,
       body: LitAuth.custom(
         onAuthSuccess: () {
-          Navigator.of(context).pushReplacement(HomeAuthenticated.route);
+          Navigator.of(context)
+              .pushNamed('/home_authenticated', arguments: widget.ingredients);
         },
         child: Center(
           child: ConstrainedBox(

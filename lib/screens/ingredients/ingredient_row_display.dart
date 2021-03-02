@@ -1,31 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:pan_pal/screens/calc/formatNumbers.dart';
 import 'package:pan_pal/screens/ingredients/ingredient.dart';
-import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
+import 'package:pan_pal/screens/calc/converter.dart';
 
 class IngredientRowDisplay extends StatelessWidget {
   const IngredientRowDisplay({
     Key key,
-    @required this.name,
     @required this.amount,
     @required this.measurementType,
+    @required this.refIngredient,
   }) : super(key: key);
 
-  final String name;
-  final dynamic amount;
+  final double amount;
   final dynamic measurementType;
-  //final Ingredient ingredient = Ingredient(name);
+  final Ingredient refIngredient;
 
   @override
   Widget build(BuildContext context) {
+    dynamic volume =
+        getConvertedAmount(amount, measurementType, 'volume', refIngredient);
+    dynamic ounces = formatNumber(getConvertedAmount(
+            amount, measurementType, 'ounces', refIngredient)) +
+        ' oz';
+    dynamic grams = formatNumber(getConvertedAmount(
+            amount, measurementType, 'grams', refIngredient)) +
+        ' g';
+
     return Container(
       child: Row(
         children: [
-          Text(name),
+          Text(refIngredient.name),
           Column(
             children: [
-              // Text(volume),
-              // Text(ounces),
-              // Text(grams),
+              Text(ounces),
+              Text(grams),
+              Text(volume),
             ],
           ),
         ],

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
-import 'package:pan_pal/screens/auth/auth.dart';
 import 'package:pan_pal/screens/dashboard/alphabet_search.dart';
 import 'package:pan_pal/screens/dashboard/recently_viewed.dart';
-import 'package:pan_pal/screens/home_unauthenticated.dart';
+import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
 import 'package:pan_pal/screens/recipes/recipe_composer.dart';
 
 class Dashboard extends StatefulWidget {
-  const Dashboard({Key key, this.context}) : super(key: key);
+  const Dashboard({Key key, this.context, @required this.ingredients})
+      : super(key: key);
 
+  final IngredientsList ingredients;
   final BuildContext context;
 
   @override
@@ -88,8 +89,8 @@ class _DashboardState extends State<Dashboard> {
                 RaisedButton(
                   onPressed: () {
                     context.signOut();
-                    Navigator.of(context)
-                        .pushReplacement(HomeUnauthenticated.route);
+                    Navigator.of(context).pushNamed('/home_unauthenticated',
+                        arguments: widget.ingredients);
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
@@ -99,7 +100,8 @@ class _DashboardState extends State<Dashboard> {
                 ),
                 RaisedButton(
                   onPressed: () {
-                    Navigator.of(context).push(RecipeComposer.route);
+                    Navigator.of(context).pushNamed('/recipe_composer',
+                        arguments: widget.ingredients);
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),

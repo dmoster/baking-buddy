@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
 import 'package:pan_pal/screens/calc/calculator.dart';
 import 'package:pan_pal/screens/dashboard/dashboard.dart';
-
-import 'auth/auth.dart';
+import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
 
 class HomeAuthenticated extends StatelessWidget {
-  const HomeAuthenticated({Key key}) : super(key: key);
+  const HomeAuthenticated({Key key, @required this.ingredients})
+      : super(key: key);
 
-  static MaterialPageRoute get route => MaterialPageRoute(
-        builder: (context) => const HomeAuthenticated(),
-      );
+  final IngredientsList ingredients;
 
   @override
   Widget build(BuildContext context) {
@@ -88,9 +86,12 @@ class HomeAuthenticated extends StatelessWidget {
             body: PageView(
               controller: pageController,
               children: [
-                Calculator(),
+                Calculator(
+                  ingredients: ingredients,
+                ),
                 Dashboard(
                   context: context,
+                  ingredients: ingredients,
                 ),
               ],
             ),

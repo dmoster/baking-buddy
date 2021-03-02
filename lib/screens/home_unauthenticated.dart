@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
 import 'package:pan_pal/screens/auth/auth.dart';
 import 'package:pan_pal/screens/calc/calculator.dart';
-import 'package:pan_pal/screens/dashboard/dashboard.dart';
+import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
 
 class HomeUnauthenticated extends StatelessWidget {
-  const HomeUnauthenticated({Key key}) : super(key: key);
+  const HomeUnauthenticated({Key key, @required this.ingredients})
+      : super(key: key);
 
-  static MaterialPageRoute get route => MaterialPageRoute(
-        builder: (context) => const HomeUnauthenticated(),
-      );
+  final IngredientsList ingredients;
 
   @override
   Widget build(BuildContext context) {
@@ -84,9 +83,13 @@ class HomeUnauthenticated extends StatelessWidget {
                     ),
                   ],
                 ),
-                body: Calculator(),
+                body: Calculator(
+                  ingredients: ingredients,
+                ),
               ),
-              AuthScreen(),
+              AuthScreen(
+                ingredients: ingredients,
+              ),
             ],
           ),
         ],

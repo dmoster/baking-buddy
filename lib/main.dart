@@ -1,11 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/services.dart';
 import 'package:pan_pal/screens/calc/calculator.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
+import 'package:pan_pal/screens/home_authenticated.dart';
+import 'package:pan_pal/screens/home_unauthenticated.dart';
 import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
+import 'package:pan_pal/screens/recipes/recipe_composer.dart';
 import 'package:pan_pal/screens/splash.dart';
+import 'package:pan_pal/screens/welcome.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,13 +19,9 @@ void main() {
 }
 
 class PanPal extends StatelessWidget {
-  // PanPal({
-  //   Key key,
-  //   @required this.ingredientsList,
-  // }) : super(key: key);
-
-  // IngredientsList ingredientsList;
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
+  IngredientsList _ingredients;
 
   @override
   Widget build(BuildContext context) {
@@ -27,43 +29,87 @@ class PanPal extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return FutureBuilder(
-        future: _initialization,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
+
+    // Use FutureBuilder to retrieve ingredient data
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: FutureBuilder(
+        future: DefaultAssetBundle.of(context)
+            .loadString('assets/data/ingredientsList.json'),
+        builder: (context, outerSnapshot) {
+          if (!outerSnapshot.hasData) {
+            return Welcome();
+          } else if (outerSnapshot.data.isEmpty) {
             return Center(
-              child: Text('Something went wrong. Please try again later.'),
+              child: Text('Something went wrong! Please try again later.'),
+            );
+          } else {
+            var ingredientsList = jsonDecode(outerSnapshot.data.toString());
+            _ingredients = IngredientsList.fromList(ingredientsList);
+
+            // Use another FutureBuilder to complete initialization of Firebase for user
+            // authentication
+            return FutureBuilder(
+              future: _initialization,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Center(
+                    child:
+                        Text('Something went wrong. Please try again later.'),
+                  );
+                }
+
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return LitAuthInit(
+                    authProviders: AuthProviders(
+                      emailAndPassword: true,
+                      google: true,
+                      apple: false,
+                      twitter: true,
+                      github: false,
+                      anonymous: false,
+                    ),
+                    child: MaterialApp(
+                      debugShowCheckedModeBanner: false,
+                      theme: ThemeData(
+                        brightness: Brightness.dark,
+                        primaryColor: Colors.white,
+                        visualDensity: VisualDensity.adaptivePlatformDensity,
+                        textTheme: GoogleFonts.robotoTextTheme(),
+                        accentColor: Colors.white,
+                        appBarTheme: const AppBarTheme(
+                          brightness: Brightness.dark,
+                          color: Colors.white,
+                        ),
+                      ),
+                      home: SplashScreen(ingredients: _ingredients),
+                      onGenerateRoute: (RouteSettings settings) {
+                        var routes = <String, WidgetBuilder>{
+                          '/splash_screen': (context) =>
+                              SplashScreen(ingredients: settings.arguments),
+                          '/home_unauthenticated': (context) =>
+                              HomeUnauthenticated(
+                                  ingredients: settings.arguments),
+                          '/home_authenticated': (context) => HomeAuthenticated(
+                              ingredients: settings.arguments),
+                          '/recipe_composer': (context) =>
+                              RecipeComposer(ingredients: settings.arguments),
+                        };
+                        WidgetBuilder builder = routes[settings.name];
+                        return MaterialPageRoute(
+                            builder: (ctx) => builder(ctx),
+                            fullscreenDialog: true);
+                      },
+                    ),
+                  );
+                }
+
+                return Welcome();
+              },
             );
           }
-
-          if (snapshot.connectionState == ConnectionState.done) {
-            return LitAuthInit(
-              authProviders: AuthProviders(
-                emailAndPassword: true,
-                google: true,
-                apple: false,
-                twitter: true,
-                github: false,
-                anonymous: false,
-              ),
-              child: MaterialApp(
-                debugShowCheckedModeBanner: false,
-                theme: ThemeData(
-                    brightness: Brightness.dark,
-                    primaryColor: Colors.white,
-                    visualDensity: VisualDensity.adaptivePlatformDensity,
-                    textTheme: GoogleFonts.robotoTextTheme(),
-                    accentColor: Colors.white,
-                    appBarTheme: const AppBarTheme(
-                      brightness: Brightness.dark,
-                      color: Colors.white,
-                    )),
-                home: SplashScreen(),
-              ),
-            );
-          }
-
-          return Center(child: CircularProgressIndicator());
-        });
+        },
+      ),
+    );
   }
 }
