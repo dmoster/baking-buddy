@@ -15,6 +15,7 @@ class _RecipeComposerState extends State<RecipeComposer> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _nameController;
   static List<dynamic> ingredients = [null];
+  static List<dynamic> instructions = [null];
 
   @override
   void initState() {
@@ -109,10 +110,7 @@ class _RecipeComposerState extends State<RecipeComposer> {
                   ],
                 ),
               ),
-              TextFormField(
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(hintText: 'Add a step'),
-              ),
+              ..._getInstructions(),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
                 child: Row(
@@ -131,7 +129,9 @@ class _RecipeComposerState extends State<RecipeComposer> {
               ),
               TextFormField(
                 style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(hintText: 'Add a note'),
+                maxLines: 3,
+                decoration:
+                    InputDecoration(hintText: 'Add tips, tricks, and suggests'),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
@@ -151,11 +151,20 @@ class _RecipeComposerState extends State<RecipeComposer> {
               ),
               TextFormField(
                 style: TextStyle(color: Colors.white),
+                maxLines: 8,
                 decoration:
                     InputDecoration(hintText: 'Tell us about this recipe'),
               ),
+              SizedBox(
+                height: 32,
+              ),
               RaisedButton(
-                child: Text('Save'),
+                child: Text(
+                  'Save',
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
@@ -169,6 +178,7 @@ class _RecipeComposerState extends State<RecipeComposer> {
     );
   }
 
+  // Ingredients
   List<Widget> _getIngredients() {
     List<Widget> ingredientTextFields = [];
     for (int i = 0; i < ingredients.length; i++) {
@@ -183,7 +193,7 @@ class _RecipeComposerState extends State<RecipeComposer> {
               SizedBox(
                 width: 8,
               ),
-              _addRemoveButton(i == ingredients.length - 1, i),
+              _addRemoveIngredient(i == ingredients.length - 1, i),
             ],
           ),
         ),
@@ -192,7 +202,7 @@ class _RecipeComposerState extends State<RecipeComposer> {
     return ingredientTextFields;
   }
 
-  Widget _addRemoveButton(bool add, int index) {
+  Widget _addRemoveIngredient(bool add, int index) {
     return InkWell(
       onTap: () {
         if (add) {
@@ -216,8 +226,58 @@ class _RecipeComposerState extends State<RecipeComposer> {
       ),
     );
   }
+
+  // Instructions
+  List<Widget> _getInstructions() {
+    List<Widget> instructionTextFields = [];
+    for (int i = 0; i < instructions.length; i++) {
+      instructionTextFields.add(
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4.0),
+          child: Row(
+            children: [
+              Expanded(
+                child: InstructionTextField(i),
+              ),
+              SizedBox(
+                width: 8,
+              ),
+              _addRemoveInstruction(i == instructions.length - 1, i),
+            ],
+          ),
+        ),
+      );
+    }
+    return instructionTextFields;
+  }
+
+  Widget _addRemoveInstruction(bool add, int index) {
+    return InkWell(
+      onTap: () {
+        if (add) {
+          instructions.add(null);
+        } else {
+          instructions.removeAt(index);
+        }
+        setState(() {});
+      },
+      child: Container(
+        width: 32,
+        height: 32,
+        decoration: BoxDecoration(
+          color: add ? Colors.green : Colors.red,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Icon(
+          add ? Icons.add : Icons.remove,
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
 }
 
+// Ingredients
 class IngredientTextField extends StatefulWidget {
   IngredientTextField(this.index);
 
@@ -252,7 +312,6 @@ class _IngredientTextFieldState extends State<IngredientTextField> {
     return TextFormField(
       style: TextStyle(color: Colors.white),
       controller: _nameController,
-      autofocus: true,
       onChanged: (v) => _RecipeComposerState.ingredients[widget.index] = v,
       decoration: InputDecoration(
         hintText: 'Add an ingredient',
@@ -260,6 +319,55 @@ class _IngredientTextFieldState extends State<IngredientTextField> {
       validator: (v) {
         if (v.trim().isEmpty) {
           return 'Please enter an ingredient';
+        }
+        return null;
+      },
+    );
+  }
+}
+
+// Instructions input
+class InstructionTextField extends StatefulWidget {
+  InstructionTextField(this.index);
+
+  final int index;
+
+  @override
+  _InstructionTextFieldState createState() => _InstructionTextFieldState();
+}
+
+class _InstructionTextFieldState extends State<InstructionTextField> {
+  TextEditingController _nameController;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _nameController.text =
+          _RecipeComposerState.instructions[widget.index] ?? '';
+    });
+
+    return TextFormField(
+      style: TextStyle(color: Colors.white),
+      controller: _nameController,
+      onChanged: (v) => _RecipeComposerState.instructions[widget.index] = v,
+      decoration: InputDecoration(
+        hintText: 'Add a step',
+      ),
+      validator: (v) {
+        if (v.trim().isEmpty) {
+          return 'Please enter some instructions';
         }
         return null;
       },

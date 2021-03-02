@@ -2,12 +2,16 @@ import 'dart:convert';
 
 import 'package:pan_pal/screens/calc/converter.dart';
 import 'package:flutter/material.dart';
+import 'package:pan_pal/screens/ingredients/ingredient.dart';
+import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
 
 import 'formatNumbers.dart';
-import 'ingredient.dart';
-import 'ingredientslist.dart';
 
 class Calculator extends StatefulWidget {
+  const Calculator({Key key, @required this.ingredientsList}) : super(key: key);
+
+  final IngredientsList ingredientsList;
+
   @override
   _CalculatorState createState() => _CalculatorState();
 }

@@ -6,6 +6,6 @@ class Recipe {
   String imageUrl;
   Map<dynamic, dynamic> ingredients;
   List<String> instructions;
-  List<String> notes;
+  String notes;
   String story;
 }

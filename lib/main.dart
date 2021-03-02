@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
+import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
 import 'package:pan_pal/screens/splash.dart';
 
 void main() {
@@ -12,6 +13,12 @@ void main() {
 }
 
 class PanPal extends StatelessWidget {
+  // PanPal({
+  //   Key key,
+  //   @required this.ingredientsList,
+  // }) : super(key: key);
+
+  // IngredientsList ingredientsList;
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   @override
