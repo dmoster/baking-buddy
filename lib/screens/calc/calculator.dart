@@ -169,7 +169,10 @@ class _CalculatorState extends State<Calculator> {
                         ),
                         child: Text(
                           'Clear',
-                          style: TextStyle(fontSize: 36, color: Colors.black),
+                          style: TextStyle(
+                            fontSize: 36,
+                            color: Color(0xff323232),
+                          ),
                         ),
                         color: Colors.grey,
                       ),

@@ -25,17 +25,21 @@ class _DashboardState extends State<Dashboard> {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
-          Spacer(),
+          SizedBox(height: 16),
           Expanded(
             flex: 4,
-            child: RecentlyViewed(context: context),
+            child: RecentlyViewed(
+              context: context,
+              ingredients: widget.ingredients,
+            ),
           ),
+          SizedBox(height: 16),
           Expanded(
-            flex: 5,
+            flex: 4,
             child: Column(
               children: [
                 AlphabetSearch(context: context),
-                Spacer(),
+                SizedBox(height: 16),
                 ToggleButtons(
                   children: [
                     Padding(
@@ -77,10 +81,10 @@ class _DashboardState extends State<Dashboard> {
                   selectedColor: Color(0xff323232),
                   selectedBorderColor: Color(0xFFFF9F00),
                 ),
-                Spacer(),
               ],
             ),
           ),
+          SizedBox(height: 16),
           Expanded(
             flex: 1,
             child: Row(

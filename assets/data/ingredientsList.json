@@ -65,8 +65,8 @@
     "ounces": "6.75",
     "grams": "190"
   },
-  {"name": "Baking powder", "volume": "1", "ounces": "", "grams": "4"},
-  {"name": "Baking soda", "volume": "0.5", "ounces": "", "grams": "3"},
+  {"name": "Baking powder", "volume": "1", "ounces": "0.141", "grams": "4"},
+  {"name": "Baking soda", "volume": "0.5", "ounces": "0.106", "grams": "3"},
   {"name": "Bananas (mashed)", "volume": "48", "ounces": "8", "grams": "227"},
   {
     "name": "Barley (cooked)",
@@ -659,16 +659,16 @@
   {
     "name": "Salt (Kosher, Diamond Crystal)",
     "volume": "3",
-    "ounces": "",
+    "ounces": "0.282",
     "grams": "8"
   },
   {
     "name": "Salt (Kosher, Morton's)",
     "volume": "3",
-    "ounces": "",
+    "ounces": "0.564",
     "grams": "16"
   },
-  {"name": "Salt (table)", "volume": "3", "ounces": "", "grams": "18"},
+  {"name": "Salt (table)", "volume": "3", "ounces": "0.635", "grams": "18"},
   {
     "name": "Scallions (sliced)",
     "volume": "48",

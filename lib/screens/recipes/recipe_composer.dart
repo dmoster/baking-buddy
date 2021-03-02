@@ -80,12 +80,6 @@ class _RecipeComposerState extends State<RecipeComposer> {
                   ],
                 ),
               ),
-              IngredientRowDisplay(
-                amount: 240,
-                measurementType: 'grams',
-                refIngredient:
-                    widget.ingredients.getIngredient('All-Purpose Flour'),
-              ),
               ..._getIngredients(),
               // Row(
               //   children: [
@@ -366,6 +360,7 @@ class _InstructionTextFieldState extends State<InstructionTextField> {
 
     return TextFormField(
       style: TextStyle(color: Colors.white),
+      maxLines: 3,
       controller: _nameController,
       onChanged: (v) => _RecipeComposerState.instructions[widget.index] = v,
       decoration: InputDecoration(

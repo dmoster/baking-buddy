@@ -6,19 +6,13 @@ class RecentItemButton extends StatelessWidget {
     @required this.label,
   }) : super(key: key);
 
-  final String label;
+  final dynamic label;
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {},
-      child: Text(
-        label,
-        style: TextStyle(
-          fontSize: 24,
-          color: Colors.white,
-        ),
-      ),
+      child: label,
       style: ButtonStyle(),
     );
   }
