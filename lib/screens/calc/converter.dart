@@ -28,13 +28,19 @@ dynamic getConvertedAmount(double valueToConvert, String fromType,
 }
 
 /// Get a universal volume-based conversion factor
-double getVolumeInTsp(double valueToConvert, String fromType) {
+double getVolumeInTsp(double valueToConvert, String fromType,
+    {Ingredient ingredient}) {
   if (fromType == 'cups') {
     return valueToConvert * 48;
   } else if (fromType == 'tablespoons') {
     return valueToConvert * 3;
-  } else {
+  } else if (fromType == 'teaspoons') {
     return valueToConvert;
+  } else {
+    double fromConversionFactor = getConversionFactor(fromType, ingredient);
+    double toConversionFactor = getConversionFactor('teaspoons', ingredient);
+    return calculateConversion(
+        fromConversionFactor, toConversionFactor, valueToConvert);
   }
 }
 
