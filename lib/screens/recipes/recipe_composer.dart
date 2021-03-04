@@ -19,8 +19,6 @@ class _RecipeComposerState extends State<RecipeComposer> {
   static List<dynamic> ingredients = [];
   static List<dynamic> instructions = [null];
 
-  Widget ingredient;
-
   @override
   void initState() {
     super.initState();
@@ -82,6 +80,7 @@ class _RecipeComposerState extends State<RecipeComposer> {
               ],
             ),
           ),
+          // Ingredient Display
           ...ingredients,
           IngredientForm(
             context: context,
@@ -204,58 +203,6 @@ class _RecipeComposerState extends State<RecipeComposer> {
     );
   }
 
-  // // Ingredients
-  // List<Widget> _getIngredients() {
-  //   List<Widget> ingredientTextFields = [];
-  //   for (int i = 0; i < ingredients.length - 1; i++) {
-  //     // ingredientTextFields.add(
-  //     //   openDialog();
-  //     // );
-  //     ingredientTextFields.add(
-  //       Padding(
-  //         padding: const EdgeInsets.symmetric(vertical: 4.0),
-  //         child: Row(
-  //           children: [
-  //             Expanded(
-  //               child: IngredientTextField(i),
-  //             ),
-  //             SizedBox(
-  //               width: 8,
-  //             ),
-  //             _addRemoveIngredient(i == ingredients.length - 1, i),
-  //           ],
-  //         ),
-  //       ),
-  //     );
-  //   }
-  //   return ingredientTextFields;
-  // }
-
-  // Widget _addRemoveIngredient(bool add, int index) {
-  //   return InkWell(
-  //     onTap: () {
-  //       if (add) {
-  //         ingredients.add(null);
-  //       } else {
-  //         ingredients.removeAt(index);
-  //       }
-  //       setState(() {});
-  //     },
-  //     child: Container(
-  //       width: 32,
-  //       height: 32,
-  //       decoration: BoxDecoration(
-  //         color: add ? Colors.green : Colors.red,
-  //         borderRadius: BorderRadius.circular(20),
-  //       ),
-  //       child: Icon(
-  //         add ? Icons.add : Icons.remove,
-  //         color: Colors.white,
-  //       ),
-  //     ),
-  //   );
-  // }
-
   // Instructions
   List<Widget> _getInstructions() {
     List<Widget> instructionTextFields = [];
@@ -304,63 +251,7 @@ class _RecipeComposerState extends State<RecipeComposer> {
       ),
     );
   }
-
-  // List<dynamic> _getIngredients() {
-  //   if (ingredients != null) {
-  //     return ingredients;
-  //   }
-  //   return [Container()];
-  // }
 }
-
-// // Ingredients
-// class IngredientTextField extends StatefulWidget {
-//   IngredientTextField(this.index);
-
-//   final int index;
-
-//   @override
-//   _IngredientTextFieldState createState() => _IngredientTextFieldState();
-// }
-
-// class _IngredientTextFieldState extends State<IngredientTextField> {
-//   TextEditingController _nameController;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     _nameController = TextEditingController();
-//   }
-
-//   @override
-//   void dispose() {
-//     _nameController.dispose();
-//     super.dispose();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-//       _nameController.text =
-//           _RecipeComposerState.ingredients[widget.index] ?? '';
-//     });
-
-//     return TextFormField(
-//       style: TextStyle(color: Colors.white),
-//       controller: _nameController,
-//       onChanged: (v) => _RecipeComposerState.ingredients[widget.index] = v,
-//       decoration: InputDecoration(
-//         hintText: 'Add ingredient',
-//       ),
-//       validator: (v) {
-//         if (v.trim().isEmpty) {
-//           return 'Please enter an ingredient';
-//         }
-//         return null;
-//       },
-//     );
-//   }
-// }
 
 // Instructions input
 class InstructionTextField extends StatefulWidget {

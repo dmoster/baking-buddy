@@ -38,42 +38,52 @@ class _RecentlyViewedState extends State<RecentlyViewed> {
               RecentItemButton(
                   label: Text(
                 'Chocolate Chip Cookies',
-                textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
                 ),
               )),
               RecentItemButton(
-                label: IngredientRowDisplay(
-                  labelSize: 24,
-                  amount: 2.25,
-                  measurementType: 'cups',
-                  refIngredient:
-                      widget.ingredients.getIngredient("All-Purpose Flour"),
+                label: Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IngredientRowDisplay(
+                        labelSize: 24,
+                        amount: 2.25,
+                        measurementType: 'cups',
+                        refIngredient: widget.ingredients
+                            .getIngredient("All-Purpose Flour"),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               RecentItemButton(
                   label: Text(
                 'Allweek Bread',
-                textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
                 ),
               )),
               RecentItemButton(
-                label: IngredientRowDisplay(
-                  labelSize: 24,
-                  amount: 55,
-                  measurementType: 'teaspoons',
-                  refIngredient: widget.ingredients.getIngredient("Marzipan"),
+                label: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IngredientRowDisplay(
+                      labelSize: 24,
+                      amount: 55,
+                      measurementType: 'teaspoons',
+                      refIngredient:
+                          widget.ingredients.getIngredient("Marzipan"),
+                    ),
+                  ],
                 ),
               ),
               RecentItemButton(
                   label: Text(
                 'White Chocolate Crème Brûlée',
-                textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,

@@ -29,59 +29,46 @@ class IngredientRowDisplay extends StatelessWidget {
         ' g';
 
     return Container(
-      child: Wrap(
-        spacing: 16,
-        runSpacing: 4,
-        alignment: WrapAlignment.center,
-        crossAxisAlignment: WrapCrossAlignment.center,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            refIngredient.name,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: labelSize,
-            ),
+          Row(
+            children: [
+              Text(
+                volume,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: labelSize,
+                ),
+              ),
+              SizedBox(width: 16),
+              Text(
+                refIngredient.name,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: labelSize,
+                ),
+              ),
+            ],
           ),
-          Chip(
-            padding: EdgeInsets.all(4),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5),
-            ),
-            backgroundColor: Color(0xFFFFCA00),
-            label: Wrap(
-              spacing: 12,
-              runSpacing: 4,
-              alignment: WrapAlignment.spaceBetween,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              children: [
-                Text(
-                  volume,
-                  style: TextStyle(
-                    color: Color(0xff323232),
-                    fontSize: 16,
-                  ),
+          Row(
+            children: [
+              Text(
+                ounces,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 10,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      ounces,
-                      style: TextStyle(
-                        color: Color(0xff323232),
-                        fontSize: 10,
-                      ),
-                    ),
-                    Text(
-                      grams,
-                      style: TextStyle(
-                        color: Color(0xff323232),
-                        fontSize: 10,
-                      ),
-                    ),
-                  ],
+              ),
+              SizedBox(width: 8),
+              Text(
+                grams,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 10,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),
