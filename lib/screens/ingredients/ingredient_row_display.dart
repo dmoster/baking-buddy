@@ -29,46 +29,58 @@ class IngredientRowDisplay extends StatelessWidget {
         ' g';
 
     return Container(
-      child: Column(
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Row(
-            children: [
-              Text(
-                volume,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: labelSize,
+          Flexible(
+            flex: 1,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  volume.trim(),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: labelSize,
+                  ),
                 ),
-              ),
-              SizedBox(width: 16),
-              Text(
-                refIngredient.name,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: labelSize,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      ounces,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    Text(
+                      grams,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-          Row(
-            children: [
-              Text(
-                ounces,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 10,
-                ),
+          SizedBox(
+            width: 16.0,
+          ),
+          Flexible(
+            flex: 2,
+            fit: FlexFit.loose,
+            child: Text(
+              refIngredient.name,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: labelSize,
               ),
-              SizedBox(width: 8),
-              Text(
-                grams,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 10,
-                ),
-              ),
-            ],
+            ),
           ),
         ],
       ),

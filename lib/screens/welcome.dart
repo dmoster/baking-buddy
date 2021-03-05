@@ -19,7 +19,7 @@ class Welcome extends StatelessWidget {
           SizedBox.expand(
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.black45,
+                color: Colors.black54,
               ),
             ),
           ),
