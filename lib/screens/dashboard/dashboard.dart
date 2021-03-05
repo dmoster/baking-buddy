@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
+import 'package:pan_pal/routes.dart';
 import 'package:pan_pal/screens/dashboard/alphabet_search.dart';
 import 'package:pan_pal/screens/dashboard/recently_viewed.dart';
+import 'package:pan_pal/screens/home_unauthenticated.dart';
 import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
 import 'package:pan_pal/screens/recipes/recipe_composer.dart';
 
@@ -93,8 +95,11 @@ class _DashboardState extends State<Dashboard> {
                 RaisedButton(
                   onPressed: () {
                     context.signOut();
-                    Navigator.of(context).pushNamed('/home_unauthenticated',
-                        arguments: widget.ingredients);
+                    Navigator.pushReplacementNamed(
+                      context,
+                      HomeUnauthenticated.routeName,
+                      arguments: IngredientPageArguments(widget.ingredients),
+                    );
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
@@ -104,8 +109,11 @@ class _DashboardState extends State<Dashboard> {
                 ),
                 RaisedButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed('/recipe_composer',
-                        arguments: widget.ingredients);
+                    Navigator.pushNamed(
+                      context,
+                      RecipeComposer.routeName,
+                      arguments: IngredientPageArguments(widget.ingredients),
+                    );
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),

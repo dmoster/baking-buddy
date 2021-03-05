@@ -10,6 +10,8 @@ class HomeUnauthenticated extends StatelessWidget {
 
   final IngredientsList ingredients;
 
+  static const routeName = '/home_unauthenticated';
+
   @override
   Widget build(BuildContext context) {
     final PageController pageController = PageController(

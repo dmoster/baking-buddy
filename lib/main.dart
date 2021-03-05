@@ -1,15 +1,16 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:pan_pal/screens/calc/calculator.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
+import 'package:pan_pal/routes.dart';
 import 'package:pan_pal/screens/home_authenticated.dart';
 import 'package:pan_pal/screens/home_unauthenticated.dart';
 import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
 import 'package:pan_pal/screens/recipes/recipe_composer.dart';
+import 'package:pan_pal/screens/recipes/recipe_viewer.dart';
 import 'package:pan_pal/screens/splash.dart';
 import 'package:pan_pal/screens/welcome.dart';
 
@@ -82,24 +83,84 @@ class PanPal extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ),
-                      home: SplashScreen(ingredients: _ingredients),
-                      onGenerateRoute: (RouteSettings settings) {
-                        var routes = <String, WidgetBuilder>{
-                          '/splash_screen': (context) =>
-                              SplashScreen(ingredients: settings.arguments),
-                          '/home_unauthenticated': (context) =>
-                              HomeUnauthenticated(
-                                  ingredients: settings.arguments),
-                          '/home_authenticated': (context) => HomeAuthenticated(
-                              ingredients: settings.arguments),
-                          '/recipe_composer': (context) =>
-                              RecipeComposer(ingredients: settings.arguments),
-                        };
-                        WidgetBuilder builder = routes[settings.name];
-                        return MaterialPageRoute(
-                            builder: (ctx) => builder(ctx),
-                            fullscreenDialog: true);
+                      onGenerateRoute: (settings) {
+                        if (settings.name == SplashScreen.routeName) {
+                          final IngredientPageArguments args =
+                              settings.arguments;
+                          return MaterialPageRoute(
+                            builder: (context) {
+                              return SplashScreen(
+                                ingredients: args.ingredients,
+                              );
+                            },
+                          );
+                        } else if (settings.name ==
+                            HomeUnauthenticated.routeName) {
+                          final IngredientPageArguments args =
+                              settings.arguments;
+                          return MaterialPageRoute(
+                            builder: (context) {
+                              return HomeUnauthenticated(
+                                ingredients: args.ingredients,
+                              );
+                            },
+                          );
+                        } else if (settings.name ==
+                            HomeAuthenticated.routeName) {
+                          final IngredientPageArguments args =
+                              settings.arguments;
+                          return MaterialPageRoute(
+                            builder: (context) {
+                              return HomeAuthenticated(
+                                ingredients: args.ingredients,
+                              );
+                            },
+                          );
+                        } else if (settings.name == RecipeComposer.routeName) {
+                          final IngredientPageArguments args =
+                              settings.arguments;
+                          return MaterialPageRoute(
+                            builder: (context) {
+                              return RecipeComposer(
+                                ingredients: args.ingredients,
+                              );
+                            },
+                          );
+                        } else if (settings.name == RecipeViewer.routeName) {
+                          final RecipePageArguments args = settings.arguments;
+                          return MaterialPageRoute(
+                            builder: (context) {
+                              return RecipeViewer(
+                                recipe: args.recipe,
+                              );
+                            },
+                          );
+                        }
+                        return null;
                       },
+                      home: SplashScreen(ingredients: _ingredients),
+                      // routes: {
+                      //   SplashScreen.routeName: (context) => SplashScreen(),
+                      // },
+                      // onGenerateRoute: (RouteSettings settings) {
+                      //   var routes = <String, WidgetBuilder>{
+                      //     '/splash_screen': (context) =>
+                      //         SplashScreen(ingredients: settings.arguments),
+                      //     '/home_unauthenticated': (context) =>
+                      //         HomeUnauthenticated(
+                      //             ingredients: settings.arguments),
+                      //     '/home_authenticated': (context) => HomeAuthenticated(
+                      //         ingredients: settings.arguments),
+                      //     '/recipe_composer': (context) =>
+                      //         RecipeComposer(ingredients: settings.arguments),
+                      //     '/recipe_viewer': (context) =>
+                      //         RecipeViewer(recipe: settings.arguments),
+                      //   };
+                      //   WidgetBuilder builder = routes[settings.name];
+                      //   return MaterialPageRoute(
+                      //       builder: (ctx) => builder(ctx),
+                      //       fullscreenDialog: true);
+                      // },
                     ),
                   );
                 }

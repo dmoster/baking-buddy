@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:pan_pal/routes.dart';
+import 'package:pan_pal/screens/home_authenticated.dart';
 import 'package:pan_pal/screens/ingredients/ingredient.dart';
 import 'package:pan_pal/screens/ingredients/ingredient_row_display.dart';
 import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
 import 'package:pan_pal/screens/recipes/ingredient_form.dart';
 import 'package:pan_pal/screens/recipes/recipe.dart';
+import 'package:pan_pal/screens/recipes/recipe_viewer.dart';
 
 class RecipeComposer extends StatefulWidget {
   const RecipeComposer({Key key, @required this.ingredients}) : super(key: key);
 
   final IngredientsList ingredients;
+
+  static const routeName = '/recipe_composer';
 
   @override
   _RecipeComposerState createState() => _RecipeComposerState();
@@ -242,8 +247,7 @@ class _RecipeComposerState extends State<RecipeComposer> {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.of(context).pushNamed('/home_authenticated',
-                              arguments: widget.ingredients);
+                          Navigator.of(context).pop();
                         },
                       ),
                     ),
@@ -266,9 +270,8 @@ class _RecipeComposerState extends State<RecipeComposer> {
                           if (recipeName.trim() != '' &&
                               ingredientsData.length > 0 &&
                               instructions.length > 1) {
-                            print('You have a recipe!');
                             for (int i = 0; i < instructions.length; i++) {
-                              if (instructions[i].trim() != null) {
+                              if (instructions[i] != null) {
                                 instructionsData.add(instructions[i].trim());
                               }
                             }
@@ -280,6 +283,11 @@ class _RecipeComposerState extends State<RecipeComposer> {
                                 notes,
                                 story);
                             // SEND THE RECIPE!!!!
+                            Navigator.pushReplacementNamed(
+                              context,
+                              RecipeViewer.routeName,
+                              arguments: RecipePageArguments(recipe),
+                            );
                           } else {
                             print('Something is missing...');
                           }

@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:pan_pal/screens/calc/converter.dart';
 import 'package:pan_pal/screens/calc/formatNumbers.dart';
+import 'package:pan_pal/screens/ingredients/ingredient_row_display.dart';
 
 class Ingredient {
   String name;
@@ -12,7 +14,24 @@ class Ingredient {
 
   Ingredient(this.name, this.volume, this.ounces, this.grams);
   Ingredient.fromAmount(
-      this.name, this.amount, this.measurementType, this.refIngredient);
+      this.name, this.amount, this.measurementType, this.refIngredient) {
+    this.volume =
+        getConvertedAmount(amount, measurementType, 'volume', refIngredient);
+    this.ounces = formatNumber(getConvertedAmount(
+            amount, measurementType, 'ounces', refIngredient)) +
+        ' oz';
+    this.grams = formatNumber(getConvertedAmount(
+            amount, measurementType, 'grams', refIngredient)) +
+        ' g';
+  }
+
+  Widget displayRow() {
+    return IngredientRowDisplay(
+        labelSize: 16,
+        amount: this.amount,
+        measurementType: this.measurementType,
+        refIngredient: this.refIngredient);
+  }
 
   // Ingredient.fromAmount(String name, double amount, String measurementType,
   //     Ingredient refIngredient) {
