@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lit_firebase_auth/lit_firebase_auth.dart';
 import 'package:pan_pal/screens/auth/auth.dart';
 import 'package:pan_pal/screens/calc/calculator.dart';
 import 'package:pan_pal/screens/ingredients/ingredientslist.dart';

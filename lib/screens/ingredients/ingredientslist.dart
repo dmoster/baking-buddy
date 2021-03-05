@@ -7,13 +7,13 @@ class IngredientsList {
   List<dynamic> list;
 
   IngredientsList(BuildContext context, String jsonFilename) {
-    this.list = List();
+    this.list = [];
 
     initializeIngredientsList(context, jsonFilename);
   }
 
   IngredientsList.fromList(var list) {
-    this.list = List();
+    this.list = [];
 
     for (var item in list) {
       this.list.add(Ingredient(

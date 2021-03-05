@@ -22,7 +22,7 @@ void main() {
 class PanPal extends StatelessWidget {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
-  IngredientsList _ingredients;
+  static IngredientsList _ingredients;
 
   @override
   Widget build(BuildContext context) {

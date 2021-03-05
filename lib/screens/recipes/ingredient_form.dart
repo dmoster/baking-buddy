@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pan_pal/screens/ingredients/ingredient.dart';
-import 'package:pan_pal/screens/ingredients/ingredient_row_display.dart';
 import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
 
 class IngredientForm extends StatefulWidget {

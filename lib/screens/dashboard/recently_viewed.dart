@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pan_pal/screens/dashboard/alphabet_search_button.dart';
 import 'package:pan_pal/screens/dashboard/recent_item_button.dart';
 import 'package:pan_pal/screens/ingredients/ingredient_row_display.dart';
 import 'package:pan_pal/screens/ingredients/ingredientslist.dart';

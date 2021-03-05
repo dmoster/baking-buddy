@@ -27,6 +27,7 @@ class _RecipeViewerState extends State<RecipeViewer> {
             fontSize: 16,
           ),
         ),
+        leading: Container(),
       ),
       body: ListView(
         padding: EdgeInsets.all(32.0),
@@ -101,6 +102,7 @@ class _RecipeViewerState extends State<RecipeViewer> {
           padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.baseline,
+            textBaseline: TextBaseline.alphabetic,
             mainAxisSize: MainAxisSize.min,
             children: [
               Flexible(

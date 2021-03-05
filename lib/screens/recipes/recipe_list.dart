@@ -7,13 +7,13 @@ class RecipeList {
   List<dynamic> list;
 
   RecipeList(BuildContext context, String jsonFilename) {
-    this.list = List();
+    this.list = [];
 
     initializeRecipeList(context, jsonFilename);
   }
 
   RecipeList.fromList(var list) {
-    this.list = List();
+    this.list = [];
 
     for (var item in list) {
       this.list.add(Recipe(item['name'], item['imageUrl'], item['ingredients'],

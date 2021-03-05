@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pan_pal/routes.dart';
-import 'package:pan_pal/screens/home_authenticated.dart';
 import 'package:pan_pal/screens/ingredients/ingredient.dart';
 import 'package:pan_pal/screens/ingredients/ingredient_row_display.dart';
 import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
@@ -68,9 +67,7 @@ class _RecipeComposerState extends State<RecipeComposer> {
           ),
           Scaffold(
             backgroundColor: Colors.transparent,
-            extendBodyBehindAppBar: true,
             appBar: AppBar(
-              elevation: 0,
               backgroundColor: Colors.transparent,
               toolbarHeight: 32,
               title: Text(
@@ -80,11 +77,11 @@ class _RecipeComposerState extends State<RecipeComposer> {
                   fontSize: 16,
                 ),
               ),
+              leading: Container(),
             ),
             body: ListView(
-              padding: EdgeInsets.all(32),
+              padding: EdgeInsets.fromLTRB(32, 16, 32, 32),
               children: [
-                SizedBox(height: 32.0),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
                   child: Row(
@@ -105,6 +102,7 @@ class _RecipeComposerState extends State<RecipeComposer> {
                   style: TextStyle(color: Colors.white),
                   controller: _nameController,
                   decoration: InputDecoration(hintText: 'Name your recipe'),
+                  autofocus: true,
                   validator: (v) {
                     if (v.trim().isEmpty) {
                       return 'Please enter a recipe name';
@@ -283,7 +281,7 @@ class _RecipeComposerState extends State<RecipeComposer> {
                                 notes,
                                 story);
                             // SEND THE RECIPE!!!!
-                            Navigator.pushReplacementNamed(
+                            Navigator.pushNamed(
                               context,
                               RecipeViewer.routeName,
                               arguments: RecipePageArguments(recipe),
