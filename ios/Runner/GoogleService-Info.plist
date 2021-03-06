@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>515595026703-li02b9c0ruki33bilncdhvm56qpqev11.apps.googleusercontent.com</string>
+	<string>515595026703-l7hi9ge7fpgf20mh09076r8hb0s456ih.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.515595026703-li02b9c0ruki33bilncdhvm56qpqev11</string>
+	<string>com.googleusercontent.apps.515595026703-l7hi9ge7fpgf20mh09076r8hb0s456ih</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>515595026703-ed7bpo4okfn408vhodaddojv3oltscsk.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.mostermind.panpal</string>
+	<string>com.mostermind.panPal</string>
 	<key>PROJECT_ID</key>
 	<string>pan-pal</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:515595026703:ios:3f09693bfdd05252a57e7a</string>
+	<string>1:515595026703:ios:c2a68ea807472100a57e7a</string>
 </dict>
 </plist>

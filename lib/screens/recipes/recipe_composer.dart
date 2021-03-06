@@ -51,241 +51,221 @@ class _RecipeComposerState extends State<RecipeComposer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Stack(
-        children: [
-          SizedBox.expand(
-            child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/buche_de_noel-top.jpg'),
-                  fit: BoxFit.cover,
-                ),
-              ),
+      child: Scaffold(
+        backgroundColor: Color(0xff072F66),
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Color(0xff072F66),
+          toolbarHeight: 32,
+          title: Text(
+            'Add a Recipe',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
             ),
           ),
-          SizedBox.expand(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.black87,
+          leading: Container(),
+        ),
+        body: ListView(
+          padding: EdgeInsets.fromLTRB(32, 16, 32, 48),
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
+              child: Row(
+                children: [
+                  Icon(Icons.text_fields_outlined),
+                  SizedBox(width: 16),
+                  Text(
+                    'Name',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-          Scaffold(
-            backgroundColor: Colors.transparent,
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              toolbarHeight: 32,
-              title: Text(
-                'Add a Recipe',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              ),
-              leading: Container(),
+            TextFormField(
+              style: TextStyle(color: Colors.white),
+              controller: _nameController,
+              decoration: InputDecoration(hintText: 'Name your recipe'),
+              autofocus: true,
+              validator: (v) {
+                if (v.trim().isEmpty) {
+                  return 'Please enter a recipe name';
+                }
+                return null;
+              },
+              onChanged: (value) {
+                recipeName = value;
+              },
             ),
-            body: ListView(
-              padding: EdgeInsets.fromLTRB(32, 16, 32, 32),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
+              child: Row(
+                children: [
+                  Icon(Icons.shopping_bag_outlined),
+                  SizedBox(width: 16),
+                  Text(
+                    'Ingredients',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            // Ingredient Display
+            ...ingredients,
+            IngredientForm(
+              context: context,
+              ingredients: widget.ingredients,
+              onPressed: () {},
+              onAdd: (String ingredientName, double amount,
+                  String measurementType) {
+                setState(() {
+                  Ingredient ingredient = Ingredient.fromAmount(
+                      ingredientName,
+                      amount,
+                      measurementType,
+                      widget.ingredients.getIngredient(ingredientName));
+                  ingredients.add(
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                      child: IngredientRowDisplay(
+                        labelSize: 16,
+                        amount: ingredient.amount,
+                        measurementType: ingredient.measurementType,
+                        refIngredient: ingredient.refIngredient,
+                      ),
+                    ),
+                  );
+                  ingredientsData.add(ingredient);
+                });
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
+              child: Row(
+                children: [
+                  Icon(Icons.list_outlined),
+                  SizedBox(width: 16),
+                  Text(
+                    'Instructions',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            ..._getInstructions(),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
+              child: Row(
+                children: [
+                  Icon(Icons.note_outlined),
+                  SizedBox(width: 16),
+                  Text(
+                    'Notes',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            TextFormField(
+              style: TextStyle(color: Colors.white),
+              maxLines: 3,
+              decoration: InputDecoration(
+                hintText: 'Add tips, tricks, and suggests',
+              ),
+              onChanged: (value) {
+                notes = value;
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
+              child: Row(
+                children: [
+                  Icon(Icons.book_outlined),
+                  SizedBox(width: 16),
+                  Text(
+                    'Story',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            TextFormField(
+              style: TextStyle(color: Colors.white),
+              maxLines: 5,
+              decoration: InputDecoration(
+                hintText: 'Tell us about this recipe',
+              ),
+              onChanged: (value) {
+                story = value;
+              },
+            ),
+            SizedBox(
+              height: 32,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
-                  child: Row(
-                    children: [
-                      Icon(Icons.text_fields_outlined),
-                      SizedBox(width: 16),
-                      Text(
-                        'Name',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                TextFormField(
-                  style: TextStyle(color: Colors.white),
-                  controller: _nameController,
-                  decoration: InputDecoration(hintText: 'Name your recipe'),
-                  autofocus: true,
-                  validator: (v) {
-                    if (v.trim().isEmpty) {
-                      return 'Please enter a recipe name';
-                    }
-                    return null;
-                  },
-                  onChanged: (value) {
-                    recipeName = value;
-                  },
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
-                  child: Row(
-                    children: [
-                      Icon(Icons.shopping_bag_outlined),
-                      SizedBox(width: 16),
-                      Text(
-                        'Ingredients',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                // Ingredient Display
-                ...ingredients,
-                IngredientForm(
-                  context: context,
-                  ingredients: widget.ingredients,
-                  onPressed: () {},
-                  onAdd: (String ingredientName, double amount,
-                      String measurementType) {
-                    setState(() {
-                      Ingredient ingredient = Ingredient.fromAmount(
-                          ingredientName,
-                          amount,
-                          measurementType,
-                          widget.ingredients.getIngredient(ingredientName));
-                      ingredients.add(
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                          child: IngredientRowDisplay(
-                            labelSize: 16,
-                            amount: ingredient.amount,
-                            measurementType: ingredient.measurementType,
-                            refIngredient: ingredient.refIngredient,
-                          ),
-                        ),
-                      );
-                      ingredientsData.add(ingredient);
-                    });
-                  },
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
-                  child: Row(
-                    children: [
-                      Icon(Icons.list_outlined),
-                      SizedBox(width: 16),
-                      Text(
-                        'Instructions',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                ..._getInstructions(),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
-                  child: Row(
-                    children: [
-                      Icon(Icons.note_outlined),
-                      SizedBox(width: 16),
-                      Text(
-                        'Notes',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                TextFormField(
-                  style: TextStyle(color: Colors.white),
-                  maxLines: 3,
-                  decoration: InputDecoration(
-                    hintText: 'Add tips, tricks, and suggests',
-                  ),
-                  onChanged: (value) {
-                    notes = value;
-                  },
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
-                  child: Row(
-                    children: [
-                      Icon(Icons.book_outlined),
-                      SizedBox(width: 16),
-                      Text(
-                        'Story',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                TextFormField(
-                  style: TextStyle(color: Colors.white),
-                  maxLines: 5,
-                  decoration: InputDecoration(
-                    hintText: 'Tell us about this recipe',
-                  ),
-                  onChanged: (value) {
-                    story = value;
-                  },
-                ),
-                SizedBox(
-                  height: 32,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: RaisedButton(
-                        color: Color(0xFFFF9F00),
-                        textColor: Color(0xff323232),
-                        child: Text(
-                          'Cancel',
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
+                Expanded(
+                  flex: 1,
+                  child: RaisedButton(
+                    color: Color(0xFFFF9F00),
+                    textColor: Color(0xff323232),
+                    child: Text(
+                      'Cancel',
+                      style: TextStyle(
+                        fontSize: 16,
                       ),
                     ),
-                    SizedBox(width: 16.0),
-                    Expanded(
-                      flex: 2,
-                      child: RaisedButton(
-                        color: Color(0xff0F4FA8),
-                        textColor: Colors.white,
-                        child: Text(
-                          'Save',
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                        onPressed: () {
-                          // if (_formKey.currentState.validate()) {
-                          //   _formKey.currentState.save();
-                          // }
-                          if (recipeName.trim() != '' &&
-                              ingredientsData.length > 0 &&
-                              instructions.length > 1) {
-                            recipe = saveAndSendRecipe();
-                          } else {
-                            print('Something is missing...');
-                          }
-                        },
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ),
+                SizedBox(width: 16.0),
+                Expanded(
+                  flex: 2,
+                  child: RaisedButton(
+                    color: Color(0xff0F4FA8),
+                    textColor: Colors.white,
+                    child: Text(
+                      'Save',
+                      style: TextStyle(
+                        fontSize: 16,
                       ),
                     ),
-                  ],
+                    onPressed: () {
+                      // if (_formKey.currentState.validate()) {
+                      //   _formKey.currentState.save();
+                      // }
+                      if (recipeName.trim() != '' &&
+                          ingredientsData.length > 0 &&
+                          instructions.length > 1) {
+                        recipe = saveAndSendRecipe();
+                      } else {
+                        print('Something is missing...');
+                      }
+                    },
+                  ),
                 ),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -357,8 +337,21 @@ class _RecipeComposerState extends State<RecipeComposer> {
       (user) {
         recipe = Recipe(recipeName, user.uid, imageUrl, ingredientsData,
             instructionsData, notes, story);
+        // Save the recipe in Cloud Firestore
         uploadRecipe(recipe);
-        Navigator.pushNamed(
+
+        // Reset the composer for next timeR
+        ingredients = [];
+        instructions = [null];
+        recipeName = '';
+        imageUrl = '';
+        ingredientsData = [];
+        instructionsData = [];
+        notes = '';
+        story = '';
+
+        // Go to the recipe viewer
+        Navigator.pushReplacementNamed(
           context,
           RecipeViewer.routeName,
           arguments: RecipePageArguments(recipe),

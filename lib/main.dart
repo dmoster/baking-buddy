@@ -9,6 +9,7 @@ import 'package:pan_pal/routes.dart';
 import 'package:pan_pal/screens/home_authenticated.dart';
 import 'package:pan_pal/screens/home_unauthenticated.dart';
 import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
+import 'package:pan_pal/screens/recipes/recipe_browser.dart';
 import 'package:pan_pal/screens/recipes/recipe_composer.dart';
 import 'package:pan_pal/screens/recipes/recipe_viewer.dart';
 import 'package:pan_pal/screens/splash.dart';
@@ -133,6 +134,15 @@ class PanPal extends StatelessWidget {
                               return RecipeViewer(
                                 recipe: args.recipe,
                               );
+                            },
+                          );
+                        } else if (settings.name == RecipeBrowser.routeName) {
+                          //final RecipePageArguments args = settings.arguments;
+                          return MaterialPageRoute(
+                            builder: (context) {
+                              return RecipeBrowser(
+                                  //recipe: args.recipe,
+                                  );
                             },
                           );
                         }

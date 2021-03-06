@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pan_pal/screens/recipes/recipe.dart';
+import 'package:pan_pal/screens/recipes/recipe_browser.dart';
 
 class RecipeViewer extends StatefulWidget {
   const RecipeViewer({Key key, @required this.recipe}) : super(key: key);
@@ -16,9 +17,10 @@ class _RecipeViewerState extends State<RecipeViewer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xff072F66),
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Color(0xff072F66),
         toolbarHeight: 32,
         title: Text(
           'Recipe Viewer',
@@ -29,56 +31,98 @@ class _RecipeViewerState extends State<RecipeViewer> {
         ),
         leading: Container(),
       ),
-      body: ListView(
-        padding: EdgeInsets.all(32.0),
-        children: [
-          Text(
-            widget.recipe.name,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 36,
-              fontWeight: FontWeight.w700,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.all(16.0),
+                children: [
+                  Text(
+                    widget.recipe.name,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 36,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  // Ingredients
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
+                    child: Row(
+                      children: [
+                        Icon(Icons.shopping_bag_outlined),
+                        SizedBox(width: 16),
+                        Text(
+                          'Ingredients',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  ..._displayIngredients(),
+                  // Instructions
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
+                    child: Row(
+                      children: [
+                        Icon(Icons.list_outlined),
+                        SizedBox(width: 16),
+                        Text(
+                          'Instructions',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  ..._displayInstructions(),
+                  ..._displayNotesSection(),
+                  ..._displayStorySection(),
+                ],
+              ),
             ),
-          ),
-          // Ingredients
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
-            child: Row(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Icon(Icons.shopping_bag_outlined),
-                SizedBox(width: 16),
-                Text(
-                  'Ingredients',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
+                RaisedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  color: Color(0xff0F4FA8),
+                  child: const Text('Dashboard'),
+                ),
+                RaisedButton(
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(
+                      context,
+                      RecipeBrowser.routeName,
+                    );
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  color: Color(0xFFFFCA00),
+                  child: const Text(
+                    'Recipe Browser',
+                    style: TextStyle(
+                      color: Color(0xff323232),
+                    ),
                   ),
                 ),
               ],
             ),
-          ),
-          ..._displayIngredients(),
-          // Instructions
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
-            child: Row(
-              children: [
-                Icon(Icons.list_outlined),
-                SizedBox(width: 16),
-                Text(
-                  'Instructions',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          ..._displayInstructions(),
-          ..._displayNotesSection(),
-          ..._displayStorySection(),
-        ],
+          ],
+        ),
       ),
     );
   }
