@@ -33,6 +33,22 @@ class Ingredient {
         refIngredient: this.refIngredient);
   }
 
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> ingredientMap = {
+      'name': name,
+      'volume': volume,
+      'ounces': ounces,
+      'grams': grams,
+      'amount': amount,
+      'measurementType': measurementType,
+      'refIngredient': null,
+    };
+    if (refIngredient != null) {
+      ingredientMap['refIngredient'] = refIngredient.toJson();
+    }
+    return ingredientMap;
+  }
+
   // Ingredient.fromAmount(String name, double amount, String measurementType,
   //     Ingredient refIngredient) {
   //   this.name = name;

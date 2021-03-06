@@ -16,8 +16,14 @@ class RecipeList {
     this.list = [];
 
     for (var item in list) {
-      this.list.add(Recipe(item['name'], item['imageUrl'], item['ingredients'],
-          item['instructions'], item['notes'], item['story']));
+      this.list.add(Recipe(
+          item['name'],
+          item['author'],
+          item['imageUrl'],
+          item['ingredients'],
+          item['instructions'],
+          item['notes'],
+          item['story']));
     }
   }
 

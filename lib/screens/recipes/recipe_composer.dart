@@ -6,6 +6,8 @@ import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
 import 'package:pan_pal/screens/recipes/ingredient_form.dart';
 import 'package:pan_pal/screens/recipes/recipe.dart';
 import 'package:pan_pal/screens/recipes/recipe_viewer.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:lit_firebase_auth/lit_firebase_auth.dart';
 
 class RecipeComposer extends StatefulWidget {
   const RecipeComposer({Key key, @required this.ingredients}) : super(key: key);
@@ -30,6 +32,9 @@ class _RecipeComposerState extends State<RecipeComposer> {
   static String notes = '';
   static String story = '';
   static Recipe recipe;
+
+  CollectionReference recipes =
+      FirebaseFirestore.instance.collection('recipes');
 
   @override
   void initState() {
@@ -268,24 +273,7 @@ class _RecipeComposerState extends State<RecipeComposer> {
                           if (recipeName.trim() != '' &&
                               ingredientsData.length > 0 &&
                               instructions.length > 1) {
-                            for (int i = 0; i < instructions.length; i++) {
-                              if (instructions[i] != null) {
-                                instructionsData.add(instructions[i].trim());
-                              }
-                            }
-                            recipe = Recipe(
-                                recipeName,
-                                imageUrl,
-                                ingredientsData,
-                                instructionsData,
-                                notes,
-                                story);
-                            // SEND THE RECIPE!!!!
-                            Navigator.pushNamed(
-                              context,
-                              RecipeViewer.routeName,
-                              arguments: RecipePageArguments(recipe),
-                            );
+                            recipe = saveAndSendRecipe();
                           } else {
                             print('Something is missing...');
                           }
@@ -354,6 +342,40 @@ class _RecipeComposerState extends State<RecipeComposer> {
         ),
       ),
     );
+  }
+
+  Recipe saveAndSendRecipe() {
+    Recipe recipe;
+    for (int i = 0; i < instructions.length; i++) {
+      if (instructions[i] != null) {
+        instructionsData.add(instructions[i].trim());
+      }
+    }
+
+    final litUser = context.getSignedInUser();
+    litUser.when(
+      (user) {
+        recipe = Recipe(recipeName, user.uid, imageUrl, ingredientsData,
+            instructionsData, notes, story);
+        uploadRecipe(recipe);
+        Navigator.pushNamed(
+          context,
+          RecipeViewer.routeName,
+          arguments: RecipePageArguments(recipe),
+        );
+      },
+      empty: () {},
+      initializing: () {},
+    );
+
+    return null;
+  }
+
+  Future<void> uploadRecipe(Recipe recipe) {
+    return recipes
+        .add(recipe.toJson())
+        .then((value) => print('Recipe Uploaded'))
+        .catchError((error) => print('Failed to upload recipe: $error'));
   }
 }
 
