@@ -26,6 +26,7 @@ class _RecipeComposerState extends State<RecipeComposer> {
   static List<dynamic> ingredients = [];
   static List<dynamic> instructions = [null];
   static String recipeName = '';
+  static String category = '';
   static String imageUrl = '';
   static List<Ingredient> ingredientsData = [];
   static List<String> instructionsData = [];
@@ -35,6 +36,16 @@ class _RecipeComposerState extends State<RecipeComposer> {
 
   CollectionReference recipes =
       FirebaseFirestore.instance.collection('recipes');
+
+  List<String> categories = [
+    'Cookie',
+    'Cake',
+    'Pie',
+    'Pastry',
+    'Candy',
+    'Bread',
+  ];
+  String categoryChosenName;
 
   @override
   void initState() {
@@ -99,6 +110,56 @@ class _RecipeComposerState extends State<RecipeComposer> {
               onChanged: (value) {
                 recipeName = value;
               },
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
+              child: Row(
+                children: [
+                  Icon(Icons.category_outlined),
+                  SizedBox(width: 16),
+                  Text(
+                    'Category',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Container(
+                padding: EdgeInsets.only(left: 16, right: 16),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey, width: 1),
+                    borderRadius: BorderRadius.circular(10)),
+                child: DropdownButton(
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                  hint: Text(
+                    'Choose a category',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  dropdownColor: Color(0xff323232),
+                  icon: Icon(Icons.arrow_drop_down),
+                  iconSize: 36,
+                  isExpanded: true,
+                  underline: SizedBox(),
+                  value: categoryChosenName,
+                  onChanged: (newValue) {
+                    setState(() {
+                      categoryChosenName = newValue;
+                      category = categoryChosenName;
+                    });
+                  },
+                  items: categories.map((valueItem) {
+                    return DropdownMenuItem(
+                      value: valueItem,
+                      child: Text(valueItem),
+                    );
+                  }).toList(),
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
@@ -335,8 +396,8 @@ class _RecipeComposerState extends State<RecipeComposer> {
     final litUser = context.getSignedInUser();
     litUser.when(
       (user) {
-        recipe = Recipe(recipeName, user.uid, imageUrl, ingredientsData,
-            instructionsData, notes, story);
+        recipe = Recipe(recipeName, user.uid, category, imageUrl,
+            ingredientsData, instructionsData, notes, story);
         // Save the recipe in Cloud Firestore
         uploadRecipe(recipe);
 
@@ -344,6 +405,7 @@ class _RecipeComposerState extends State<RecipeComposer> {
         ingredients = [];
         instructions = [null];
         recipeName = '';
+        category = '';
         imageUrl = '';
         ingredientsData = [];
         instructionsData = [];
@@ -354,7 +416,7 @@ class _RecipeComposerState extends State<RecipeComposer> {
         Navigator.pushReplacementNamed(
           context,
           RecipeViewer.routeName,
-          arguments: RecipePageArguments(recipe),
+          arguments: RecipePageArguments(recipe, 'Dashboard'),
         );
       },
       empty: () {},

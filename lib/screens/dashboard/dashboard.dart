@@ -5,6 +5,7 @@ import 'package:pan_pal/screens/dashboard/alphabet_search.dart';
 import 'package:pan_pal/screens/dashboard/recently_viewed.dart';
 import 'package:pan_pal/screens/home_unauthenticated.dart';
 import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
+import 'package:pan_pal/screens/recipes/recipe_browser.dart';
 import 'package:pan_pal/screens/recipes/recipe_composer.dart';
 
 class Dashboard extends StatefulWidget {
@@ -121,6 +122,24 @@ class _DashboardState extends State<Dashboard> {
                   color: Color(0xFFFFCA00),
                   child: const Text(
                     'Add Recipe',
+                    style: TextStyle(
+                      color: Color(0xff323232),
+                    ),
+                  ),
+                ),
+                RaisedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      RecipeBrowser.routeName,
+                    );
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  color: Color(0xFFFFCA00),
+                  child: const Text(
+                    'Recipe Browser',
                     style: TextStyle(
                       color: Color(0xff323232),
                     ),

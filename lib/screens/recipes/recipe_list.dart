@@ -19,6 +19,7 @@ class RecipeList {
       this.list.add(Recipe(
           item['name'],
           item['author'],
+          item['category'],
           item['imageUrl'],
           item['ingredients'],
           item['instructions'],

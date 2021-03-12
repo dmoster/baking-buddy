@@ -3,9 +3,12 @@ import 'package:pan_pal/screens/recipes/recipe.dart';
 import 'package:pan_pal/screens/recipes/recipe_browser.dart';
 
 class RecipeViewer extends StatefulWidget {
-  const RecipeViewer({Key key, @required this.recipe}) : super(key: key);
+  const RecipeViewer(
+      {Key key, @required this.recipe, @required this.returnScreen})
+      : super(key: key);
 
   final Recipe recipe;
+  final String returnScreen;
 
   static const routeName = '/recipe_viewer';
 
@@ -99,7 +102,7 @@ class _RecipeViewerState extends State<RecipeViewer> {
                     borderRadius: BorderRadius.circular(5),
                   ),
                   color: Color(0xff0F4FA8),
-                  child: const Text('Dashboard'),
+                  child: Text(widget.returnScreen),
                 ),
                 RaisedButton(
                   onPressed: () {

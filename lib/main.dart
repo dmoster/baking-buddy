@@ -133,6 +133,7 @@ class PanPal extends StatelessWidget {
                             builder: (context) {
                               return RecipeViewer(
                                 recipe: args.recipe,
+                                returnScreen: args.returnScreen,
                               );
                             },
                           );

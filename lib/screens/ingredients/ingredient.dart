@@ -13,6 +13,7 @@ class Ingredient {
   Ingredient refIngredient;
 
   Ingredient(this.name, this.volume, this.ounces, this.grams);
+
   Ingredient.fromAmount(
       this.name, this.amount, this.measurementType, this.refIngredient) {
     this.volume =
@@ -49,31 +50,16 @@ class Ingredient {
     return ingredientMap;
   }
 
-  // Ingredient.fromAmount(String name, double amount, String measurementType,
-  //     Ingredient refIngredient) {
-  //   this.name = name;
+  Ingredient.fromJson(Map parsedJson) {
+    this.name = parsedJson['name'];
+    this.volume = parsedJson['volume'];
+    this.ounces = parsedJson['ounces'];
+    this.grams = parsedJson['grams'];
+    this.amount = parsedJson['amount'];
+    this.measurementType = parsedJson['measurementType'];
 
-  //   if (measurementType == 'cups' ||
-  //       measurementType == 'tablespoons' ||
-  //       measurementType == 'teaspoons') {
-  //     this.volume = getVolumeInTsp(amount, measurementType);
-  //     this.ounces = formatNumber(getConvertedAmount(
-  //         this.volume, 'teaspoons', 'ounces', refIngredient));
-  //     this.grams = formatNumber(
-  //         getConvertedAmount(this.volume, 'teaspoons', 'grams', refIngredient));
-  //   } else {
-  //     this.volume =
-  //         getVolumeInTsp(amount, measurementType, ingredient: refIngredient);
-  //   }
-
-  //   if (measurementType == 'ounces') {
-  //     this.ounces = amount;
-  //     this.grams = formatNumber(
-  //         getConvertedAmount(this.ounces, 'ounces', 'grams', refIngredient));
-  //   } else if (measurementType == 'grams') {
-  //     this.grams = amount;
-  //     this.ounces = formatNumber(
-  //         getConvertedAmount(this.grams, 'grams', 'ounces', refIngredient));
-  //   }
-  // }
+    if (parsedJson['refIngredient'] != null) {
+      this.refIngredient = Ingredient.fromJson(parsedJson['refIngredient']);
+    }
+  }
 }

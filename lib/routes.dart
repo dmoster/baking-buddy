@@ -9,6 +9,7 @@ class IngredientPageArguments {
 
 class RecipePageArguments {
   final Recipe recipe;
+  final String returnScreen;
 
-  RecipePageArguments(this.recipe);
+  RecipePageArguments(this.recipe, this.returnScreen);
 }
