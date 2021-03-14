@@ -47,7 +47,7 @@ class PanPal extends StatelessWidget {
             );
           } else {
             var ingredientsList = jsonDecode(outerSnapshot.data.toString());
-            _ingredients = IngredientsList.fromList(ingredientsList);
+            _ingredients = IngredientsList.fromMapList(ingredientsList);
 
             // Use another FutureBuilder to complete initialization of Firebase for user
             // authentication

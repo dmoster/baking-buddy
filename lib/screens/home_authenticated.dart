@@ -5,8 +5,10 @@ import 'package:pan_pal/screens/dashboard/dashboard.dart';
 import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
 
 class HomeAuthenticated extends StatelessWidget {
-  const HomeAuthenticated({Key key, @required this.ingredients})
-      : super(key: key);
+  const HomeAuthenticated({
+    Key key,
+    @required this.ingredients,
+  }) : super(key: key);
 
   final IngredientsList ingredients;
 
@@ -14,11 +16,30 @@ class HomeAuthenticated extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    IngredientsList calculatorIngredients =
+        IngredientsList.fromIngredientList(ingredients.list);
+
     final PageController pageController = PageController(
       initialPage: 1,
       keepPage: true,
     );
     int pageChanged = 0;
+
+    void goBack() {
+      pageController.animateToPage(
+        pageChanged == 0 ? 0 : --pageChanged,
+        duration: Duration(milliseconds: 250),
+        curve: Curves.bounceInOut,
+      );
+    }
+
+    void goForward() {
+      pageController.animateToPage(
+        pageChanged == 1 ? 1 : ++pageChanged,
+        duration: Duration(milliseconds: 250),
+        curve: Curves.bounceInOut,
+      );
+    }
 
     String pageName = 'Baking Buddy';
 
@@ -61,13 +82,7 @@ class HomeAuthenticated extends StatelessWidget {
                     size: 16,
                     color: Colors.white,
                   ),
-                  onPressed: () {
-                    pageController.animateToPage(
-                      pageChanged == 0 ? 0 : --pageChanged,
-                      duration: Duration(milliseconds: 250),
-                      curve: Curves.bounceInOut,
-                    );
-                  },
+                  onPressed: () => goBack(),
                 ),
                 IconButton(
                   icon: Icon(
@@ -75,13 +90,7 @@ class HomeAuthenticated extends StatelessWidget {
                     size: 16,
                     color: Colors.white,
                   ),
-                  onPressed: () {
-                    pageController.animateToPage(
-                      pageChanged == 1 ? 1 : ++pageChanged,
-                      duration: Duration(milliseconds: 250),
-                      curve: Curves.bounceInOut,
-                    );
-                  },
+                  onPressed: () => goForward(),
                 ),
               ],
             ),
@@ -89,11 +98,15 @@ class HomeAuthenticated extends StatelessWidget {
               controller: pageController,
               children: [
                 Calculator(
-                  ingredients: ingredients,
+                  ingredients: calculatorIngredients,
                 ),
                 Dashboard(
                   context: context,
                   ingredients: ingredients,
+                  onSearch: (List filteredIngredients) {
+                    calculatorIngredients.list = filteredIngredients;
+                    goBack();
+                  },
                 ),
               ],
             ),

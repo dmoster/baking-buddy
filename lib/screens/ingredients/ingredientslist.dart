@@ -12,7 +12,7 @@ class IngredientsList {
     initializeIngredientsList(context, jsonFilename);
   }
 
-  IngredientsList.fromList(var list) {
+  IngredientsList.fromMapList(var list) {
     this.list = [];
 
     for (var item in list) {
@@ -20,6 +20,8 @@ class IngredientsList {
           item['name'], item['volume'], item['ounces'], item['grams']));
     }
   }
+
+  IngredientsList.fromIngredientList(this.list);
 
   void initializeIngredientsList(
       BuildContext context, String jsonFilename) async {

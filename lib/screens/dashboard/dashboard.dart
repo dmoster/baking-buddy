@@ -9,9 +9,14 @@ import 'package:pan_pal/screens/recipes/recipe_browser.dart';
 import 'package:pan_pal/screens/recipes/recipe_composer.dart';
 
 class Dashboard extends StatefulWidget {
-  const Dashboard({Key key, this.context, @required this.ingredients})
-      : super(key: key);
+  const Dashboard({
+    Key key,
+    this.context,
+    @required this.onSearch,
+    @required this.ingredients,
+  }) : super(key: key);
 
+  final Function(List) onSearch;
   final IngredientsList ingredients;
   final BuildContext context;
 
@@ -41,7 +46,22 @@ class _DashboardState extends State<Dashboard> {
             flex: 4,
             child: Column(
               children: [
-                AlphabetSearch(context: context),
+                AlphabetSearch(
+                  context: context,
+                  onSearch: (String searchLetter) {
+                    if (_selections[0] == true) {
+                      List ingredientsList = [];
+
+                      for (var ingredient in widget.ingredients.list) {
+                        if (ingredient.name.startsWith(searchLetter)) {
+                          ingredientsList.add(ingredient);
+                        }
+                      }
+
+                      widget.onSearch(ingredientsList);
+                    }
+                  },
+                ),
                 SizedBox(height: 16),
                 ToggleButtons(
                   children: [

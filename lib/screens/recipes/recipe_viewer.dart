@@ -42,11 +42,21 @@ class _RecipeViewerState extends State<RecipeViewer> {
               child: ListView(
                 padding: EdgeInsets.all(16.0),
                 children: [
+                  // Name
                   Text(
                     widget.recipe.name,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 36,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  // Category
+                  Text(
+                    widget.recipe.category,
+                    style: TextStyle(
+                      color: Colors.white54,
+                      fontSize: 16,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
