@@ -12,11 +12,13 @@ class Dashboard extends StatefulWidget {
   const Dashboard({
     Key key,
     this.context,
-    @required this.onSearch,
+    @required this.onSearchIngredients,
+    @required this.onSearchRecipes,
     @required this.ingredients,
   }) : super(key: key);
 
-  final Function(List) onSearch;
+  final Function(List) onSearchIngredients;
+  final Function(String) onSearchRecipes;
   final IngredientsList ingredients;
   final BuildContext context;
 
@@ -58,7 +60,9 @@ class _DashboardState extends State<Dashboard> {
                         }
                       }
 
-                      widget.onSearch(ingredientsList);
+                      widget.onSearchIngredients(ingredientsList);
+                    } else {
+                      widget.onSearchRecipes(searchLetter);
                     }
                   },
                 ),
@@ -152,6 +156,7 @@ class _DashboardState extends State<Dashboard> {
                     Navigator.pushNamed(
                       context,
                       RecipeBrowser.routeName,
+                      arguments: RecipeBrowserArguments(''),
                     );
                   },
                   shape: RoundedRectangleBorder(

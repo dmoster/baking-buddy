@@ -13,3 +13,9 @@ class RecipePageArguments {
 
   RecipePageArguments(this.recipe, this.returnScreen);
 }
+
+class RecipeBrowserArguments {
+  final String searchLetter;
+
+  RecipeBrowserArguments(this.searchLetter);
+}

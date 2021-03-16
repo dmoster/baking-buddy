@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pan_pal/routes.dart';
 import 'package:pan_pal/screens/recipes/recipe.dart';
 import 'package:pan_pal/screens/recipes/recipe_browser.dart';
 
@@ -119,6 +120,7 @@ class _RecipeViewerState extends State<RecipeViewer> {
                     Navigator.pushReplacementNamed(
                       context,
                       RecipeBrowser.routeName,
+                      arguments: RecipeBrowserArguments(''),
                     );
                   },
                   shape: RoundedRectangleBorder(

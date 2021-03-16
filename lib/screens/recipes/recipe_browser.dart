@@ -6,6 +6,13 @@ import 'package:pan_pal/screens/recipes/recipe.dart';
 import 'package:pan_pal/screens/recipes/recipe_viewer.dart';
 
 class RecipeBrowser extends StatefulWidget {
+  const RecipeBrowser({
+    Key key,
+    this.searchLetter,
+  }) : super(key: key);
+
+  final String searchLetter;
+
   static const routeName = '/recipe_browser';
 
   @override
@@ -17,12 +24,15 @@ class _RecipeBrowserState extends State<RecipeBrowser> {
   Widget build(BuildContext context) {
     final litUser = context.getSignedInUser();
 
+    String searchLetter = widget.searchLetter;
+    bool hasSearchLetter = searchLetter != '' ? true : false;
+
     return Scaffold(
       backgroundColor: Color(0xff072F66),
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Color(0xff072F66),
-        toolbarHeight: 32,
+        toolbarHeight: hasSearchLetter ? 64 : 32,
         title: Text(
           'Recipe Browser',
           style: TextStyle(
@@ -31,6 +41,51 @@ class _RecipeBrowserState extends State<RecipeBrowser> {
           ),
         ),
         leading: Container(),
+        bottom: PreferredSize(
+          preferredSize: Size(200, 32),
+          child: Visibility(
+            visible: hasSearchLetter,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flex(
+                    direction: Axis.horizontal,
+                    children: [
+                      Icon(Icons.filter_alt_outlined),
+                      Text(
+                        'Filters',
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
+                    ],
+                  ),
+                  Flex(
+                    direction: Axis.horizontal,
+                    children: [
+                      Chip(
+                        label: Text(
+                          'Starts with "' + searchLetter + '"',
+                          style: TextStyle(
+                            color: Color(0xff323232),
+                          ),
+                        ),
+                        backgroundColor: Color(0xFFFFCA00),
+                        // deleteIconColor: Color(0xFFFF9F00),
+                        // onDeleted: () {
+                        //   setState(() {
+                        //     searchLetter = '';
+                        //     hasSearchLetter = false;
+                        //   });
+                        // },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -57,6 +112,9 @@ class _RecipeBrowserState extends State<RecipeBrowser> {
                       if (snapshot.connectionState == ConnectionState.done) {
                         return ListView(
                           children: snapshot.data.docs
+                              .where((DocumentSnapshot document) => document
+                                  .data()['name']
+                                  .startsWith(searchLetter))
                               .map((DocumentSnapshot document) {
                             return Container(
                               padding: EdgeInsets.only(bottom: 8),
@@ -73,8 +131,6 @@ class _RecipeBrowserState extends State<RecipeBrowser> {
                                 contentPadding: EdgeInsets.all(8.0),
                                 horizontalTitleGap: 8.0,
                                 tileColor: Colors.white10,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5)),
                                 leading: Container(
                                   width: 64,
                                   child: document.data()['imageUrl'] != ''

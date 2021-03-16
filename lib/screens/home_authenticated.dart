@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
+import 'package:pan_pal/routes.dart';
 import 'package:pan_pal/screens/calc/calculator.dart';
 import 'package:pan_pal/screens/dashboard/dashboard.dart';
 import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
+import 'package:pan_pal/screens/recipes/recipe_browser.dart';
 
 class HomeAuthenticated extends StatelessWidget {
   const HomeAuthenticated({
@@ -103,9 +105,13 @@ class HomeAuthenticated extends StatelessWidget {
                 Dashboard(
                   context: context,
                   ingredients: ingredients,
-                  onSearch: (List filteredIngredients) {
+                  onSearchIngredients: (List filteredIngredients) {
                     calculatorIngredients.list = filteredIngredients;
                     goBack();
+                  },
+                  onSearchRecipes: (String searchLetter) {
+                    Navigator.pushNamed(context, RecipeBrowser.routeName,
+                        arguments: RecipeBrowserArguments(searchLetter));
                   },
                 ),
               ],
