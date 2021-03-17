@@ -29,7 +29,7 @@ class _AuthScreenState extends State<AuthScreen> {
           Navigator.pushReplacementNamed(
             context,
             HomeAuthenticated.routeName,
-            arguments: IngredientPageArguments(widget.ingredients),
+            arguments: HomeAuthenticatedArguments(widget.ingredients, []),
           );
         },
         child: Center(

@@ -8,9 +8,11 @@ import 'package:pan_pal/screens/recipes/recipe_viewer.dart';
 class RecipeBrowser extends StatefulWidget {
   const RecipeBrowser({
     Key key,
+    @required this.recentlyViewed,
     this.searchLetter,
   }) : super(key: key);
 
+  final List<dynamic> recentlyViewed;
   final String searchLetter;
 
   static const routeName = '/recipe_browser';
@@ -163,8 +165,12 @@ class _RecipeBrowserState extends State<RecipeBrowser> {
                                   Navigator.pushNamed(
                                     context,
                                     RecipeViewer.routeName,
-                                    arguments: RecipePageArguments(
-                                        recipe, 'Recipe Browser'),
+                                    arguments: RecipeViewerArguments(
+                                      recipe,
+                                      'Recipe Browser',
+                                      widget.recentlyViewed,
+                                      true,
+                                    ),
                                   );
                                 },
                               ),
@@ -189,7 +195,7 @@ class _RecipeBrowserState extends State<RecipeBrowser> {
               children: [
                 RaisedButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Navigator.pop(context);
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),

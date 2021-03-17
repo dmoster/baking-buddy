@@ -3,15 +3,18 @@ import 'package:lit_firebase_auth/lit_firebase_auth.dart';
 import 'package:pan_pal/routes.dart';
 import 'package:pan_pal/screens/calc/calculator.dart';
 import 'package:pan_pal/screens/dashboard/dashboard.dart';
+import 'package:pan_pal/screens/ingredients/ingredient.dart';
 import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
 import 'package:pan_pal/screens/recipes/recipe_browser.dart';
 
 class HomeAuthenticated extends StatelessWidget {
   const HomeAuthenticated({
     Key key,
+    @required this.recentlyViewed,
     @required this.ingredients,
   }) : super(key: key);
 
+  final List<dynamic> recentlyViewed;
   final IngredientsList ingredients;
 
   static const routeName = '/home_authenticated';
@@ -101,6 +104,9 @@ class HomeAuthenticated extends StatelessWidget {
               children: [
                 Calculator(
                   ingredients: calculatorIngredients,
+                  onViewed: (Ingredient ingredient) {
+                    recentlyViewed.add(ingredient);
+                  },
                 ),
                 Dashboard(
                   context: context,
@@ -110,9 +116,16 @@ class HomeAuthenticated extends StatelessWidget {
                     goBack();
                   },
                   onSearchRecipes: (String searchLetter) {
-                    Navigator.pushNamed(context, RecipeBrowser.routeName,
-                        arguments: RecipeBrowserArguments(searchLetter));
+                    Navigator.pushNamed(
+                      context,
+                      RecipeBrowser.routeName,
+                      arguments: RecipeBrowserArguments(
+                        recentlyViewed,
+                        searchLetter,
+                      ),
+                    );
                   },
+                  recentlyViewed: recentlyViewed,
                 ),
               ],
             ),

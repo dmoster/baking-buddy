@@ -46,7 +46,7 @@ class SplashScreen extends StatelessWidget {
       (_) => Navigator.pushReplacementNamed(
         context,
         HomeAuthenticated.routeName,
-        arguments: IngredientPageArguments(ingredients),
+        arguments: HomeAuthenticatedArguments(ingredients, []),
       ),
     );
   }

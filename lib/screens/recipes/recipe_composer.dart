@@ -10,9 +10,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
 
 class RecipeComposer extends StatefulWidget {
-  const RecipeComposer({Key key, @required this.ingredients}) : super(key: key);
+  const RecipeComposer({
+    Key key,
+    @required this.ingredients,
+    @required this.recentlyViewed,
+  }) : super(key: key);
 
   final IngredientsList ingredients;
+  final List<dynamic> recentlyViewed;
 
   static const routeName = '/recipe_composer';
 
@@ -416,7 +421,8 @@ class _RecipeComposerState extends State<RecipeComposer> {
         Navigator.pushReplacementNamed(
           context,
           RecipeViewer.routeName,
-          arguments: RecipePageArguments(recipe, 'Dashboard'),
+          arguments: RecipeViewerArguments(
+              recipe, 'Dashboard', widget.recentlyViewed, true),
         );
       },
       empty: () {},

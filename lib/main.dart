@@ -108,32 +108,36 @@ class PanPal extends StatelessWidget {
                           );
                         } else if (settings.name ==
                             HomeAuthenticated.routeName) {
-                          final IngredientPageArguments args =
+                          final HomeAuthenticatedArguments args =
                               settings.arguments;
                           return MaterialPageRoute(
                             builder: (context) {
                               return HomeAuthenticated(
+                                recentlyViewed: args.recentlyViewed,
                                 ingredients: args.ingredients,
                               );
                             },
                           );
                         } else if (settings.name == RecipeComposer.routeName) {
-                          final IngredientPageArguments args =
+                          final RecipeComposerArguments args =
                               settings.arguments;
                           return MaterialPageRoute(
                             builder: (context) {
                               return RecipeComposer(
                                 ingredients: args.ingredients,
+                                recentlyViewed: args.recentlyViewed,
                               );
                             },
                           );
                         } else if (settings.name == RecipeViewer.routeName) {
-                          final RecipePageArguments args = settings.arguments;
+                          final RecipeViewerArguments args = settings.arguments;
                           return MaterialPageRoute(
                             builder: (context) {
                               return RecipeViewer(
                                 recipe: args.recipe,
                                 returnScreen: args.returnScreen,
+                                recentlyViewed: args.recentlyViewed,
+                                addToRecents: args.addToRecents,
                               );
                             },
                           );
@@ -143,6 +147,7 @@ class PanPal extends StatelessWidget {
                           return MaterialPageRoute(
                             builder: (context) {
                               return RecipeBrowser(
+                                recentlyViewed: args.recentlyViewed,
                                 searchLetter: args.searchLetter,
                               );
                             },

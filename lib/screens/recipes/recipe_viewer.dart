@@ -4,12 +4,18 @@ import 'package:pan_pal/screens/recipes/recipe.dart';
 import 'package:pan_pal/screens/recipes/recipe_browser.dart';
 
 class RecipeViewer extends StatefulWidget {
-  const RecipeViewer(
-      {Key key, @required this.recipe, @required this.returnScreen})
-      : super(key: key);
+  const RecipeViewer({
+    Key key,
+    @required this.recipe,
+    @required this.returnScreen,
+    @required this.recentlyViewed,
+    @required this.addToRecents,
+  }) : super(key: key);
 
   final Recipe recipe;
   final String returnScreen;
+  final List<dynamic> recentlyViewed;
+  final bool addToRecents;
 
   static const routeName = '/recipe_viewer';
 
@@ -18,6 +24,14 @@ class RecipeViewer extends StatefulWidget {
 }
 
 class _RecipeViewerState extends State<RecipeViewer> {
+  @override
+  void initState() {
+    super.initState();
+    if (widget.addToRecents) {
+      widget.recentlyViewed.add(widget.recipe);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,7 +121,7 @@ class _RecipeViewerState extends State<RecipeViewer> {
               children: [
                 RaisedButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Navigator.pop(context, widget.recentlyViewed);
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
@@ -120,7 +134,10 @@ class _RecipeViewerState extends State<RecipeViewer> {
                     Navigator.pushReplacementNamed(
                       context,
                       RecipeBrowser.routeName,
-                      arguments: RecipeBrowserArguments(''),
+                      arguments: RecipeBrowserArguments(
+                        widget.recentlyViewed,
+                        '',
+                      ),
                     );
                   },
                   shape: RoundedRectangleBorder(

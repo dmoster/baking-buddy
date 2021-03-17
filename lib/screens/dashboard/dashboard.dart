@@ -14,11 +14,13 @@ class Dashboard extends StatefulWidget {
     this.context,
     @required this.onSearchIngredients,
     @required this.onSearchRecipes,
+    @required this.recentlyViewed,
     @required this.ingredients,
   }) : super(key: key);
 
   final Function(List) onSearchIngredients;
   final Function(String) onSearchRecipes;
+  final List<dynamic> recentlyViewed;
   final IngredientsList ingredients;
   final BuildContext context;
 
@@ -40,6 +42,7 @@ class _DashboardState extends State<Dashboard> {
             flex: 4,
             child: RecentlyViewed(
               context: context,
+              recentlyViewed: widget.recentlyViewed,
               ingredients: widget.ingredients,
             ),
           ),
@@ -133,12 +136,16 @@ class _DashboardState extends State<Dashboard> {
                   child: const Text('Sign Out'),
                 ),
                 RaisedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(
+                  onPressed: () async {
+                    await Navigator.pushNamed(
                       context,
                       RecipeComposer.routeName,
-                      arguments: IngredientPageArguments(widget.ingredients),
+                      arguments: RecipeComposerArguments(
+                        widget.ingredients,
+                        widget.recentlyViewed,
+                      ),
                     );
+                    setState(() {});
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
@@ -152,12 +159,16 @@ class _DashboardState extends State<Dashboard> {
                   ),
                 ),
                 RaisedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(
+                  onPressed: () async {
+                    await Navigator.pushNamed(
                       context,
                       RecipeBrowser.routeName,
-                      arguments: RecipeBrowserArguments(''),
+                      arguments: RecipeBrowserArguments(
+                        widget.recentlyViewed,
+                        '',
+                      ),
                     );
+                    setState(() {});
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),

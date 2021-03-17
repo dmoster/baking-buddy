@@ -14,8 +14,33 @@ class RecipePageArguments {
   RecipePageArguments(this.recipe, this.returnScreen);
 }
 
+class RecipeComposerArguments {
+  final IngredientsList ingredients;
+  final List<dynamic> recentlyViewed;
+
+  RecipeComposerArguments(this.ingredients, this.recentlyViewed);
+}
+
+class RecipeViewerArguments {
+  final Recipe recipe;
+  final String returnScreen;
+  final List<dynamic> recentlyViewed;
+  final bool addToRecents;
+
+  RecipeViewerArguments(
+      this.recipe, this.returnScreen, this.recentlyViewed, this.addToRecents);
+}
+
+class HomeAuthenticatedArguments {
+  final IngredientsList ingredients;
+  final List<dynamic> recentlyViewed;
+
+  HomeAuthenticatedArguments(this.ingredients, this.recentlyViewed);
+}
+
 class RecipeBrowserArguments {
+  final List<dynamic> recentlyViewed;
   final String searchLetter;
 
-  RecipeBrowserArguments(this.searchLetter);
+  RecipeBrowserArguments(this.recentlyViewed, this.searchLetter);
 }
