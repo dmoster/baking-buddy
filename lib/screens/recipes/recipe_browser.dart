@@ -42,7 +42,11 @@ class _RecipeBrowserState extends State<RecipeBrowser> {
             fontSize: 16,
           ),
         ),
-        leading: Container(),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_outlined),
+          color: Colors.white54,
+          onPressed: () => Navigator.of(context).pop(),
+        ),
         bottom: PreferredSize(
           preferredSize: Size(200, 32),
           child: Visibility(
@@ -192,18 +196,7 @@ class _RecipeBrowserState extends State<RecipeBrowser> {
               initializing: () {},
             ),
             Row(
-              children: [
-                RaisedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  color: Color(0xff0F4FA8),
-                  child: const Text('Dashboard'),
-                ),
-              ],
+              children: [],
             ),
           ],
         ),

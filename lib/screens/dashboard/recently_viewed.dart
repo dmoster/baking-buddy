@@ -52,7 +52,7 @@ class _RecentlyViewedState extends State<RecentlyViewed> {
         Expanded(
           child: ListView(
             children: [
-              ..._getRecents(),
+              ..._getRecents().reversed,
               // hasHistory
               //     ? _getRecents()
               //     : Container(
@@ -130,14 +130,11 @@ class _RecentlyViewedState extends State<RecentlyViewed> {
     List<Widget> recents = [];
 
     if (widget.recentlyViewed.length > 0) {
-      while (widget.recentlyViewed.length > 5) {
-        widget.recentlyViewed.removeLast();
-      }
+      // ADD HERE item to clean up recentlyViewed
 
       for (var item in widget.recentlyViewed) {
         if (item is Ingredient) {
-          recents.insert(
-            0,
+          recents.add(
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: IngredientRowDisplay(
@@ -148,27 +145,23 @@ class _RecentlyViewedState extends State<RecentlyViewed> {
             ),
           );
         } else {
-          recents.insert(
-            0,
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: RecentItemButton(
-                label: Text(
-                  item.name,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                  ),
+          recents.add(
+            RecentItemButton(
+              label: Text(
+                item.name,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
                 ),
-                onPressed: () => Navigator.pushNamed(
-                  context,
-                  RecipeViewer.routeName,
-                  arguments: RecipeViewerArguments(
-                    item,
-                    'Dashboard',
-                    widget.recentlyViewed,
-                    false,
-                  ),
+              ),
+              onPressed: () => Navigator.pushNamed(
+                context,
+                RecipeViewer.routeName,
+                arguments: RecipeViewerArguments(
+                  item,
+                  'Dashboard',
+                  widget.recentlyViewed,
+                  false,
                 ),
               ),
             ),

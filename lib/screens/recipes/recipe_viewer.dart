@@ -39,7 +39,7 @@ class _RecipeViewerState extends State<RecipeViewer> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Color(0xff072F66),
-        toolbarHeight: 32,
+        toolbarHeight: 48,
         title: Text(
           'Recipe Viewer',
           style: TextStyle(
@@ -47,7 +47,11 @@ class _RecipeViewerState extends State<RecipeViewer> {
             fontSize: 16,
           ),
         ),
-        leading: Container(),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_outlined),
+          color: Colors.white54,
+          onPressed: () => Navigator.pop(context, widget.recentlyViewed),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -118,40 +122,7 @@ class _RecipeViewerState extends State<RecipeViewer> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                RaisedButton(
-                  onPressed: () {
-                    Navigator.pop(context, widget.recentlyViewed);
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  color: Color(0xff0F4FA8),
-                  child: Text(widget.returnScreen),
-                ),
-                RaisedButton(
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(
-                      context,
-                      RecipeBrowser.routeName,
-                      arguments: RecipeBrowserArguments(
-                        widget.recentlyViewed,
-                        '',
-                      ),
-                    );
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  color: Color(0xFFFFCA00),
-                  child: const Text(
-                    'Recipe Browser',
-                    style: TextStyle(
-                      color: Color(0xff323232),
-                    ),
-                  ),
-                ),
-              ],
+              children: [],
             ),
           ],
         ),

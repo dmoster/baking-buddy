@@ -37,7 +37,6 @@ class _DashboardState extends State<Dashboard> {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
-          SizedBox(height: 16),
           Expanded(
             flex: 4,
             child: RecentlyViewed(
@@ -120,7 +119,12 @@ class _DashboardState extends State<Dashboard> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                RaisedButton(
+                IconButton(
+                  icon: Icon(
+                    Icons.logout,
+                    color: Colors.white,
+                  ),
+                  tooltip: 'Sign Out',
                   onPressed: () {
                     context.signOut();
                     Navigator.pushReplacementNamed(
@@ -129,13 +133,37 @@ class _DashboardState extends State<Dashboard> {
                       arguments: IngredientPageArguments(widget.ingredients),
                     );
                   },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  color: Color(0xff0F4FA8),
-                  child: const Text('Sign Out'),
                 ),
-                RaisedButton(
+                // RaisedButton(
+                //   onPressed: () async {
+                //     await Navigator.pushNamed(
+                //       context,
+                //       RecipeComposer.routeName,
+                //       arguments: RecipeComposerArguments(
+                //         widget.ingredients,
+                //         widget.recentlyViewed,
+                //       ),
+                //     );
+                //     setState(() {});
+                //   },
+                //   shape: RoundedRectangleBorder(
+                //     borderRadius: BorderRadius.circular(5),
+                //   ),
+                //   color: Color(0xFFFFCA00),
+                //   child: const Text(
+                //     'Add Recipe',
+                //     style: TextStyle(
+                //       color: Color(0xff323232),
+                //     ),
+                //   ),
+                // ),
+                IconButton(
+                  icon: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                    size: 32,
+                  ),
+                  tooltip: 'Add Recipe',
                   onPressed: () async {
                     await Navigator.pushNamed(
                       context,
@@ -147,18 +175,13 @@ class _DashboardState extends State<Dashboard> {
                     );
                     setState(() {});
                   },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  color: Color(0xFFFFCA00),
-                  child: const Text(
-                    'Add Recipe',
-                    style: TextStyle(
-                      color: Color(0xff323232),
-                    ),
-                  ),
                 ),
-                RaisedButton(
+                IconButton(
+                  icon: Icon(
+                    Icons.list_alt_outlined,
+                    color: Colors.white,
+                  ),
+                  tooltip: 'Recipe Browser',
                   onPressed: () async {
                     await Navigator.pushNamed(
                       context,
@@ -170,16 +193,6 @@ class _DashboardState extends State<Dashboard> {
                     );
                     setState(() {});
                   },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  color: Color(0xFFFFCA00),
-                  child: const Text(
-                    'Recipe Browser',
-                    style: TextStyle(
-                      color: Color(0xff323232),
-                    ),
-                  ),
                 ),
               ],
             ),
