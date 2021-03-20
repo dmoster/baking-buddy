@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
 import 'package:pan_pal/routes.dart';
@@ -6,6 +8,8 @@ import 'package:pan_pal/screens/dashboard/dashboard.dart';
 import 'package:pan_pal/screens/ingredients/ingredient.dart';
 import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
 import 'package:pan_pal/screens/recipes/recipe_browser.dart';
+import 'package:pan_pal/utilities/local_data.dart';
+import 'package:pan_pal/screens/dashboard/recently_viewed.dart';
 
 class HomeAuthenticated extends StatefulWidget {
   const HomeAuthenticated({
@@ -111,6 +115,14 @@ class _HomeAuthenticatedState extends State<HomeAuthenticated> {
                   ingredients: calculatorIngredients,
                   onViewed: (Ingredient ingredient) {
                     widget.recentlyViewed.add(ingredient);
+                    cleanRecents(widget.recentlyViewed);
+
+                    List<dynamic> recentsJson = [];
+                    recentsJson = widget.recentlyViewed.map((var item) {
+                      return item.toJson();
+                    }).toList();
+
+                    writeRecents(jsonEncode(recentsJson));
                   },
                 ),
                 Dashboard(

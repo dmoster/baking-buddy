@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
 import 'package:pan_pal/screens/auth/provider_button.dart';
+import 'package:pan_pal/utilities/local_data.dart';
 
 import 'sign_in_up_bar.dart';
 import 'title.dart';
@@ -51,6 +52,7 @@ class Register extends StatelessWidget {
                     label: 'Sign Up',
                     onPressed: () {
                       context.registerWithEmailAndPassword();
+                      writeRecents('[]');
                     },
                   ),
                 ],

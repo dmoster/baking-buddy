@@ -134,7 +134,13 @@ class _DashboardState extends State<Dashboard> {
                     );
                   },
                 ),
-                // RaisedButton(
+                // IconButton(
+                //   icon: Icon(
+                //     Icons.add,
+                //     color: Colors.white,
+                //     size: 32,
+                //   ),
+                //   tooltip: 'Add Recipe',
                 //   onPressed: () async {
                 //     await Navigator.pushNamed(
                 //       context,
@@ -146,24 +152,18 @@ class _DashboardState extends State<Dashboard> {
                 //     );
                 //     setState(() {});
                 //   },
-                //   shape: RoundedRectangleBorder(
-                //     borderRadius: BorderRadius.circular(5),
-                //   ),
-                //   color: Color(0xFFFFCA00),
-                //   child: const Text(
-                //     'Add Recipe',
-                //     style: TextStyle(
-                //       color: Color(0xff323232),
-                //     ),
-                //   ),
                 // ),
-                IconButton(
-                  icon: Icon(
+                RawMaterialButton(
+                  elevation: 1.0,
+                  fillColor: Color(0xff0f4fa8),
+                  splashColor: Colors.orange,
+                  padding: const EdgeInsets.all(16.0),
+                  shape: const CircleBorder(),
+                  child: Icon(
                     Icons.add,
                     color: Colors.white,
                     size: 32,
                   ),
-                  tooltip: 'Add Recipe',
                   onPressed: () async {
                     await Navigator.pushNamed(
                       context,

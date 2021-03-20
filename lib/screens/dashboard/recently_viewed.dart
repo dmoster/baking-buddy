@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:pan_pal/routes.dart';
 import 'package:pan_pal/screens/dashboard/recent_item_button.dart';
 import 'package:pan_pal/screens/ingredients/ingredient.dart';
 import 'package:pan_pal/screens/ingredients/ingredient_row_display.dart';
 import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
+import 'package:pan_pal/screens/recipes/recipe.dart';
 import 'package:pan_pal/screens/recipes/recipe_viewer.dart';
+import 'package:pan_pal/utilities/local_data.dart';
 
 class RecentlyViewed extends StatefulWidget {
   const RecentlyViewed(
@@ -31,7 +35,12 @@ class _RecentlyViewedState extends State<RecentlyViewed> {
     if (widget.recentlyViewed.length > 0) {
       hasHistory = true;
     }
-    ;
+
+    readRecents().then((String data) {
+      setState(() {
+        recentsFromJson(data);
+      });
+    });
   }
 
   @override
@@ -53,72 +62,6 @@ class _RecentlyViewedState extends State<RecentlyViewed> {
           child: ListView(
             children: [
               ..._getRecents().reversed,
-              // hasHistory
-              //     ? _getRecents()
-              //     : Container(
-              //         padding: EdgeInsets.only(top: 64),
-              //         child: Center(
-              //           child: Text(
-              //             'No recent items available.',
-              //             style: TextStyle(color: Colors.white),
-              //           ),
-              //         ),
-              //       ),
-              // RecentItemButton(
-              //     label: Text(
-              //   'Chocolate Chip Cookies',
-              //   style: TextStyle(
-              //     color: Colors.white,
-              //     fontSize: 24,
-              //   ),
-              // )),
-              // RecentItemButton(
-              //   label: Container(
-              //     child: Row(
-              //       mainAxisAlignment: MainAxisAlignment.center,
-              //       children: [
-              //         IngredientRowDisplay(
-              //           labelSize: 24,
-              //           amount: 2.25,
-              //           measurementType: 'cups',
-              //           refIngredient: widget.ingredients
-              //               .getIngredient("All-Purpose Flour"),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
-              // RecentItemButton(
-              //     label: Text(
-              //   'Allweek Bread',
-              //   style: TextStyle(
-              //     color: Colors.white,
-              //     fontSize: 24,
-              //   ),
-              // )),
-              // RecentItemButton(
-              //   label: Row(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     children: [
-              //       IngredientRowDisplay(
-              //         labelSize: 24,
-              //         amount: 55,
-              //         measurementType: 'teaspoons',
-              //         refIngredient:
-              //             widget.ingredients.getIngredient("Marzipan"),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              // RecentItemButton(
-              //   label: Text(
-              //     'White Chocolate Crème Brûlée',
-              //     style: TextStyle(
-              //       color: Colors.white,
-              //       fontSize: 24,
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ),
@@ -130,8 +73,6 @@ class _RecentlyViewedState extends State<RecentlyViewed> {
     List<Widget> recents = [];
 
     if (widget.recentlyViewed.length > 0) {
-      // ADD HERE item to clean up recentlyViewed
-
       for (var item in widget.recentlyViewed) {
         if (item is Ingredient) {
           recents.add(
@@ -183,5 +124,25 @@ class _RecentlyViewedState extends State<RecentlyViewed> {
     }
 
     return recents;
+  }
+
+  void recentsFromJson(String data) {
+    List<dynamic> recentsStrList = jsonDecode(data);
+
+    for (var item in recentsStrList) {
+      if (item['author'] != null) {
+        widget.recentlyViewed.add(Recipe.fromJson(item));
+      } else {
+        widget.recentlyViewed.add(Ingredient.fromJson(item));
+      }
+    }
+
+    cleanRecents(widget.recentlyViewed);
+  }
+}
+
+void cleanRecents(List<dynamic> recentlyViewed) {
+  while (recentlyViewed.length > 10) {
+    recentlyViewed.removeAt(0);
   }
 }

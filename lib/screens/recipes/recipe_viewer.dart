@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:pan_pal/routes.dart';
+import 'package:pan_pal/screens/dashboard/recently_viewed.dart';
 import 'package:pan_pal/screens/recipes/recipe.dart';
 import 'package:pan_pal/screens/recipes/recipe_browser.dart';
+import 'package:pan_pal/utilities/local_data.dart';
 
 class RecipeViewer extends StatefulWidget {
   const RecipeViewer({
@@ -29,6 +33,14 @@ class _RecipeViewerState extends State<RecipeViewer> {
     super.initState();
     if (widget.addToRecents) {
       widget.recentlyViewed.add(widget.recipe);
+      cleanRecents(widget.recentlyViewed);
+
+      List<dynamic> recentsJson = [];
+      recentsJson = widget.recentlyViewed.map((var item) {
+        return item.toJson();
+      }).toList();
+
+      writeRecents(jsonEncode(recentsJson));
     }
   }
 

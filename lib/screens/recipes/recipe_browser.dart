@@ -34,7 +34,7 @@ class _RecipeBrowserState extends State<RecipeBrowser> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Color(0xff072F66),
-        toolbarHeight: hasSearchLetter ? 64 : 32,
+        toolbarHeight: hasSearchLetter ? 96 : 48,
         title: Text(
           'Recipe Browser',
           style: TextStyle(
