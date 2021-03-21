@@ -55,37 +55,42 @@ Future<String> readRecipes() async {
 
 void updateLocalRecipeCache(List<dynamic> recipeData) {
   //writeRecipes('');
-  List<Recipe> newRecipes = recipeData.map((var item) {
-    print(item.documentID);
-    return Recipe.fromJson(item.data());
-  }).toList();
+  Map<String, dynamic> newRecipes = {};
+  for (var item in recipeData) {
+    String recipeId = item.documentID;
+
+    newRecipes[recipeId] = Recipe.fromJson(item.data());
+  }
 
   print('Reading recipes...');
   readRecipes().then((String data) {
-    List<dynamic> recipesToCache = [];
+    Map<String, dynamic> recipesToCache = {};
 
     print('Checking for previously stored recipes...');
     if (data.length > 0 && data != 'Could not read file :(') {
       print('Recipes found!');
-      recipesToCache = jsonDecode(data).map((var item) {
-        return Recipe.fromJson(item);
-      }).toList();
-      print(recipesToCache[0].name);
+      Map<String, dynamic> decodedData = jsonDecode(data);
+
+      for (var item in decodedData.entries) {
+        recipesToCache[item.key] = Recipe.fromJson(item.value);
+      }
     }
 
-    for (var item in newRecipes) {
-      print('Checking cache for ' + item.name + '...');
-      if (!recipesToCache.contains(item)) {
+    for (var entry in newRecipes.entries) {
+      print('Checking cache for ' + entry.value.name + '...');
+      if (!recipesToCache.keys.contains(entry.key)) {
         print('New recipe was not found!');
         print('Adding recipe...');
-        recipesToCache.add(item);
+        recipesToCache[entry.key] = entry.value;
 
-        List<dynamic> recipesToCacheJson = recipesToCache.map((var item) {
-          return item.toJson();
-        }).toList();
+        Map<String, dynamic> recipesToCacheJson = {};
+        for (var item in recipesToCache.entries) {
+          recipesToCacheJson[item.key] = item.value;
+        }
 
         print('Updating local recipe cache...');
         writeRecipes(jsonEncode(recipesToCacheJson));
+        print('Done!');
       } else {
         print('Recipe is already cached!');
       }
