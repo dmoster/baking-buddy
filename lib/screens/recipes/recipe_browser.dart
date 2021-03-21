@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
 import 'package:pan_pal/routes.dart';
 import 'package:pan_pal/screens/recipes/recipe.dart';
 import 'package:pan_pal/screens/recipes/recipe_viewer.dart';
+import 'package:pan_pal/utilities/local_data.dart';
 
 class RecipeBrowser extends StatefulWidget {
   const RecipeBrowser({
@@ -116,6 +119,7 @@ class _RecipeBrowserState extends State<RecipeBrowser> {
                         );
                       }
                       if (snapshot.connectionState == ConnectionState.done) {
+                        updateLocalRecipeCache(snapshot.data.docs);
                         return ListView(
                           children: snapshot.data.docs
                               .where((DocumentSnapshot document) => document
