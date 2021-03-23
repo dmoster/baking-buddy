@@ -80,7 +80,11 @@ class _RecipeComposerState extends State<RecipeComposer> {
               fontSize: 16,
             ),
           ),
-          leading: Container(),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_outlined),
+            color: Colors.white54,
+            onPressed: () => Navigator.of(context).pop(),
+          ),
         ),
         body: ListView(
           padding: EdgeInsets.fromLTRB(32, 16, 32, 48),

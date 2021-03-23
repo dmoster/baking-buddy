@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class SignUpBar extends StatelessWidget {
-  const SignUpBar(
-      {Key key,
-      @required this.label,
-      @required this.onPressed,
-      @required this.isLoading})
-      : super(key: key);
+  const SignUpBar({
+    Key key,
+    @required this.label,
+    @required this.onPressed,
+    @required this.isLoading,
+  }) : super(key: key);
 
   final String label;
   final VoidCallback onPressed;

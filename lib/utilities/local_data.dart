@@ -62,13 +62,10 @@ void updateLocalRecipeCache(List<dynamic> recipeData) {
     newRecipes[recipeId] = Recipe.fromJson(item.data());
   }
 
-  print('Reading recipes...');
   readRecipes().then((String data) {
     Map<String, dynamic> recipesToCache = {};
 
-    print('Checking for previously stored recipes...');
     if (data.length > 0 && data != 'Could not read file :(') {
-      print('Recipes found!');
       Map<String, dynamic> decodedData = jsonDecode(data);
 
       for (var item in decodedData.entries) {
@@ -77,10 +74,7 @@ void updateLocalRecipeCache(List<dynamic> recipeData) {
     }
 
     for (var entry in newRecipes.entries) {
-      print('Checking cache for ' + entry.value.name + '...');
       if (!recipesToCache.keys.contains(entry.key)) {
-        print('New recipe was not found!');
-        print('Adding recipe...');
         recipesToCache[entry.key] = entry.value;
 
         Map<String, dynamic> recipesToCacheJson = {};
@@ -88,11 +82,7 @@ void updateLocalRecipeCache(List<dynamic> recipeData) {
           recipesToCacheJson[item.key] = item.value;
         }
 
-        print('Updating local recipe cache...');
         writeRecipes(jsonEncode(recipesToCacheJson));
-        print('Done!');
-      } else {
-        print('Recipe is already cached!');
       }
     }
   });

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
 import 'package:pan_pal/routes.dart';
 import 'package:pan_pal/screens/recipes/recipe.dart';
+import 'package:pan_pal/screens/recipes/recipe_browser_list_tile.dart';
 import 'package:pan_pal/screens/recipes/recipe_viewer.dart';
 import 'package:pan_pal/utilities/local_data.dart';
 
@@ -25,6 +26,18 @@ class RecipeBrowser extends StatefulWidget {
 }
 
 class _RecipeBrowserState extends State<RecipeBrowser> {
+  List<Recipe> localRecipes = [];
+
+  @override
+  void initState() {
+    super.initState();
+    readRecipes().then((String data) {
+      setState(() {
+        localRecipes = recipesFromJson(data);
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final litUser = context.getSignedInUser();
@@ -126,77 +139,63 @@ class _RecipeBrowserState extends State<RecipeBrowser> {
                                   .data()['name']
                                   .startsWith(searchLetter))
                               .map((DocumentSnapshot document) {
-                            return Container(
-                              padding: EdgeInsets.only(bottom: 8),
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black12,
-                                    offset: Offset(0, 1),
-                                    blurRadius: 6,
+                            return RecipeBrowserListTile(
+                              imageUrl: document.data()['imageUrl'],
+                              name: document.data()['name'],
+                              category: document.data()['category'],
+                              onTap: () {
+                                Recipe recipe =
+                                    Recipe.fromJson(document.data());
+                                Navigator.pushNamed(
+                                  context,
+                                  RecipeViewer.routeName,
+                                  arguments: RecipeViewerArguments(
+                                    recipe,
+                                    'Recipe Browser',
+                                    widget.recentlyViewed,
+                                    true,
                                   ),
-                                ],
-                              ),
-                              child: ListTile(
-                                contentPadding: EdgeInsets.all(8.0),
-                                horizontalTitleGap: 8.0,
-                                tileColor: Colors.white10,
-                                leading: Container(
-                                  width: 64,
-                                  child: document.data()['imageUrl'] != ''
-                                      ? Image.network(
-                                          document.data()['imageUrl'],
-                                          fit: BoxFit.cover,
-                                        )
-                                      : Center(
-                                          child:
-                                              Icon(Icons.camera_alt_outlined),
-                                        ),
-                                ),
-                                title: Text(
-                                  document.data()['name'],
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 28,
-                                  ),
-                                ),
-                                subtitle: Text(
-                                  document.data()['category'],
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                onTap: () {
-                                  Recipe recipe =
-                                      Recipe.fromJson(document.data());
-                                  Navigator.pushNamed(
-                                    context,
-                                    RecipeViewer.routeName,
-                                    arguments: RecipeViewerArguments(
-                                      recipe,
-                                      'Recipe Browser',
-                                      widget.recentlyViewed,
-                                      true,
-                                    ),
-                                  );
-                                },
-                              ),
+                                );
+                              },
                             );
                           }).toList(),
                         );
                       }
-                      return Center(
-                        child: Text(
-                          'Loading...',
-                          style: TextStyle(color: Colors.white),
-                        ),
+                      // Show locally-cached recipes if no network connection
+                      // or while loading remote data
+                      return ListView(
+                        children: localRecipes.map((Recipe recipe) {
+                          return RecipeBrowserListTile(
+                            imageUrl: recipe.imageUrl,
+                            name: recipe.name,
+                            category: recipe.category,
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                RecipeViewer.routeName,
+                                arguments: RecipeViewerArguments(
+                                  recipe,
+                                  'Recipe Browser',
+                                  widget.recentlyViewed,
+                                  true,
+                                ),
+                              );
+                            },
+                          );
+                        }).toList(),
                       );
                     },
                   ),
                 );
               },
-              empty: () {},
+              empty: () {
+                return Center(
+                  child: Text(
+                    "We're having trouble connecting to the server. Please log out and back in again.",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                );
+              },
               initializing: () {},
             ),
             Row(
@@ -207,4 +206,15 @@ class _RecipeBrowserState extends State<RecipeBrowser> {
       ),
     );
   }
+}
+
+List<Recipe> recipesFromJson(String data) {
+  Map<String, dynamic> recipesStrList = jsonDecode(data);
+  List<Recipe> recipes = [];
+
+  for (var item in recipesStrList.values) {
+    recipes.add(Recipe.fromJson(item));
+  }
+
+  return recipes;
 }

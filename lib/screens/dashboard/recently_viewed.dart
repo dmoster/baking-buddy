@@ -127,7 +127,10 @@ class _RecentlyViewedState extends State<RecentlyViewed> {
   }
 
   void recentsFromJson(String data) {
+    //writeRecents('');
     List<dynamic> recentsStrList = jsonDecode(data);
+
+    widget.recentlyViewed.clear();
 
     for (var item in recentsStrList) {
       if (item['author'] != null) {
