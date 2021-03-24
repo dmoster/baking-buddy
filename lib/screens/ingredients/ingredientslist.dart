@@ -7,19 +7,21 @@ class IngredientsList {
   List<dynamic> list;
 
   IngredientsList(BuildContext context, String jsonFilename) {
-    this.list = List();
+    this.list = [];
 
     initializeIngredientsList(context, jsonFilename);
   }
 
-  IngredientsList.fromList(var list) {
-    this.list = List();
+  IngredientsList.fromMapList(var list) {
+    this.list = [];
 
     for (var item in list) {
       this.list.add(Ingredient(
           item['name'], item['volume'], item['ounces'], item['grams']));
     }
   }
+
+  IngredientsList.fromIngredientList(this.list);
 
   void initializeIngredientsList(
       BuildContext context, String jsonFilename) async {

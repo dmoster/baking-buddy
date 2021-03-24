@@ -1,7 +1,9 @@
 import 'package:animations/animations.dart';
+import 'package:pan_pal/routes.dart';
 import 'package:pan_pal/screens/auth/register.dart';
 import 'package:flutter/material.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
+import 'package:pan_pal/screens/home_authenticated.dart';
 import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
 
 import 'sign_in.dart';
@@ -24,8 +26,11 @@ class _AuthScreenState extends State<AuthScreen> {
       backgroundColor: Colors.transparent,
       body: LitAuth.custom(
         onAuthSuccess: () {
-          Navigator.of(context)
-              .pushNamed('/home_authenticated', arguments: widget.ingredients);
+          Navigator.pushReplacementNamed(
+            context,
+            HomeAuthenticated.routeName,
+            arguments: HomeAuthenticatedArguments(widget.ingredients, []),
+          );
         },
         child: Center(
           child: ConstrainedBox(

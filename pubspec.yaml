@@ -31,6 +31,7 @@ dependencies:
   google_fonts: ^1.1.2
   animations: ^1.1.2
   dots_indicator: ^1.2.0
+  path_provider: ^2.0.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -59,6 +60,7 @@ flutter:
     - assets/data/ingredientsList.json
     - assets/images/glazed_donuts-top.jpg
     - assets/images/chocolate_bundt_cake-top_alt.jpg
+    - assets/images/buche_de_noel-top.jpg
     - assets/images/daniel_cookies.jpg
  
 

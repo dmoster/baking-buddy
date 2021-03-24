@@ -1,15 +1,17 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:pan_pal/screens/calc/calculator.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
+import 'package:pan_pal/routes.dart';
 import 'package:pan_pal/screens/home_authenticated.dart';
 import 'package:pan_pal/screens/home_unauthenticated.dart';
 import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
+import 'package:pan_pal/screens/recipes/recipe_browser.dart';
 import 'package:pan_pal/screens/recipes/recipe_composer.dart';
+import 'package:pan_pal/screens/recipes/recipe_viewer.dart';
 import 'package:pan_pal/screens/splash.dart';
 import 'package:pan_pal/screens/welcome.dart';
 
@@ -21,7 +23,7 @@ void main() {
 class PanPal extends StatelessWidget {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
-  IngredientsList _ingredients;
+  static IngredientsList _ingredients;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +47,7 @@ class PanPal extends StatelessWidget {
             );
           } else {
             var ingredientsList = jsonDecode(outerSnapshot.data.toString());
-            _ingredients = IngredientsList.fromList(ingredientsList);
+            _ingredients = IngredientsList.fromMapList(ingredientsList);
 
             // Use another FutureBuilder to complete initialization of Firebase for user
             // authentication
@@ -82,24 +84,100 @@ class PanPal extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ),
-                      home: SplashScreen(ingredients: _ingredients),
-                      onGenerateRoute: (RouteSettings settings) {
-                        var routes = <String, WidgetBuilder>{
-                          '/splash_screen': (context) =>
-                              SplashScreen(ingredients: settings.arguments),
-                          '/home_unauthenticated': (context) =>
-                              HomeUnauthenticated(
-                                  ingredients: settings.arguments),
-                          '/home_authenticated': (context) => HomeAuthenticated(
-                              ingredients: settings.arguments),
-                          '/recipe_composer': (context) =>
-                              RecipeComposer(ingredients: settings.arguments),
-                        };
-                        WidgetBuilder builder = routes[settings.name];
-                        return MaterialPageRoute(
-                            builder: (ctx) => builder(ctx),
-                            fullscreenDialog: true);
+                      onGenerateRoute: (settings) {
+                        if (settings.name == SplashScreen.routeName) {
+                          final IngredientPageArguments args =
+                              settings.arguments;
+                          return MaterialPageRoute(
+                            builder: (context) {
+                              return SplashScreen(
+                                ingredients: args.ingredients,
+                              );
+                            },
+                          );
+                        } else if (settings.name ==
+                            HomeUnauthenticated.routeName) {
+                          final IngredientPageArguments args =
+                              settings.arguments;
+                          return MaterialPageRoute(
+                            builder: (context) {
+                              return HomeUnauthenticated(
+                                ingredients: args.ingredients,
+                              );
+                            },
+                          );
+                        } else if (settings.name ==
+                            HomeAuthenticated.routeName) {
+                          final HomeAuthenticatedArguments args =
+                              settings.arguments;
+                          return MaterialPageRoute(
+                            builder: (context) {
+                              return HomeAuthenticated(
+                                recentlyViewed: args.recentlyViewed,
+                                ingredients: args.ingredients,
+                              );
+                            },
+                          );
+                        } else if (settings.name == RecipeComposer.routeName) {
+                          final RecipeComposerArguments args =
+                              settings.arguments;
+                          return MaterialPageRoute(
+                            builder: (context) {
+                              return RecipeComposer(
+                                ingredients: args.ingredients,
+                                recentlyViewed: args.recentlyViewed,
+                              );
+                            },
+                          );
+                        } else if (settings.name == RecipeViewer.routeName) {
+                          final RecipeViewerArguments args = settings.arguments;
+                          return MaterialPageRoute(
+                            builder: (context) {
+                              return RecipeViewer(
+                                recipe: args.recipe,
+                                returnScreen: args.returnScreen,
+                                recentlyViewed: args.recentlyViewed,
+                                addToRecents: args.addToRecents,
+                              );
+                            },
+                          );
+                        } else if (settings.name == RecipeBrowser.routeName) {
+                          final RecipeBrowserArguments args =
+                              settings.arguments;
+                          return MaterialPageRoute(
+                            builder: (context) {
+                              return RecipeBrowser(
+                                recentlyViewed: args.recentlyViewed,
+                                searchLetter: args.searchLetter,
+                              );
+                            },
+                          );
+                        }
+                        return null;
                       },
+                      home: SplashScreen(ingredients: _ingredients),
+                      // routes: {
+                      //   SplashScreen.routeName: (context) => SplashScreen(),
+                      // },
+                      // onGenerateRoute: (RouteSettings settings) {
+                      //   var routes = <String, WidgetBuilder>{
+                      //     '/splash_screen': (context) =>
+                      //         SplashScreen(ingredients: settings.arguments),
+                      //     '/home_unauthenticated': (context) =>
+                      //         HomeUnauthenticated(
+                      //             ingredients: settings.arguments),
+                      //     '/home_authenticated': (context) => HomeAuthenticated(
+                      //         ingredients: settings.arguments),
+                      //     '/recipe_composer': (context) =>
+                      //         RecipeComposer(ingredients: settings.arguments),
+                      //     '/recipe_viewer': (context) =>
+                      //         RecipeViewer(recipe: settings.arguments),
+                      //   };
+                      //   WidgetBuilder builder = routes[settings.name];
+                      //   return MaterialPageRoute(
+                      //       builder: (ctx) => builder(ctx),
+                      //       fullscreenDialog: true);
+                      // },
                     ),
                   );
                 }

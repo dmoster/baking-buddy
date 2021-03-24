@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lit_firebase_auth/lit_firebase_auth.dart';
 import 'package:pan_pal/screens/auth/auth.dart';
 import 'package:pan_pal/screens/calc/calculator.dart';
 import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
@@ -9,6 +8,8 @@ class HomeUnauthenticated extends StatelessWidget {
       : super(key: key);
 
   final IngredientsList ingredients;
+
+  static const routeName = '/home_unauthenticated';
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,7 @@ class HomeUnauthenticated extends StatelessWidget {
           SizedBox.expand(
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.black45,
+                color: Colors.black54,
               ),
             ),
           ),

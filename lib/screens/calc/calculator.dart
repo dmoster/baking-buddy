@@ -6,9 +6,11 @@ import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
 import 'formatNumbers.dart';
 
 class Calculator extends StatefulWidget {
-  const Calculator({Key key, @required this.ingredients}) : super(key: key);
+  const Calculator({Key key, @required this.ingredients, this.onViewed})
+      : super(key: key);
 
   final IngredientsList ingredients;
+  final Function(Ingredient) onViewed;
 
   @override
   _CalculatorState createState() => _CalculatorState();
@@ -293,6 +295,11 @@ class _CalculatorState extends State<Calculator> {
         gramsText = formatNumber(getConvertedAmount(
                 valueToConvert, btnValue, 'grams', ingredientChosen)) +
             ' g';
+
+        if (widget.onViewed != null) {
+          widget.onViewed(Ingredient.fromAmount(ingredientChosenName,
+              valueToConvert, btnValue, ingredientChosen));
+        }
 
         finalResult = volumeText;
         calcText = '0';
