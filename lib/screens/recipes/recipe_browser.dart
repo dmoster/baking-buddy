@@ -8,6 +8,7 @@ import 'package:pan_pal/screens/recipes/recipe.dart';
 import 'package:pan_pal/screens/recipes/recipe_browser_list_tile.dart';
 import 'package:pan_pal/screens/recipes/recipe_viewer.dart';
 import 'package:pan_pal/utilities/local_data.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class RecipeBrowser extends StatefulWidget {
   const RecipeBrowser({

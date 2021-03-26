@@ -134,25 +134,6 @@ class _DashboardState extends State<Dashboard> {
                     );
                   },
                 ),
-                // IconButton(
-                //   icon: Icon(
-                //     Icons.add,
-                //     color: Colors.white,
-                //     size: 32,
-                //   ),
-                //   tooltip: 'Add Recipe',
-                //   onPressed: () async {
-                //     await Navigator.pushNamed(
-                //       context,
-                //       RecipeComposer.routeName,
-                //       arguments: RecipeComposerArguments(
-                //         widget.ingredients,
-                //         widget.recentlyViewed,
-                //       ),
-                //     );
-                //     setState(() {});
-                //   },
-                // ),
                 RawMaterialButton(
                   elevation: 1.0,
                   fillColor: Color(0xff0f4fa8),

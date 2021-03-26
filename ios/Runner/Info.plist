@@ -54,5 +54,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSPhotoLibraryUsageDescription</key>
+  <string>Upload images from gallery for recipes</string>
+  <key>NSCameraUsageDescription</key>
+  <string>Upload images from camera for recipes</string>
 </dict>
 </plist>

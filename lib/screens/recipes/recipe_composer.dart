@@ -1,4 +1,8 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:pan_pal/routes.dart';
 import 'package:pan_pal/screens/ingredients/ingredient.dart';
 import 'package:pan_pal/screens/ingredients/ingredient_row_display.dart';
@@ -8,6 +12,8 @@ import 'package:pan_pal/screens/recipes/recipe.dart';
 import 'package:pan_pal/screens/recipes/recipe_viewer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:pan_pal/utilities/image_uploader_button.dart';
 
 class RecipeComposer extends StatefulWidget {
   const RecipeComposer({
@@ -26,7 +32,6 @@ class RecipeComposer extends StatefulWidget {
 }
 
 class _RecipeComposerState extends State<RecipeComposer> {
-  //final _formKey = GlobalKey<FormState>();
   TextEditingController _nameController;
   static List<dynamic> ingredients = [];
   static List<dynamic> instructions = [null];
@@ -38,6 +43,8 @@ class _RecipeComposerState extends State<RecipeComposer> {
   static String notes = '';
   static String story = '';
   static Recipe recipe;
+
+  File image;
 
   CollectionReference recipes =
       FirebaseFirestore.instance.collection('recipes');
@@ -51,6 +58,15 @@ class _RecipeComposerState extends State<RecipeComposer> {
     'Bread',
   ];
   String categoryChosenName;
+
+  Future<void> getImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      image = File(pickedFile.path);
+    });
+  }
 
   @override
   void initState() {
@@ -72,7 +88,7 @@ class _RecipeComposerState extends State<RecipeComposer> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Color(0xff072F66),
-          toolbarHeight: 32,
+          toolbarHeight: 48,
           title: Text(
             'Add a Recipe',
             style: TextStyle(
@@ -83,42 +99,96 @@ class _RecipeComposerState extends State<RecipeComposer> {
           leading: IconButton(
             icon: Icon(Icons.arrow_back_outlined),
             color: Colors.white54,
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () {
+              setState(() {
+                clearForm();
+              });
+              Navigator.of(context).pop();
+            },
           ),
         ),
         body: ListView(
           padding: EdgeInsets.fromLTRB(32, 16, 32, 48),
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
-              child: Row(
-                children: [
-                  Icon(Icons.text_fields_outlined),
-                  SizedBox(width: 16),
-                  Text(
-                    'Name',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                    ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.zero,
+                        child: Row(
+                          children: [
+                            Icon(Icons.text_fields_outlined),
+                            SizedBox(width: 16),
+                            Text(
+                              'Name',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      TextFormField(
+                        style: TextStyle(color: Colors.white),
+                        controller: _nameController,
+                        decoration:
+                            InputDecoration(hintText: 'Name your recipe'),
+                        autofocus: true,
+                        validator: (v) {
+                          if (v.trim().isEmpty) {
+                            return 'Please enter a recipe name';
+                          }
+                          return null;
+                        },
+                        onChanged: (value) {
+                          recipeName = value;
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-            TextFormField(
-              style: TextStyle(color: Colors.white),
-              controller: _nameController,
-              decoration: InputDecoration(hintText: 'Name your recipe'),
-              autofocus: true,
-              validator: (v) {
-                if (v.trim().isEmpty) {
-                  return 'Please enter a recipe name';
-                }
-                return null;
-              },
-              onChanged: (value) {
-                recipeName = value;
-              },
+                ),
+                SizedBox(width: 16.0),
+                Expanded(
+                  child: imageUrl == ''
+                      ? ImageUploaderButton(
+                          onPressed: () async {
+                            await getImage();
+                            final litUser = context.getSignedInUser();
+                            litUser.when(
+                              (user) {
+                                FirebaseStorage storage =
+                                    FirebaseStorage.instance;
+                                Reference ref = storage.ref().child(
+                                    'recipe_images/${DateTime.now().toString() + '-' + user.uid}');
+
+                                UploadTask uploadTask = ref.putFile(image);
+                                uploadTask.then((res) {
+                                  res.ref.getDownloadURL().then((url) {
+                                    setState(() {
+                                      imageUrl = url;
+                                    });
+                                  });
+                                });
+                              },
+                              empty: () {},
+                              initializing: () {},
+                            );
+                          },
+                        )
+                      : SizedBox(
+                          height: 64,
+                          child: Image.network(
+                            imageUrl,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
@@ -302,6 +372,9 @@ class _RecipeComposerState extends State<RecipeComposer> {
                       ),
                     ),
                     onPressed: () {
+                      setState(() {
+                        clearForm();
+                      });
                       Navigator.of(context).pop();
                     },
                   ),
@@ -441,6 +514,19 @@ class _RecipeComposerState extends State<RecipeComposer> {
         .add(recipe.toJson())
         .then((value) => print('Recipe Uploaded'))
         .catchError((error) => print('Failed to upload recipe: $error'));
+  }
+
+  void clearForm() {
+    ingredients = [];
+    instructions = [null];
+    recipeName = '';
+    category = '';
+    imageUrl = '';
+    ingredientsData = [];
+    instructionsData = [];
+    notes = '';
+    story = '';
+    //_nameController.text = null;
   }
 }
 
