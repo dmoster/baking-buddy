@@ -34,7 +34,6 @@ class Recipe {
 
   Recipe.fromJson(Map parsedJson) {
     this.name = parsedJson['name'];
-    //this.category = parsedJson['category'];
     this.author = parsedJson['author'];
     this.category = parsedJson['category'];
     this.imageUrl = parsedJson['imageUrl'];

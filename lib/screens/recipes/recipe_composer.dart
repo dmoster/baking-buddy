@@ -33,6 +33,7 @@ class RecipeComposer extends StatefulWidget {
 
 class _RecipeComposerState extends State<RecipeComposer> {
   TextEditingController _nameController;
+  static String userId;
   static List<dynamic> ingredients = [];
   static List<dynamic> instructions = [null];
   static String recipeName = '';
@@ -42,9 +43,8 @@ class _RecipeComposerState extends State<RecipeComposer> {
   static List<String> instructionsData = [];
   static String notes = '';
   static String story = '';
+  static ImageHandler imageHandler;
   static Recipe recipe;
-
-  File image;
 
   CollectionReference recipes =
       FirebaseFirestore.instance.collection('recipes');
@@ -57,21 +57,23 @@ class _RecipeComposerState extends State<RecipeComposer> {
     'Candy',
     'Bread',
   ];
+
   String categoryChosenName;
-
-  Future<void> getImage() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.getImage(source: ImageSource.gallery);
-
-    setState(() {
-      image = File(pickedFile.path);
-    });
-  }
 
   @override
   void initState() {
     super.initState();
     _nameController = TextEditingController();
+
+    final litUser = context.getSignedInUser();
+    litUser.when(
+      (user) {
+        userId = user.uid;
+        imageHandler = ImageHandler(userId);
+      },
+      empty: () {},
+      initializing: () {},
+    );
   }
 
   @override
@@ -154,36 +156,18 @@ class _RecipeComposerState extends State<RecipeComposer> {
                 ),
                 SizedBox(width: 16.0),
                 Expanded(
-                  child: imageUrl == ''
+                  child: imageHandler.image == null
                       ? ImageUploaderButton(
                           onPressed: () async {
-                            await getImage();
-                            final litUser = context.getSignedInUser();
-                            litUser.when(
-                              (user) {
-                                FirebaseStorage storage =
-                                    FirebaseStorage.instance;
-                                Reference ref = storage.ref().child(
-                                    'recipe_images/${DateTime.now().toString() + '-' + user.uid}');
-
-                                UploadTask uploadTask = ref.putFile(image);
-                                uploadTask.then((res) {
-                                  res.ref.getDownloadURL().then((url) {
-                                    setState(() {
-                                      imageUrl = url;
-                                    });
-                                  });
-                                });
-                              },
-                              empty: () {},
-                              initializing: () {},
-                            );
+                            await imageHandler.pickImage();
+                            print(imageHandler.name);
+                            setState(() {});
                           },
                         )
                       : SizedBox(
                           height: 64,
-                          child: Image.network(
-                            imageUrl,
+                          child: Image.file(
+                            imageHandler.image,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -391,14 +375,19 @@ class _RecipeComposerState extends State<RecipeComposer> {
                         fontSize: 16,
                       ),
                     ),
-                    onPressed: () {
-                      // if (_formKey.currentState.validate()) {
-                      //   _formKey.currentState.save();
-                      // }
+                    onPressed: () async {
                       if (recipeName.trim() != '' &&
                           ingredientsData.length > 0 &&
                           instructions.length > 1) {
-                        recipe = saveAndSendRecipe();
+                        recipe = await saveAndSendRecipe();
+
+                        // Go to the recipe viewer
+                        Navigator.pushReplacementNamed(
+                          context,
+                          RecipeViewer.routeName,
+                          arguments: RecipeViewerArguments(
+                              recipe, 'Dashboard', widget.recentlyViewed, true),
+                        );
                       } else {
                         print('Something is missing...');
                       }
@@ -467,7 +456,7 @@ class _RecipeComposerState extends State<RecipeComposer> {
     );
   }
 
-  Recipe saveAndSendRecipe() {
+  Future<Recipe> saveAndSendRecipe() async {
     Recipe recipe;
     for (int i = 0; i < instructions.length; i++) {
       if (instructions[i] != null) {
@@ -475,38 +464,27 @@ class _RecipeComposerState extends State<RecipeComposer> {
       }
     }
 
-    final litUser = context.getSignedInUser();
-    litUser.when(
-      (user) {
-        recipe = Recipe(recipeName, user.uid, category, imageUrl,
-            ingredientsData, instructionsData, notes, story);
-        // Save the recipe in Cloud Firestore
-        uploadRecipe(recipe);
+    if (imageHandler.image != null) {
+      try {
+        await imageHandler.uploadImage();
+        imageUrl = imageHandler.url;
+        print(imageUrl);
+      } catch (e) {
+        print('Error uploading image: $e');
+      }
+    } else {
+      print('No image provided.');
+    }
 
-        // Reset the composer for next timeR
-        ingredients = [];
-        instructions = [null];
-        recipeName = '';
-        category = '';
-        imageUrl = '';
-        ingredientsData = [];
-        instructionsData = [];
-        notes = '';
-        story = '';
+    recipe = Recipe(recipeName, userId, category, imageUrl, ingredientsData,
+        instructionsData, notes, story);
+    // Save the recipe in Cloud Firestore
+    uploadRecipe(recipe);
 
-        // Go to the recipe viewer
-        Navigator.pushReplacementNamed(
-          context,
-          RecipeViewer.routeName,
-          arguments: RecipeViewerArguments(
-              recipe, 'Dashboard', widget.recentlyViewed, true),
-        );
-      },
-      empty: () {},
-      initializing: () {},
-    );
+    // Reset the composer for next time
+    clearForm();
 
-    return null;
+    return recipe;
   }
 
   Future<void> uploadRecipe(Recipe recipe) {
@@ -526,6 +504,7 @@ class _RecipeComposerState extends State<RecipeComposer> {
     instructionsData = [];
     notes = '';
     story = '';
+    imageHandler = null;
     //_nameController.text = null;
   }
 }

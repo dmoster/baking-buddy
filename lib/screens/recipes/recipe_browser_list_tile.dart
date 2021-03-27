@@ -33,10 +33,14 @@ class RecipeBrowserListTile extends StatelessWidget {
         tileColor: Colors.white10,
         leading: Container(
           width: 64,
-          child: imageUrl != ''
-              ? Image.network(
-                  imageUrl,
-                  fit: BoxFit.cover,
+          child: imageUrl != '' && imageUrl != 'null' && imageUrl != null
+              ? Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(imageUrl),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 )
               : Center(
                   child: Icon(Icons.camera_alt_outlined),

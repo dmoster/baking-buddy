@@ -73,23 +73,57 @@ class _RecipeViewerState extends State<RecipeViewer> {
               child: ListView(
                 padding: EdgeInsets.all(16.0),
                 children: [
-                  // Name
-                  Text(
-                    widget.recipe.name,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 36,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  // Category
-                  Text(
-                    widget.recipe.category,
-                    style: TextStyle(
-                      color: Colors.white54,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                    ),
+                  Stack(
+                    alignment: Alignment.bottomLeft,
+                    children: [
+                      widget.recipe.imageUrl != '' &&
+                              widget.recipe.imageUrl != 'null' &&
+                              widget.recipe.imageUrl != null
+                          ? Container(
+                              height: 192,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                image: DecorationImage(
+                                  image: NetworkImage(widget.recipe.imageUrl),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            )
+                          : Container(),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(16, 32, 16, 16),
+                        child: Container(
+                          padding: EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Colors.black12,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Name
+                              Text(
+                                widget.recipe.name,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 36,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              // Category
+                              Text(
+                                widget.recipe.category,
+                                style: TextStyle(
+                                  color: Colors.white54,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   // Ingredients
                   Padding(
