@@ -10,12 +10,14 @@ class IngredientRowDisplay extends StatelessWidget {
     @required this.amount,
     @required this.measurementType,
     @required this.refIngredient,
+    @required this.textColor,
   }) : super(key: key);
 
   final double labelSize;
   final double amount;
   final dynamic measurementType;
   final Ingredient refIngredient;
+  final dynamic textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,7 @@ class IngredientRowDisplay extends StatelessWidget {
                 Text(
                   volume.trim(),
                   style: TextStyle(
-                    color: Colors.white,
+                    color: textColor,
                     fontSize: labelSize,
                   ),
                 ),
@@ -51,7 +53,7 @@ class IngredientRowDisplay extends StatelessWidget {
                     Text(
                       ounces,
                       style: TextStyle(
-                        color: Colors.white,
+                        color: textColor,
                         fontSize: 10,
                       ),
                     ),
@@ -59,7 +61,7 @@ class IngredientRowDisplay extends StatelessWidget {
                     Text(
                       grams,
                       style: TextStyle(
-                        color: Colors.white,
+                        color: textColor,
                         fontSize: 10,
                       ),
                     ),
@@ -77,7 +79,7 @@ class IngredientRowDisplay extends StatelessWidget {
             child: Text(
               refIngredient.name,
               style: TextStyle(
-                color: Colors.white,
+                color: textColor,
                 fontSize: labelSize,
               ),
             ),

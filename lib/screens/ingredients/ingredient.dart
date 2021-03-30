@@ -26,12 +26,14 @@ class Ingredient {
         ' g';
   }
 
-  Widget displayRow() {
+  Widget displayRow(dynamic textColor) {
     return IngredientRowDisplay(
-        labelSize: 16,
-        amount: this.amount,
-        measurementType: this.measurementType,
-        refIngredient: this.refIngredient);
+      labelSize: 16,
+      amount: this.amount,
+      measurementType: this.measurementType,
+      refIngredient: this.refIngredient,
+      textColor: textColor,
+    );
   }
 
   Map<String, dynamic> toJson() {

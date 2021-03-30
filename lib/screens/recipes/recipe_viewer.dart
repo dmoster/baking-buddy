@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:pan_pal/routes.dart';
 import 'package:pan_pal/screens/dashboard/recently_viewed.dart';
 import 'package:pan_pal/screens/recipes/recipe.dart';
-import 'package:pan_pal/screens/recipes/recipe_browser.dart';
+import 'package:pan_pal/screens/recipes/recipe_components/recipe_header.dart';
 import 'package:pan_pal/utilities/local_data.dart';
+import 'package:pan_pal/widgets/palette.dart';
 
 class RecipeViewer extends StatefulWidget {
   const RecipeViewer({
@@ -47,21 +47,22 @@ class _RecipeViewerState extends State<RecipeViewer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff072F66),
+      backgroundColor: Palette().offLight,
       appBar: AppBar(
+        brightness: Brightness.light,
         elevation: 0,
-        backgroundColor: Color(0xff072F66),
+        backgroundColor: Palette().offLight,
         toolbarHeight: 48,
         title: Text(
           'Recipe Viewer',
           style: TextStyle(
-            color: Colors.white,
+            color: Palette().dark,
             fontSize: 16,
           ),
         ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_outlined),
-          color: Colors.white54,
+          color: Palette().darkIcon,
           onPressed: () => Navigator.pop(context, widget.recentlyViewed),
         ),
       ),
@@ -73,69 +74,26 @@ class _RecipeViewerState extends State<RecipeViewer> {
               child: ListView(
                 padding: EdgeInsets.all(16.0),
                 children: [
-                  Stack(
-                    alignment: Alignment.bottomLeft,
-                    children: [
-                      widget.recipe.imageUrl != '' &&
-                              widget.recipe.imageUrl != 'null' &&
-                              widget.recipe.imageUrl != null
-                          ? Container(
-                              height: 192,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                image: DecorationImage(
-                                  image: NetworkImage(widget.recipe.imageUrl),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            )
-                          : Container(),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(16, 32, 16, 16),
-                        child: Container(
-                          padding: EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: Colors.black12,
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Name
-                              Text(
-                                widget.recipe.name,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 36,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                              // Category
-                              Text(
-                                widget.recipe.category,
-                                style: TextStyle(
-                                  color: Colors.white54,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
+                  // Header
+                  RecipeHeader(
+                    imageUrl: widget.recipe.imageUrl,
+                    recipeName: widget.recipe.name,
+                    recipeCategory: widget.recipe.category,
                   ),
                   // Ingredients
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
                     child: Row(
                       children: [
-                        Icon(Icons.shopping_bag_outlined),
+                        Icon(
+                          Icons.shopping_bag_outlined,
+                          color: Palette().darkIcon,
+                        ),
                         SizedBox(width: 16),
                         Text(
                           'Ingredients',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Palette().dark,
                             fontSize: 18,
                           ),
                         ),
@@ -148,12 +106,15 @@ class _RecipeViewerState extends State<RecipeViewer> {
                     padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
                     child: Row(
                       children: [
-                        Icon(Icons.list_outlined),
+                        Icon(
+                          Icons.list_outlined,
+                          color: Palette().darkIcon,
+                        ),
                         SizedBox(width: 16),
                         Text(
                           'Instructions',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Palette().dark,
                             fontSize: 18,
                           ),
                         ),
@@ -181,7 +142,7 @@ class _RecipeViewerState extends State<RecipeViewer> {
     for (var ingredient in widget.recipe.ingredients) {
       ingredientRows.add(Padding(
         padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-        child: ingredient.displayRow(),
+        child: ingredient.displayRow(Palette().dark),
       ));
     }
     return ingredientRows;
@@ -205,7 +166,7 @@ class _RecipeViewerState extends State<RecipeViewer> {
                   child: Text(
                     (i + 1).toString(),
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Palette().dark,
                       fontSize: 16,
                     ),
                   ),
@@ -218,7 +179,7 @@ class _RecipeViewerState extends State<RecipeViewer> {
                 child: Text(
                   widget.recipe.instructions[i],
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Palette().dark,
                     fontSize: 16,
                   ),
                 ),
@@ -239,12 +200,15 @@ class _RecipeViewerState extends State<RecipeViewer> {
           padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
           child: Row(
             children: [
-              Icon(Icons.note_outlined),
+              Icon(
+                Icons.note_outlined,
+                color: Palette().darkIcon,
+              ),
               SizedBox(width: 16),
               Text(
                 'Notes',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Palette().dark,
                   fontSize: 18,
                 ),
               ),
@@ -258,7 +222,7 @@ class _RecipeViewerState extends State<RecipeViewer> {
           child: Text(
             widget.recipe.notes,
             style: TextStyle(
-              color: Colors.white,
+              color: Palette().dark,
               fontSize: 16,
             ),
           ),
@@ -276,12 +240,15 @@ class _RecipeViewerState extends State<RecipeViewer> {
           padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
           child: Row(
             children: [
-              Icon(Icons.book_outlined),
+              Icon(
+                Icons.book_outlined,
+                color: Palette().darkIcon,
+              ),
               SizedBox(width: 16),
               Text(
                 'Story',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Palette().dark,
                   fontSize: 18,
                 ),
               ),
@@ -295,7 +262,7 @@ class _RecipeViewerState extends State<RecipeViewer> {
           child: Text(
             widget.recipe.story,
             style: TextStyle(
-              color: Colors.white,
+              color: Palette().dark,
               fontSize: 16,
             ),
           ),

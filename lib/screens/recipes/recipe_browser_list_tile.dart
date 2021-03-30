@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pan_pal/widgets/palette.dart';
 
 class RecipeBrowserListTile extends StatelessWidget {
   const RecipeBrowserListTile({
@@ -14,53 +15,50 @@ class RecipeBrowserListTile extends StatelessWidget {
   final String category;
   final VoidCallback onTap;
 
+  static bool hasImageUrl = false;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(bottom: 8),
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            offset: Offset(0, 1),
-            blurRadius: 6,
-          ),
-        ],
-      ),
-      child: ListTile(
-        contentPadding: EdgeInsets.all(8.0),
-        horizontalTitleGap: 8.0,
-        tileColor: Colors.white10,
-        leading: Container(
-          width: 64,
-          child: imageUrl != '' && imageUrl != 'null' && imageUrl != null
-              ? Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage(imageUrl),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                )
-              : Center(
-                  child: Icon(Icons.camera_alt_outlined),
-                ),
-        ),
-        title: Text(
-          name,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 28,
-          ),
-        ),
-        subtitle: Text(
-          category,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-          ),
-        ),
+    hasImageUrl = imageUrl != '' && imageUrl != 'null' && imageUrl != null;
+
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      color: Palette().light,
+      child: InkWell(
         onTap: onTap,
+        child: Row(
+          children: [
+            Expanded(
+              child: hasImageUrl
+                  ? Image.network(imageUrl)
+                  : Container(
+                      color: Palette().warningLight,
+                      child: Icon(
+                        Icons.camera_alt_outlined,
+                        color: Palette().darkIcon,
+                        size: 24,
+                      ),
+                    ),
+            ),
+            Expanded(
+              flex: 3,
+              child: ListTile(
+                title: Text(
+                  name,
+                  style: TextStyle(
+                    color: Palette().dark,
+                  ),
+                ),
+                subtitle: Text(
+                  category,
+                  style: TextStyle(
+                    color: Palette().darkIcon,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

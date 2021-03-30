@@ -14,6 +14,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pan_pal/utilities/image_uploader_button.dart';
+import 'package:pan_pal/widgets/palette.dart';
 
 class RecipeComposer extends StatefulWidget {
   const RecipeComposer({
@@ -262,6 +263,7 @@ class _RecipeComposerState extends State<RecipeComposer> {
                         amount: ingredient.amount,
                         measurementType: ingredient.measurementType,
                         refIngredient: ingredient.refIngredient,
+                        textColor: Palette().light,
                       ),
                     ),
                   );

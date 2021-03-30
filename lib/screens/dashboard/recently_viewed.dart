@@ -9,6 +9,7 @@ import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
 import 'package:pan_pal/screens/recipes/recipe.dart';
 import 'package:pan_pal/screens/recipes/recipe_viewer.dart';
 import 'package:pan_pal/utilities/local_data.dart';
+import 'package:pan_pal/widgets/palette.dart';
 
 class RecentlyViewed extends StatefulWidget {
   const RecentlyViewed(
@@ -79,10 +80,12 @@ class _RecentlyViewedState extends State<RecentlyViewed> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: IngredientRowDisplay(
-                  labelSize: 24,
-                  amount: item.amount,
-                  measurementType: item.measurementType,
-                  refIngredient: item.refIngredient),
+                labelSize: 24,
+                amount: item.amount,
+                measurementType: item.measurementType,
+                refIngredient: item.refIngredient,
+                textColor: Palette().light,
+              ),
             ),
           );
         } else {

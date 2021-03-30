@@ -9,6 +9,7 @@ import 'package:pan_pal/screens/recipes/recipe_browser_list_tile.dart';
 import 'package:pan_pal/screens/recipes/recipe_viewer.dart';
 import 'package:pan_pal/utilities/local_data.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:pan_pal/widgets/palette.dart';
 
 class RecipeBrowser extends StatefulWidget {
   const RecipeBrowser({
@@ -47,21 +48,22 @@ class _RecipeBrowserState extends State<RecipeBrowser> {
     bool hasSearchLetter = searchLetter != '' ? true : false;
 
     return Scaffold(
-      backgroundColor: Color(0xff072F66),
+      backgroundColor: Palette().offLight,
       appBar: AppBar(
+        brightness: Brightness.light,
         elevation: 0,
-        backgroundColor: Color(0xff072F66),
+        backgroundColor: Palette().offLight,
         toolbarHeight: hasSearchLetter ? 96 : 48,
         title: Text(
           'Recipe Browser',
           style: TextStyle(
-            color: Colors.white,
+            color: Palette().dark,
             fontSize: 16,
           ),
         ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_outlined),
-          color: Colors.white54,
+          color: Palette().darkIcon,
           onPressed: () => Navigator.of(context).pop(),
         ),
         bottom: PreferredSize(
@@ -76,10 +78,16 @@ class _RecipeBrowserState extends State<RecipeBrowser> {
                   Flex(
                     direction: Axis.horizontal,
                     children: [
-                      Icon(Icons.filter_alt_outlined),
+                      Icon(
+                        Icons.filter_alt_outlined,
+                        color: Palette().darkIcon,
+                      ),
                       Text(
                         'Filters',
-                        style: TextStyle(color: Colors.white, fontSize: 16),
+                        style: TextStyle(
+                          color: Palette().dark,
+                          fontSize: 16,
+                        ),
                       ),
                     ],
                   ),
@@ -90,10 +98,10 @@ class _RecipeBrowserState extends State<RecipeBrowser> {
                         label: Text(
                           'Starts with "' + searchLetter + '"',
                           style: TextStyle(
-                            color: Color(0xff323232),
+                            color: Palette().dark,
                           ),
                         ),
-                        backgroundColor: Color(0xFFFFCA00),
+                        backgroundColor: Palette().secondary,
                         // deleteIconColor: Color(0xFFFF9F00),
                         // onDeleted: () {
                         //   setState(() {
@@ -128,7 +136,7 @@ class _RecipeBrowserState extends State<RecipeBrowser> {
                         return Center(
                           child: Text(
                             'Something went wrong. Please try again later.',
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Palette().dark),
                           ),
                         );
                       }
@@ -193,7 +201,7 @@ class _RecipeBrowserState extends State<RecipeBrowser> {
                 return Center(
                   child: Text(
                     "We're having trouble connecting to the server. Please log out and back in again.",
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Palette().dark),
                   ),
                 );
               },
