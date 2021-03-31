@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pan_pal/screens/recipes/recipe.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -57,9 +58,15 @@ void updateLocalRecipeCache(List<dynamic> recipeData) {
   //writeRecipes('');
   Map<String, dynamic> newRecipes = {};
   for (var item in recipeData) {
-    String recipeId = item.documentID;
+    String recipeId = '';
 
-    newRecipes[recipeId] = Recipe.fromJson(item.data());
+    if (item.runtimeType == QueryDocumentSnapshot) {
+      recipeId = item.data()['recipeId'];
+      newRecipes[recipeId] = Recipe.fromJson(item.data());
+    } else {
+      recipeId = item['recipeId'];
+      newRecipes[recipeId] = Recipe.fromJson(item);
+    }
   }
 
   readRecipes().then((String data) {

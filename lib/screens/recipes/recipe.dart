@@ -2,8 +2,11 @@ import 'package:pan_pal/screens/ingredients/ingredient.dart';
 
 class Recipe {
   Recipe(this.name, this.author, this.category, this.imageUrl, this.ingredients,
-      this.instructions, this.notes, this.story);
+      this.instructions, this.notes, this.story) {
+    this.recipeId = 'recipe_' + DateTime.now().toString() + '-' + this.author;
+  }
 
+  String recipeId;
   String name;
   String author;
   String category;
@@ -21,6 +24,7 @@ class Recipe {
     }
 
     return {
+      'recipeId': recipeId,
       'name': name,
       'author': author,
       'category': category,
@@ -33,6 +37,7 @@ class Recipe {
   }
 
   Recipe.fromJson(Map parsedJson) {
+    this.recipeId = parsedJson['recipeId'];
     this.name = parsedJson['name'];
     this.author = parsedJson['author'];
     this.category = parsedJson['category'];

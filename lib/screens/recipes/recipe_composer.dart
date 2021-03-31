@@ -14,6 +14,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pan_pal/utilities/image_uploader_button.dart';
+import 'package:pan_pal/utilities/local_data.dart';
 import 'package:pan_pal/widgets/palette.dart';
 
 class RecipeComposer extends StatefulWidget {
@@ -480,6 +481,9 @@ class _RecipeComposerState extends State<RecipeComposer> {
 
     recipe = Recipe(recipeName, userId, category, imageUrl, ingredientsData,
         instructionsData, notes, story);
+
+    // Save the recipe in the local cache
+    updateLocalRecipeCache([recipe.toJson()]);
     // Save the recipe in Cloud Firestore
     uploadRecipe(recipe);
 
