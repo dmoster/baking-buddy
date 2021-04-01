@@ -4,6 +4,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pan_pal/widgets/palette.dart';
 
 class ImageUploaderButton extends StatelessWidget {
   const ImageUploaderButton({
@@ -20,19 +21,21 @@ class ImageUploaderButton extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(8.0),
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey, width: 1.0),
+          border: Border.all(color: Palette().inputBorder, width: 1.0),
           borderRadius: BorderRadius.circular(5.0),
         ),
         child: Column(
           children: [
             Icon(
               Icons.camera_alt_outlined,
-              color: Colors.white,
+              color: Palette().darkIcon,
               size: 32,
             ),
             Text(
               'Add Image',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(
+                color: Palette().dark,
+              ),
             ),
           ],
         ),

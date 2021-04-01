@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
+import 'package:pan_pal/widgets/palette.dart';
 
 class IngredientForm extends StatefulWidget {
   const IngredientForm({
@@ -46,16 +47,19 @@ class _IngredientFormState extends State<IngredientForm> {
             child: Container(
               padding: EdgeInsets.only(left: 16, right: 16),
               decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey, width: 1),
+                  border: Border.all(color: Palette().inputBorder, width: 1),
                   borderRadius: BorderRadius.circular(10)),
               child: DropdownButton(
-                style: TextStyle(color: Colors.white, fontSize: 16),
+                style: TextStyle(color: Palette().dark, fontSize: 16),
                 hint: Text(
                   'Choose an ingredient',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Palette().darkIcon),
                 ),
-                dropdownColor: Color(0xff323232),
-                icon: Icon(Icons.arrow_drop_down),
+                dropdownColor: Palette().light,
+                icon: Icon(
+                  Icons.arrow_drop_down,
+                  color: Palette().darkIcon,
+                ),
                 iconSize: 36,
                 isExpanded: true,
                 underline: SizedBox(),
@@ -81,12 +85,16 @@ class _IngredientFormState extends State<IngredientForm> {
                 flex: 1,
                 child: TextField(
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Palette().dark,
                     fontSize: 16,
                   ),
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   decoration: InputDecoration(
                     hintText: 'Amount',
+                    focusColor: Palette().dark,
+                    hintStyle: TextStyle(
+                      color: Palette().darkIcon,
+                    ),
                   ),
                   controller: amountText,
                   onChanged: (value) {
@@ -100,16 +108,20 @@ class _IngredientFormState extends State<IngredientForm> {
                 child: Container(
                   padding: EdgeInsets.only(left: 16, right: 16),
                   decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey, width: 1),
+                      border:
+                          Border.all(color: Palette().inputBorder, width: 1),
                       borderRadius: BorderRadius.circular(10)),
                   child: DropdownButton(
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+                    style: TextStyle(color: Palette().dark, fontSize: 16),
                     hint: Text(
                       'Measurement type',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Palette().darkIcon),
                     ),
-                    dropdownColor: Color(0xff323232),
-                    icon: Icon(Icons.arrow_drop_down),
+                    dropdownColor: Palette().light,
+                    icon: Icon(
+                      Icons.arrow_drop_down,
+                      color: Palette().darkIcon,
+                    ),
                     iconSize: 36,
                     isExpanded: true,
                     underline: SizedBox(),
@@ -139,8 +151,8 @@ class _IngredientFormState extends State<IngredientForm> {
                 Expanded(
                   flex: 1,
                   child: RaisedButton(
-                    color: Color(0xFFFF9F00),
-                    textColor: Color(0xff323232),
+                    color: Palette().warning,
+                    textColor: Palette().dark,
                     child: Text(
                       'Reset',
                       style: TextStyle(
@@ -160,8 +172,8 @@ class _IngredientFormState extends State<IngredientForm> {
                 Expanded(
                   flex: 2,
                   child: RaisedButton(
-                    color: Color(0xff0F4FA8),
-                    textColor: Colors.white,
+                    color: Palette().primary,
+                    textColor: Palette().light,
                     child: Text(
                       'Add',
                       style: TextStyle(

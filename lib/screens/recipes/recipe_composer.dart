@@ -88,21 +88,22 @@ class _RecipeComposerState extends State<RecipeComposer> {
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
-        backgroundColor: Color(0xff072F66),
+        backgroundColor: Palette().offLight,
         appBar: AppBar(
+          brightness: Brightness.light,
           elevation: 0,
-          backgroundColor: Color(0xff072F66),
+          backgroundColor: Palette().offLight,
           toolbarHeight: 48,
           title: Text(
             'Add a Recipe',
             style: TextStyle(
-              color: Colors.white,
+              color: Palette().dark,
               fontSize: 16,
             ),
           ),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_outlined),
-            color: Colors.white54,
+            color: Palette().darkIcon,
             onPressed: () {
               setState(() {
                 clearForm();
@@ -125,12 +126,15 @@ class _RecipeComposerState extends State<RecipeComposer> {
                         padding: EdgeInsets.zero,
                         child: Row(
                           children: [
-                            Icon(Icons.text_fields_outlined),
+                            Icon(
+                              Icons.text_fields_outlined,
+                              color: Palette().darkIcon,
+                            ),
                             SizedBox(width: 16),
                             Text(
                               'Name',
                               style: TextStyle(
-                                color: Colors.white,
+                                color: Palette().dark,
                                 fontSize: 18,
                               ),
                             ),
@@ -138,10 +142,16 @@ class _RecipeComposerState extends State<RecipeComposer> {
                         ),
                       ),
                       TextFormField(
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(
+                          color: Palette().dark,
+                        ),
                         controller: _nameController,
-                        decoration:
-                            InputDecoration(hintText: 'Name your recipe'),
+                        decoration: InputDecoration(
+                          hintText: 'Name your recipe',
+                          hintStyle: TextStyle(
+                            color: Palette().darkIcon,
+                          ),
+                        ),
                         autofocus: true,
                         validator: (v) {
                           if (v.trim().isEmpty) {
@@ -166,11 +176,14 @@ class _RecipeComposerState extends State<RecipeComposer> {
                             setState(() {});
                           },
                         )
-                      : SizedBox(
+                      : Container(
                           height: 64,
-                          child: Image.file(
-                            imageHandler.image,
-                            fit: BoxFit.cover,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            image: DecorationImage(
+                              image: FileImage(imageHandler.image),
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                 ),
@@ -180,12 +193,15 @@ class _RecipeComposerState extends State<RecipeComposer> {
               padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
               child: Row(
                 children: [
-                  Icon(Icons.category_outlined),
+                  Icon(
+                    Icons.category_outlined,
+                    color: Palette().darkIcon,
+                  ),
                   SizedBox(width: 16),
                   Text(
                     'Category',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Palette().dark,
                       fontSize: 18,
                     ),
                   ),
@@ -197,16 +213,28 @@ class _RecipeComposerState extends State<RecipeComposer> {
               child: Container(
                 padding: EdgeInsets.only(left: 16, right: 16),
                 decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey, width: 1),
-                    borderRadius: BorderRadius.circular(10)),
+                  border: Border.all(
+                    color: Palette().inputBorder,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 child: DropdownButton(
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+                  style: TextStyle(
+                    color: Palette().dark,
+                    fontSize: 16,
+                  ),
                   hint: Text(
                     'Choose a category',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(
+                      color: Palette().darkIcon,
+                    ),
                   ),
-                  dropdownColor: Color(0xff323232),
-                  icon: Icon(Icons.arrow_drop_down),
+                  dropdownColor: Palette().light,
+                  icon: Icon(
+                    Icons.arrow_drop_down,
+                    color: Palette().darkIcon,
+                  ),
                   iconSize: 36,
                   isExpanded: true,
                   underline: SizedBox(),
@@ -230,12 +258,15 @@ class _RecipeComposerState extends State<RecipeComposer> {
               padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
               child: Row(
                 children: [
-                  Icon(Icons.shopping_bag_outlined),
+                  Icon(
+                    Icons.shopping_bag_outlined,
+                    color: Palette().darkIcon,
+                  ),
                   SizedBox(width: 16),
                   Text(
                     'Ingredients',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Palette().dark,
                       fontSize: 18,
                     ),
                   ),
@@ -264,7 +295,7 @@ class _RecipeComposerState extends State<RecipeComposer> {
                         amount: ingredient.amount,
                         measurementType: ingredient.measurementType,
                         refIngredient: ingredient.refIngredient,
-                        textColor: Palette().light,
+                        textColor: Palette().dark,
                       ),
                     ),
                   );
@@ -276,12 +307,15 @@ class _RecipeComposerState extends State<RecipeComposer> {
               padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
               child: Row(
                 children: [
-                  Icon(Icons.list_outlined),
+                  Icon(
+                    Icons.list_outlined,
+                    color: Palette().darkIcon,
+                  ),
                   SizedBox(width: 16),
                   Text(
                     'Instructions',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Palette().dark,
                       fontSize: 18,
                     ),
                   ),
@@ -293,12 +327,15 @@ class _RecipeComposerState extends State<RecipeComposer> {
               padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
               child: Row(
                 children: [
-                  Icon(Icons.note_outlined),
+                  Icon(
+                    Icons.note_outlined,
+                    color: Palette().darkIcon,
+                  ),
                   SizedBox(width: 16),
                   Text(
                     'Notes',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Palette().dark,
                       fontSize: 18,
                     ),
                   ),
@@ -306,10 +343,15 @@ class _RecipeComposerState extends State<RecipeComposer> {
               ),
             ),
             TextFormField(
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(
+                color: Palette().dark,
+              ),
               maxLines: 3,
               decoration: InputDecoration(
                 hintText: 'Add tips, tricks, and suggests',
+                hintStyle: TextStyle(
+                  color: Palette().darkIcon,
+                ),
               ),
               onChanged: (value) {
                 notes = value;
@@ -319,12 +361,15 @@ class _RecipeComposerState extends State<RecipeComposer> {
               padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
               child: Row(
                 children: [
-                  Icon(Icons.book_outlined),
+                  Icon(
+                    Icons.book_outlined,
+                    color: Palette().darkIcon,
+                  ),
                   SizedBox(width: 16),
                   Text(
                     'Story',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Palette().dark,
                       fontSize: 18,
                     ),
                   ),
@@ -332,10 +377,13 @@ class _RecipeComposerState extends State<RecipeComposer> {
               ),
             ),
             TextFormField(
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Palette().dark),
               maxLines: 5,
               decoration: InputDecoration(
                 hintText: 'Tell us about this recipe',
+                hintStyle: TextStyle(
+                  color: Palette().darkIcon,
+                ),
               ),
               onChanged: (value) {
                 story = value;
@@ -350,8 +398,8 @@ class _RecipeComposerState extends State<RecipeComposer> {
                 Expanded(
                   flex: 1,
                   child: RaisedButton(
-                    color: Color(0xFFFF9F00),
-                    textColor: Color(0xff323232),
+                    color: Palette().warning,
+                    textColor: Palette().dark,
                     child: Text(
                       'Cancel',
                       style: TextStyle(
@@ -370,8 +418,8 @@ class _RecipeComposerState extends State<RecipeComposer> {
                 Expanded(
                   flex: 2,
                   child: RaisedButton(
-                    color: Color(0xff0F4FA8),
-                    textColor: Colors.white,
+                    color: Palette().primary,
+                    textColor: Palette().light,
                     child: Text(
                       'Save',
                       style: TextStyle(
@@ -445,13 +493,13 @@ class _RecipeComposerState extends State<RecipeComposer> {
         alignment: Alignment.center,
         padding: EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: add ? Color(0xff0F4FA8) : Color(0xFFFF9F00),
+          color: add ? Palette().primary : Palette().warning,
           borderRadius: BorderRadius.circular(5),
         ),
         child: Text(
           add ? 'Add' : 'Delete',
           style: TextStyle(
-            color: add ? Colors.white : Color(0xff323232),
+            color: add ? Palette().light : Palette().dark,
             fontSize: 16,
           ),
         ),
@@ -548,13 +596,16 @@ class _InstructionTextFieldState extends State<InstructionTextField> {
     });
 
     return TextFormField(
-      style: TextStyle(color: Colors.white),
+      style: TextStyle(color: Palette().dark),
       controller: _nameController,
       onChanged: (value) {
         _RecipeComposerState.instructions[widget.index] = value;
       },
       decoration: InputDecoration(
         hintText: 'Add step',
+        hintStyle: TextStyle(
+          color: Palette().darkIcon,
+        ),
       ),
       validator: (value) {
         if (value.trim().isEmpty) {
