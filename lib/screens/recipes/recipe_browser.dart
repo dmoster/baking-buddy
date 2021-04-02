@@ -173,7 +173,10 @@ class _RecipeBrowserState extends State<RecipeBrowser> {
                       // Show locally-cached recipes if no network connection
                       // or while loading remote data
                       return ListView(
-                        children: localRecipes.map((Recipe recipe) {
+                        children: localRecipes
+                            .where((Recipe recipe) =>
+                                recipe.name.startsWith(searchLetter))
+                            .map((Recipe recipe) {
                           return RecipeBrowserListTile(
                             imageUrl: recipe.imageUrl,
                             name: recipe.name,

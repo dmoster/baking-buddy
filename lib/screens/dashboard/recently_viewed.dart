@@ -85,6 +85,7 @@ class _RecentlyViewedState extends State<RecentlyViewed> {
                 measurementType: item.measurementType,
                 refIngredient: item.refIngredient,
                 textColor: Palette().light,
+                isDashboardItem: true,
               ),
             ),
           );
@@ -142,12 +143,30 @@ class _RecentlyViewedState extends State<RecentlyViewed> {
         widget.recentlyViewed.add(Ingredient.fromJson(item));
       }
     }
-
     cleanRecents(widget.recentlyViewed);
   }
 }
 
 void cleanRecents(List<dynamic> recentlyViewed) {
+  final newRecents = recentlyViewed.map((item) => item.name).toSet();
+
+  int i = recentlyViewed.length - 1;
+
+  while (i >= 0) {
+    if (recentlyViewed[i].runtimeType == Recipe &&
+        !newRecents.remove(recentlyViewed[i].name)) {
+      recentlyViewed.removeAt(i);
+    }
+
+    i--;
+  }
+  // recentlyViewed.retainWhere((item) {
+  //   if (item.runtimeType == Recipe) {
+  //     return newRecents.remove(item.name);
+  //   }
+  //   return true;
+  // });
+
   while (recentlyViewed.length > 10) {
     recentlyViewed.removeAt(0);
   }

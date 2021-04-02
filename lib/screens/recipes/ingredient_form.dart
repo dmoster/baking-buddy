@@ -47,6 +47,7 @@ class _IngredientFormState extends State<IngredientForm> {
             child: Container(
               padding: EdgeInsets.only(left: 16, right: 16),
               decoration: BoxDecoration(
+                  color: Palette().light,
                   border: Border.all(color: Palette().inputBorder, width: 1),
                   borderRadius: BorderRadius.circular(10)),
               child: DropdownButton(
@@ -91,9 +92,19 @@ class _IngredientFormState extends State<IngredientForm> {
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   decoration: InputDecoration(
                     hintText: 'Amount',
-                    focusColor: Palette().dark,
                     hintStyle: TextStyle(
                       color: Palette().darkIcon,
+                    ),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Palette().inputBorder,
+                      ),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Palette().inputBorder,
+                        width: 2.0,
+                      ),
                     ),
                   ),
                   controller: amountText,
@@ -108,14 +119,22 @@ class _IngredientFormState extends State<IngredientForm> {
                 child: Container(
                   padding: EdgeInsets.only(left: 16, right: 16),
                   decoration: BoxDecoration(
-                      border:
-                          Border.all(color: Palette().inputBorder, width: 1),
+                      color: Palette().light,
+                      border: Border.all(
+                        color: Palette().inputBorder,
+                        width: 1,
+                      ),
                       borderRadius: BorderRadius.circular(10)),
                   child: DropdownButton(
-                    style: TextStyle(color: Palette().dark, fontSize: 16),
+                    style: TextStyle(
+                      color: Palette().dark,
+                      fontSize: 16,
+                    ),
                     hint: Text(
                       'Measurement type',
-                      style: TextStyle(color: Palette().darkIcon),
+                      style: TextStyle(
+                        color: Palette().darkIcon,
+                      ),
                     ),
                     dropdownColor: Palette().light,
                     icon: Icon(

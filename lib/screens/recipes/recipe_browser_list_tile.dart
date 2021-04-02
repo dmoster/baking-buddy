@@ -26,41 +26,45 @@ class RecipeBrowserListTile extends StatelessWidget {
       color: Palette().light,
       child: InkWell(
         onTap: onTap,
-        child: IntrinsicHeight(
-          child: Row(
-            children: [
-              Expanded(
-                child: hasImageUrl
-                    ? Image.network(imageUrl)
-                    : Container(
-                        height: double.infinity,
-                        color: Palette().warningLight,
-                        child: Icon(
-                          Icons.camera_alt_outlined,
-                          color: Palette().darkIcon,
-                          size: 24,
-                        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: hasImageUrl
+                  ? Image.network(
+                      imageUrl,
+                      height: 72.0,
+                      width: 93.5,
+                      fit: BoxFit.cover,
+                    )
+                  : Container(
+                      height: 72.0,
+                      width: 93.5,
+                      color: Palette().warningLight,
+                      child: Icon(
+                        Icons.camera_alt_outlined,
+                        color: Palette().darkIcon,
+                        size: 24,
                       ),
-              ),
-              Expanded(
-                flex: 3,
-                child: ListTile(
-                  title: Text(
-                    name,
-                    style: TextStyle(
-                      color: Palette().dark,
                     ),
+            ),
+            Expanded(
+              flex: 3,
+              child: ListTile(
+                title: Text(
+                  name,
+                  style: TextStyle(
+                    color: Palette().dark,
                   ),
-                  subtitle: Text(
-                    category,
-                    style: TextStyle(
-                      color: Palette().darkIcon,
-                    ),
+                ),
+                subtitle: Text(
+                  category,
+                  style: TextStyle(
+                    color: Palette().darkIcon,
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

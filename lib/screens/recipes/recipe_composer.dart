@@ -151,6 +151,17 @@ class _RecipeComposerState extends State<RecipeComposer> {
                           hintStyle: TextStyle(
                             color: Palette().darkIcon,
                           ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Palette().inputBorder,
+                            ),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Palette().inputBorder,
+                              width: 2.0,
+                            ),
+                          ),
                         ),
                         autofocus: true,
                         validator: (v) {
@@ -213,6 +224,7 @@ class _RecipeComposerState extends State<RecipeComposer> {
               child: Container(
                 padding: EdgeInsets.only(left: 16, right: 16),
                 decoration: BoxDecoration(
+                  color: Palette().light,
                   border: Border.all(
                     color: Palette().inputBorder,
                     width: 1,
@@ -352,6 +364,17 @@ class _RecipeComposerState extends State<RecipeComposer> {
                 hintStyle: TextStyle(
                   color: Palette().darkIcon,
                 ),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Palette().inputBorder,
+                  ),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Palette().inputBorder,
+                    width: 2.0,
+                  ),
+                ),
               ),
               onChanged: (value) {
                 notes = value;
@@ -383,6 +406,17 @@ class _RecipeComposerState extends State<RecipeComposer> {
                 hintText: 'Tell us about this recipe',
                 hintStyle: TextStyle(
                   color: Palette().darkIcon,
+                ),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Palette().inputBorder,
+                  ),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Palette().inputBorder,
+                    width: 2.0,
+                  ),
                 ),
               ),
               onChanged: (value) {
@@ -605,6 +639,17 @@ class _InstructionTextFieldState extends State<InstructionTextField> {
         hintText: 'Add step',
         hintStyle: TextStyle(
           color: Palette().darkIcon,
+        ),
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Palette().inputBorder,
+          ),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Palette().inputBorder,
+            width: 2.0,
+          ),
         ),
       ),
       validator: (value) {

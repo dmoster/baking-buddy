@@ -21,6 +21,7 @@ class ImageUploaderButton extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(8.0),
         decoration: BoxDecoration(
+          color: Palette().light,
           border: Border.all(color: Palette().inputBorder, width: 1.0),
           borderRadius: BorderRadius.circular(5.0),
         ),

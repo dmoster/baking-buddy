@@ -11,6 +11,7 @@ class IngredientRowDisplay extends StatelessWidget {
     @required this.measurementType,
     @required this.refIngredient,
     @required this.textColor,
+    this.isDashboardItem = false,
   }) : super(key: key);
 
   final double labelSize;
@@ -18,6 +19,7 @@ class IngredientRowDisplay extends StatelessWidget {
   final dynamic measurementType;
   final Ingredient refIngredient;
   final dynamic textColor;
+  final bool isDashboardItem;
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +35,19 @@ class IngredientRowDisplay extends StatelessWidget {
     return Container(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: isDashboardItem
+            ? MainAxisAlignment.center
+            : MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           Flexible(
-            flex: 1,
+            flex: isDashboardItem ? 0 : 1,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
                   volume.trim(),
+                  textAlign: TextAlign.right,
                   style: TextStyle(
                     color: textColor,
                     fontSize: labelSize,
@@ -74,7 +80,7 @@ class IngredientRowDisplay extends StatelessWidget {
             width: 16.0,
           ),
           Flexible(
-            flex: 2,
+            flex: isDashboardItem ? 0 : 2,
             fit: FlexFit.loose,
             child: Text(
               refIngredient.name,
