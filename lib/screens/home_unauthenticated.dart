@@ -49,6 +49,7 @@ class HomeUnauthenticated extends StatelessWidget {
                 backgroundColor: Colors.transparent,
                 appBar: AppBar(
                   backgroundColor: Colors.transparent,
+                  elevation: 0,
                   toolbarHeight: 32,
                   centerTitle: false,
                   title: Text(

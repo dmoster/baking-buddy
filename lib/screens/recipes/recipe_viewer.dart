@@ -66,73 +66,71 @@ class _RecipeViewerState extends State<RecipeViewer> {
           onPressed: () => Navigator.pop(context, widget.recentlyViewed),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView(
-                padding: EdgeInsets.all(16.0),
-                children: [
-                  // Header
-                  RecipeHeader(
-                    imageUrl: widget.recipe.imageUrl,
-                    recipeName: widget.recipe.name,
-                    recipeCategory: widget.recipe.category,
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.all(0.0),
+              children: [
+                // Header
+                RecipeHeader(
+                  imageUrl: widget.recipe.imageUrl,
+                  recipeName: widget.recipe.name,
+                  recipeCategory: widget.recipe.category,
+                ),
+                // Ingredients
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.shopping_bag_outlined,
+                        color: Palette().darkIcon,
+                      ),
+                      SizedBox(width: 16),
+                      Text(
+                        'Ingredients',
+                        style: TextStyle(
+                          color: Palette().dark,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
                   ),
-                  // Ingredients
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.shopping_bag_outlined,
-                          color: Palette().darkIcon,
+                ),
+                ..._displayIngredients(),
+                // Instructions
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.list_outlined,
+                        color: Palette().darkIcon,
+                      ),
+                      SizedBox(width: 16),
+                      Text(
+                        'Instructions',
+                        style: TextStyle(
+                          color: Palette().dark,
+                          fontSize: 18,
                         ),
-                        SizedBox(width: 16),
-                        Text(
-                          'Ingredients',
-                          style: TextStyle(
-                            color: Palette().dark,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  ..._displayIngredients(),
-                  // Instructions
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.list_outlined,
-                          color: Palette().darkIcon,
-                        ),
-                        SizedBox(width: 16),
-                        Text(
-                          'Instructions',
-                          style: TextStyle(
-                            color: Palette().dark,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  ..._displayInstructions(),
-                  ..._displayNotesSection(),
-                  ..._displayStorySection(),
-                ],
-              ),
+                ),
+                ..._displayInstructions(),
+                ..._displayNotesSection(),
+                ..._displayStorySection(),
+                SizedBox(height: 32.0),
+              ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [],
-            ),
-          ],
-        ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [],
+          ),
+        ],
       ),
     );
   }
@@ -141,7 +139,7 @@ class _RecipeViewerState extends State<RecipeViewer> {
     List<dynamic> ingredientRows = [];
     for (var ingredient in widget.recipe.ingredients) {
       ingredientRows.add(Padding(
-        padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+        padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
         child: ingredient.displayRow(Palette().dark),
       ));
     }
@@ -153,7 +151,7 @@ class _RecipeViewerState extends State<RecipeViewer> {
     for (int i = 0; i < widget.recipe.instructions.length; ++i) {
       instructionRows.add(
         Padding(
-          padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.baseline,
             textBaseline: TextBaseline.alphabetic,
@@ -197,7 +195,7 @@ class _RecipeViewerState extends State<RecipeViewer> {
     if (widget.recipe.notes != '') {
       notesRows.add(
         Padding(
-          padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
           child: Row(
             children: [
               Icon(
@@ -218,7 +216,7 @@ class _RecipeViewerState extends State<RecipeViewer> {
       );
       notesRows.add(
         Padding(
-          padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+          padding: const EdgeInsets.fromLTRB(32, 8, 32, 0),
           child: Text(
             widget.recipe.notes,
             style: TextStyle(
@@ -237,7 +235,7 @@ class _RecipeViewerState extends State<RecipeViewer> {
     if (widget.recipe.story != '') {
       storyRows.add(
         Padding(
-          padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
           child: Row(
             children: [
               Icon(
@@ -258,7 +256,7 @@ class _RecipeViewerState extends State<RecipeViewer> {
       );
       storyRows.add(
         Padding(
-          padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+          padding: const EdgeInsets.fromLTRB(32, 8, 32, 0),
           child: Text(
             widget.recipe.story,
             style: TextStyle(

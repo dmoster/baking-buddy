@@ -81,6 +81,7 @@ class _HomeAuthenticatedState extends State<HomeAuthenticated> {
             backgroundColor: Colors.transparent,
             appBar: AppBar(
               backgroundColor: Colors.transparent,
+              elevation: 0,
               toolbarHeight: 48,
               title: Text(
                 pageName,

@@ -26,7 +26,7 @@ class RecipeHeader extends StatelessWidget {
             ? Container(
                 height: 192,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
+                  //borderRadius: BorderRadius.circular(5),
                   image: DecorationImage(
                     image: NetworkImage(imageUrl),
                     fit: BoxFit.cover,
