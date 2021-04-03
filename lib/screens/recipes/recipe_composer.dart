@@ -229,7 +229,7 @@ class _RecipeComposerState extends State<RecipeComposer> {
                     color: Palette().inputBorder,
                     width: 1,
                   ),
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(5),
                 ),
                 child: DropdownButton(
                   style: TextStyle(
@@ -592,7 +592,7 @@ class _RecipeComposerState extends State<RecipeComposer> {
     instructionsData = [];
     notes = '';
     story = '';
-    imageHandler = null;
+    imageHandler = ImageHandler(userId);
     //_nameController.text = null;
   }
 }

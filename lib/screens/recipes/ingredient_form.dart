@@ -49,7 +49,7 @@ class _IngredientFormState extends State<IngredientForm> {
               decoration: BoxDecoration(
                   color: Palette().light,
                   border: Border.all(color: Palette().inputBorder, width: 1),
-                  borderRadius: BorderRadius.circular(10)),
+                  borderRadius: BorderRadius.circular(5)),
               child: DropdownButton(
                 style: TextStyle(color: Palette().dark, fontSize: 16),
                 hint: Text(
@@ -124,7 +124,7 @@ class _IngredientFormState extends State<IngredientForm> {
                         color: Palette().inputBorder,
                         width: 1,
                       ),
-                      borderRadius: BorderRadius.circular(10)),
+                      borderRadius: BorderRadius.circular(5)),
                   child: DropdownButton(
                     style: TextStyle(
                       color: Palette().dark,
@@ -172,6 +172,9 @@ class _IngredientFormState extends State<IngredientForm> {
                   child: RaisedButton(
                     color: Palette().warning,
                     textColor: Palette().dark,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
                     child: Text(
                       'Reset',
                       style: TextStyle(
@@ -193,6 +196,9 @@ class _IngredientFormState extends State<IngredientForm> {
                   child: RaisedButton(
                     color: Palette().primary,
                     textColor: Palette().light,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
                     child: Text(
                       'Add',
                       style: TextStyle(

@@ -63,7 +63,7 @@ class _CalculatorState extends State<Calculator> {
               padding: EdgeInsets.only(left: 16, right: 16),
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey, width: 1),
-                  borderRadius: BorderRadius.circular(10)),
+                  borderRadius: BorderRadius.circular(5)),
               child: DropdownButton(
                 style: TextStyle(color: Colors.white, fontSize: 16),
                 hint: Text(
