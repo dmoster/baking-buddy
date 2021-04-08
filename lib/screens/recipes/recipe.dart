@@ -1,8 +1,18 @@
 import 'package:pan_pal/screens/ingredients/ingredient.dart';
 
 class Recipe {
-  Recipe(this.name, this.author, this.category, this.imageUrl, this.ingredients,
-      this.instructions, this.notes, this.story) {
+  Recipe(
+    this.name,
+    this.author,
+    this.category,
+    this.imageUrl,
+    this.ingredients,
+    this.instructions,
+    this.notes,
+    this.story, {
+    this.rating = '0.0',
+    this.numRatings = 0,
+  }) {
     this.recipeId = 'recipe_' + DateTime.now().toString() + '-' + this.author;
   }
 
@@ -15,6 +25,8 @@ class Recipe {
   List<dynamic> instructions;
   String notes;
   String story;
+  String rating;
+  int numRatings;
 
   Map<String, dynamic> toJson() {
     List<dynamic> ingredientsStrings = [];
@@ -33,6 +45,8 @@ class Recipe {
       'instructions': instructions,
       'notes': notes,
       'story': story,
+      'rating': rating,
+      'numRatings': numRatings,
     };
   }
 
@@ -51,5 +65,16 @@ class Recipe {
     this.instructions = parsedJson['instructions'];
     this.notes = parsedJson['notes'];
     this.story = parsedJson['story'];
+    this.rating = parsedJson['rating'];
+    this.numRatings = parsedJson['numRatings'];
+  }
+
+  void updateRating(final double rating) {
+    this.numRatings++;
+    if (this.numRatings == 1) {
+      this.rating = rating.toString();
+    } else {
+      this.rating = ((double.parse(this.rating) + rating) / 2).toString();
+    }
   }
 }

@@ -77,6 +77,8 @@ class _RecipeViewerState extends State<RecipeViewer> {
                   imageUrl: widget.recipe.imageUrl,
                   recipeName: widget.recipe.name,
                   recipeCategory: widget.recipe.category,
+                  recipeRating: widget.recipe.rating,
+                  recipeNumRatings: widget.recipe.numRatings,
                 ),
                 // Ingredients
                 Padding(

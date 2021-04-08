@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pan_pal/screens/recipes/recipe_components/recipe_rating.dart';
 import 'package:pan_pal/widgets/palette.dart';
 
 class RecipeHeader extends StatelessWidget {
@@ -7,11 +8,15 @@ class RecipeHeader extends StatelessWidget {
     @required this.imageUrl,
     @required this.recipeName,
     @required this.recipeCategory,
+    @required this.recipeRating,
+    @required this.recipeNumRatings,
   }) : super(key: key);
 
   final String imageUrl;
   final String recipeName;
   final String recipeCategory;
+  final String recipeRating;
+  final int recipeNumRatings;
 
   static bool hasImageUrl = false;
 
@@ -39,9 +44,8 @@ class RecipeHeader extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: hasImageUrl
-                  ? Palette().darkBackground
-                  : Palette().lightBackground,
+              color:
+                  hasImageUrl ? Palette().darkIcon : Palette().lightBackground,
               borderRadius: BorderRadius.circular(5),
             ),
             child: Column(
@@ -57,14 +61,26 @@ class RecipeHeader extends StatelessWidget {
                   ),
                 ),
                 // Category
-                Text(
-                  recipeCategory,
-                  style: TextStyle(
-                    color:
-                        hasImageUrl ? Palette().lightIcon : Palette().darkIcon,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      recipeCategory,
+                      style: TextStyle(
+                        color: hasImageUrl
+                            ? Palette().lightIcon
+                            : Palette().darkIcon,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    RecipeRating(
+                      rating: recipeRating,
+                      numRatings: recipeNumRatings,
+                      textColor: Palette().lightIcon,
+                    ),
+                  ],
                 ),
               ],
             ),

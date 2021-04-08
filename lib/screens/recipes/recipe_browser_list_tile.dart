@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pan_pal/screens/recipes/recipe_components/recipe_rating.dart';
 import 'package:pan_pal/widgets/palette.dart';
 
 class RecipeBrowserListTile extends StatelessWidget {
@@ -7,12 +8,16 @@ class RecipeBrowserListTile extends StatelessWidget {
     @required this.imageUrl,
     @required this.name,
     @required this.category,
+    @required this.rating,
+    @required this.numRatings,
     @required this.onTap,
   }) : super(key: key);
 
   final String imageUrl;
   final String name;
   final String category;
+  final String rating;
+  final int numRatings;
   final VoidCallback onTap;
 
   static bool hasImageUrl = false;
@@ -62,6 +67,14 @@ class RecipeBrowserListTile extends StatelessWidget {
                     color: Palette().darkIcon,
                   ),
                 ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: RecipeRating(
+                rating: rating,
+                numRatings: numRatings,
+                textColor: Palette().darkIcon,
               ),
             ),
           ],

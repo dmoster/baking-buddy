@@ -152,6 +152,8 @@ class _RecipeBrowserState extends State<RecipeBrowser> {
                               imageUrl: document.data()['imageUrl'],
                               name: document.data()['name'],
                               category: document.data()['category'],
+                              rating: document.data()['rating'],
+                              numRatings: document.data()['numRatings'],
                               onTap: () {
                                 Recipe recipe =
                                     Recipe.fromJson(document.data());
@@ -181,6 +183,8 @@ class _RecipeBrowserState extends State<RecipeBrowser> {
                             imageUrl: recipe.imageUrl,
                             name: recipe.name,
                             category: recipe.category,
+                            rating: recipe.rating,
+                            numRatings: recipe.numRatings,
                             onTap: () {
                               Navigator.pushNamed(
                                 context,
