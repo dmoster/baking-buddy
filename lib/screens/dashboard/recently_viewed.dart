@@ -12,16 +12,18 @@ import 'package:pan_pal/utilities/local_data.dart';
 import 'package:pan_pal/widgets/palette.dart';
 
 class RecentlyViewed extends StatefulWidget {
-  const RecentlyViewed(
-      {Key key,
-      @required this.context,
-      @required this.ingredients,
-      @required this.recentlyViewed})
-      : super(key: key);
+  const RecentlyViewed({
+    Key key,
+    @required this.context,
+    @required this.ingredients,
+    @required this.recentlyViewed,
+    @required this.userId,
+  }) : super(key: key);
 
   final List<dynamic> recentlyViewed;
   final IngredientsList ingredients;
   final BuildContext context;
+  final String userId;
 
   @override
   _RecentlyViewedState createState() => _RecentlyViewedState();
@@ -107,6 +109,7 @@ class _RecentlyViewedState extends State<RecentlyViewed> {
                   'Dashboard',
                   widget.recentlyViewed,
                   false,
+                  widget.userId,
                 ),
               ),
             ),

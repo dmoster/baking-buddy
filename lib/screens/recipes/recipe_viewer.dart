@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:lit_firebase_auth/lit_firebase_auth.dart';
 import 'package:pan_pal/screens/dashboard/recently_viewed.dart';
 import 'package:pan_pal/screens/recipes/recipe.dart';
+import 'package:pan_pal/screens/recipes/recipe_components/edit_button.dart';
 import 'package:pan_pal/screens/recipes/recipe_components/recipe_header.dart';
 import 'package:pan_pal/utilities/local_data.dart';
 import 'package:pan_pal/widgets/palette.dart';
@@ -14,12 +16,14 @@ class RecipeViewer extends StatefulWidget {
     @required this.returnScreen,
     @required this.recentlyViewed,
     @required this.addToRecents,
+    @required this.userId,
   }) : super(key: key);
 
   final Recipe recipe;
   final String returnScreen;
   final List<dynamic> recentlyViewed;
   final bool addToRecents;
+  final String userId;
 
   static const routeName = '/recipe_viewer';
 
@@ -62,9 +66,16 @@ class _RecipeViewerState extends State<RecipeViewer> {
         ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_outlined),
+          tooltip: 'Edit',
           color: Palette().darkIcon,
           onPressed: () => Navigator.pop(context, widget.recentlyViewed),
         ),
+        actions: [
+          EditButton(
+            userId: widget.userId,
+            recipeUserId: widget.recipe.author,
+          ),
+        ],
       ),
       body: Column(
         children: [

@@ -33,16 +33,25 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
+    final litUser = context.getSignedInUser();
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
           Expanded(
             flex: 4,
-            child: RecentlyViewed(
-              context: context,
-              recentlyViewed: widget.recentlyViewed,
-              ingredients: widget.ingredients,
+            child: litUser.when(
+              (user) {
+                return RecentlyViewed(
+                  context: context,
+                  recentlyViewed: widget.recentlyViewed,
+                  ingredients: widget.ingredients,
+                  userId: user.uid,
+                );
+              },
+              empty: () {},
+              initializing: () {},
             ),
           ),
           SizedBox(height: 16),

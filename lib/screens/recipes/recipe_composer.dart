@@ -471,7 +471,12 @@ class _RecipeComposerState extends State<RecipeComposer> {
                           context,
                           RecipeViewer.routeName,
                           arguments: RecipeViewerArguments(
-                              recipe, 'Dashboard', widget.recentlyViewed, true),
+                            recipe,
+                            'Dashboard',
+                            widget.recentlyViewed,
+                            true,
+                            userId,
+                          ),
                         );
                       } else {
                         print('Something is missing...');

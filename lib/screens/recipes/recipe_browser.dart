@@ -165,6 +165,7 @@ class _RecipeBrowserState extends State<RecipeBrowser> {
                                     'Recipe Browser',
                                     widget.recentlyViewed,
                                     true,
+                                    user.uid,
                                   ),
                                 );
                               },
@@ -194,6 +195,7 @@ class _RecipeBrowserState extends State<RecipeBrowser> {
                                   'Recipe Browser',
                                   widget.recentlyViewed,
                                   true,
+                                  user.uid,
                                 ),
                               );
                             },

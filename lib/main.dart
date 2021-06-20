@@ -138,6 +138,7 @@ class PanPal extends StatelessWidget {
                                 returnScreen: args.returnScreen,
                                 recentlyViewed: args.recentlyViewed,
                                 addToRecents: args.addToRecents,
+                                userId: args.userId,
                               );
                             },
                           );
