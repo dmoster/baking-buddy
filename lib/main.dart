@@ -139,6 +139,7 @@ class PanPal extends StatelessWidget {
                                 recentlyViewed: args.recentlyViewed,
                                 addToRecents: args.addToRecents,
                                 userId: args.userId,
+                                ingredients: args.ingredients,
                               );
                             },
                           );
@@ -149,6 +150,7 @@ class PanPal extends StatelessWidget {
                             builder: (context) {
                               return RecipeBrowser(
                                 recentlyViewed: args.recentlyViewed,
+                                ingredients: args.ingredients,
                                 searchLetter: args.searchLetter,
                               );
                             },

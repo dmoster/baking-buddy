@@ -110,6 +110,7 @@ class _RecentlyViewedState extends State<RecentlyViewed> {
                   widget.recentlyViewed,
                   false,
                   widget.userId,
+                  widget.ingredients,
                 ),
               ),
             ),

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
 import 'package:pan_pal/routes.dart';
+import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
 import 'package:pan_pal/screens/recipes/recipe.dart';
 import 'package:pan_pal/screens/recipes/recipe_browser_list_tile.dart';
 import 'package:pan_pal/screens/recipes/recipe_viewer.dart';
@@ -15,10 +16,12 @@ class RecipeBrowser extends StatefulWidget {
   const RecipeBrowser({
     Key key,
     @required this.recentlyViewed,
+    @required this.ingredients,
     this.searchLetter,
   }) : super(key: key);
 
   final List<dynamic> recentlyViewed;
+  final IngredientsList ingredients;
   final String searchLetter;
 
   static const routeName = '/recipe_browser';
@@ -166,6 +169,7 @@ class _RecipeBrowserState extends State<RecipeBrowser> {
                                     widget.recentlyViewed,
                                     true,
                                     user.uid,
+                                    widget.ingredients,
                                   ),
                                 );
                               },
@@ -196,6 +200,7 @@ class _RecipeBrowserState extends State<RecipeBrowser> {
                                   widget.recentlyViewed,
                                   true,
                                   user.uid,
+                                  widget.ingredients,
                                 ),
                               );
                             },

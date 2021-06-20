@@ -139,6 +139,7 @@ class _HomeAuthenticatedState extends State<HomeAuthenticated> {
                       RecipeBrowser.routeName,
                       arguments: RecipeBrowserArguments(
                         widget.recentlyViewed,
+                        widget.ingredients,
                         searchLetter,
                       ),
                     );

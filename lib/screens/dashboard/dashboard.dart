@@ -178,6 +178,7 @@ class _DashboardState extends State<Dashboard> {
                       RecipeBrowser.routeName,
                       arguments: RecipeBrowserArguments(
                         widget.recentlyViewed,
+                        widget.ingredients,
                         '',
                       ),
                     );

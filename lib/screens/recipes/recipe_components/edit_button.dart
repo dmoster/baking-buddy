@@ -7,10 +7,12 @@ class EditButton extends StatefulWidget {
     Key key,
     @required this.userId,
     @required this.recipeUserId,
+    @required this.onPressed,
   }) : super(key: key);
 
   final String userId;
   final String recipeUserId;
+  final VoidCallback onPressed;
 
   @override
   _EditButtonState createState() => _EditButtonState();
@@ -25,7 +27,7 @@ class _EditButtonState extends State<EditButton> {
         icon: Icon(Icons.edit_outlined),
         color: Palette().darkIcon,
         tooltip: 'Edit',
-        onPressed: () => {},
+        onPressed: widget.onPressed,
       ),
     );
   }

@@ -27,9 +27,10 @@ class RecipeViewerArguments {
   final List<dynamic> recentlyViewed;
   final bool addToRecents;
   final String userId;
+  final IngredientsList ingredients;
 
   RecipeViewerArguments(this.recipe, this.returnScreen, this.recentlyViewed,
-      this.addToRecents, this.userId);
+      this.addToRecents, this.userId, this.ingredients);
 }
 
 class HomeAuthenticatedArguments {
@@ -41,7 +42,9 @@ class HomeAuthenticatedArguments {
 
 class RecipeBrowserArguments {
   final List<dynamic> recentlyViewed;
+  final IngredientsList ingredients;
   final String searchLetter;
 
-  RecipeBrowserArguments(this.recentlyViewed, this.searchLetter);
+  RecipeBrowserArguments(
+      this.recentlyViewed, this.ingredients, this.searchLetter);
 }

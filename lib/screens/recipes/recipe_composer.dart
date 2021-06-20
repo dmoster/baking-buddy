@@ -476,6 +476,7 @@ class _RecipeComposerState extends State<RecipeComposer> {
                             widget.recentlyViewed,
                             true,
                             userId,
+                            widget.ingredients,
                           ),
                         );
                       } else {

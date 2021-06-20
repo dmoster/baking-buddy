@@ -3,11 +3,15 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
 import 'package:pan_pal/screens/dashboard/recently_viewed.dart';
+import 'package:pan_pal/screens/ingredients/ingredientslist.dart';
 import 'package:pan_pal/screens/recipes/recipe.dart';
 import 'package:pan_pal/screens/recipes/recipe_components/edit_button.dart';
 import 'package:pan_pal/screens/recipes/recipe_components/recipe_header.dart';
+import 'package:pan_pal/screens/recipes/recipe_composer.dart';
 import 'package:pan_pal/utilities/local_data.dart';
 import 'package:pan_pal/widgets/palette.dart';
+
+import '../../routes.dart';
 
 class RecipeViewer extends StatefulWidget {
   const RecipeViewer({
@@ -17,6 +21,7 @@ class RecipeViewer extends StatefulWidget {
     @required this.recentlyViewed,
     @required this.addToRecents,
     @required this.userId,
+    this.ingredients,
   }) : super(key: key);
 
   final Recipe recipe;
@@ -24,6 +29,7 @@ class RecipeViewer extends StatefulWidget {
   final List<dynamic> recentlyViewed;
   final bool addToRecents;
   final String userId;
+  final IngredientsList ingredients;
 
   static const routeName = '/recipe_viewer';
 
@@ -74,6 +80,16 @@ class _RecipeViewerState extends State<RecipeViewer> {
           EditButton(
             userId: widget.userId,
             recipeUserId: widget.recipe.author,
+            onPressed: () => {
+              Navigator.pushNamed(
+                context,
+                RecipeComposer.routeName,
+                arguments: RecipeComposerArguments(
+                  widget.ingredients,
+                  widget.recentlyViewed,
+                ),
+              )
+            },
           ),
         ],
       ),
