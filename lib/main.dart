@@ -126,6 +126,7 @@ class PanPal extends StatelessWidget {
                               return RecipeComposer(
                                 ingredients: args.ingredients,
                                 recentlyViewed: args.recentlyViewed,
+                                recipeToEdit: args.recipeToEdit,
                               );
                             },
                           );

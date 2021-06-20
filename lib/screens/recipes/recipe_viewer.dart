@@ -87,6 +87,7 @@ class _RecipeViewerState extends State<RecipeViewer> {
                 arguments: RecipeComposerArguments(
                   widget.ingredients,
                   widget.recentlyViewed,
+                  widget.recipe,
                 ),
               )
             },

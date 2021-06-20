@@ -17,8 +17,10 @@ class RecipePageArguments {
 class RecipeComposerArguments {
   final IngredientsList ingredients;
   final List<dynamic> recentlyViewed;
+  final Recipe recipeToEdit;
 
-  RecipeComposerArguments(this.ingredients, this.recentlyViewed);
+  RecipeComposerArguments(
+      this.ingredients, this.recentlyViewed, this.recipeToEdit);
 }
 
 class RecipeViewerArguments {

@@ -22,10 +22,12 @@ class RecipeComposer extends StatefulWidget {
     Key key,
     @required this.ingredients,
     @required this.recentlyViewed,
+    this.recipeToEdit,
   }) : super(key: key);
 
   final IngredientsList ingredients;
   final List<dynamic> recentlyViewed;
+  final Recipe recipeToEdit;
 
   static const routeName = '/recipe_composer';
 
@@ -34,7 +36,16 @@ class RecipeComposer extends StatefulWidget {
 }
 
 class _RecipeComposerState extends State<RecipeComposer> {
+  static String title = '';
+
   TextEditingController _nameController;
+  TextEditingController _categoryController;
+  TextEditingController _ingredientsController;
+  TextEditingController _instructionController;
+  TextEditingController _imageUrlController;
+  TextEditingController _notesController;
+  TextEditingController _storyController;
+
   static String userId;
   static List<dynamic> ingredients = [];
   static List<dynamic> instructions = [null];
@@ -66,6 +77,10 @@ class _RecipeComposerState extends State<RecipeComposer> {
   void initState() {
     super.initState();
     _nameController = TextEditingController();
+    _ingredientsController = TextEditingController();
+    _instructionController = TextEditingController();
+    _notesController = TextEditingController();
+    _storyController = TextEditingController();
 
     final litUser = context.getSignedInUser();
     litUser.when(
@@ -76,11 +91,34 @@ class _RecipeComposerState extends State<RecipeComposer> {
       empty: () {},
       initializing: () {},
     );
+
+    if (widget.recipeToEdit != null) {
+      title = 'Edit a Recipe';
+      _nameController.text = widget.recipeToEdit.name;
+      categoryChosenName = widget.recipeToEdit.category;
+      imageUrl = widget.recipeToEdit.imageUrl;
+      _notesController.text = widget.recipeToEdit.notes;
+      _storyController.text = widget.recipeToEdit.story;
+
+      instructions.clear();
+      for (var item in widget.recipeToEdit.instructions) {
+        instructions.add(item);
+      }
+      for (var item in widget.recipeToEdit.ingredients) {
+        ingredientsData.add(item);
+      }
+    } else {
+      title = 'Add a Recipe';
+    }
   }
 
   @override
   void dispose() {
     _nameController.dispose();
+    _ingredientsController.dispose();
+    _instructionController.dispose();
+    _notesController.dispose();
+    _storyController.dispose();
     super.dispose();
   }
 
@@ -95,7 +133,7 @@ class _RecipeComposerState extends State<RecipeComposer> {
           backgroundColor: Palette().offLight,
           toolbarHeight: 48,
           title: Text(
-            'Add a Recipe',
+            title,
             style: TextStyle(
               color: Palette().dark,
               fontSize: 16,
@@ -359,6 +397,7 @@ class _RecipeComposerState extends State<RecipeComposer> {
                 color: Palette().dark,
               ),
               maxLines: 3,
+              controller: _notesController,
               decoration: InputDecoration(
                 hintText: 'Add tips, tricks, and suggests',
                 hintStyle: TextStyle(
@@ -402,6 +441,7 @@ class _RecipeComposerState extends State<RecipeComposer> {
             TextFormField(
               style: TextStyle(color: Palette().dark),
               maxLines: 5,
+              controller: _storyController,
               decoration: InputDecoration(
                 hintText: 'Tell us about this recipe',
                 hintStyle: TextStyle(
@@ -599,7 +639,7 @@ class _RecipeComposerState extends State<RecipeComposer> {
     notes = '';
     story = '';
     imageHandler = ImageHandler(userId);
-    //_nameController.text = null;
+    //_instructionController.text = null;
   }
 }
 
@@ -614,30 +654,30 @@ class InstructionTextField extends StatefulWidget {
 }
 
 class _InstructionTextFieldState extends State<InstructionTextField> {
-  TextEditingController _nameController;
+  TextEditingController _instructionController;
 
   @override
   void initState() {
     super.initState();
-    _nameController = TextEditingController();
+    _instructionController = TextEditingController();
   }
 
   @override
   void dispose() {
-    _nameController.dispose();
+    _instructionController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _nameController.text =
+      _instructionController.text =
           _RecipeComposerState.instructions[widget.index] ?? '';
     });
 
     return TextFormField(
       style: TextStyle(color: Palette().dark),
-      controller: _nameController,
+      controller: _instructionController,
       onChanged: (value) {
         _RecipeComposerState.instructions[widget.index] = value;
       },

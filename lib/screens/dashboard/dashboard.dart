@@ -159,9 +159,7 @@ class _DashboardState extends State<Dashboard> {
                       context,
                       RecipeComposer.routeName,
                       arguments: RecipeComposerArguments(
-                        widget.ingredients,
-                        widget.recentlyViewed,
-                      ),
+                          widget.ingredients, widget.recentlyViewed, null),
                     );
                     setState(() {});
                   },
